@@ -1,0 +1,6 @@
+@Asp.NetCore10._0_QR_Restaurant_Order.WebAPI_HostAddress = http://localhost:5165
+
+GET {{Asp.NetCore10._0_QR_Restaurant_Order.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
