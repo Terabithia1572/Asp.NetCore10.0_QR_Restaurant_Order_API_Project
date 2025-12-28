@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="Asp.NetCore10.0_QR_Restaurant_Order.WebAPI/Asp.NetCore10.0_QR_Restaurant_Order.WebAPI.csproj" />
+  <Project Path="Asp.NetCore10.0_QR_Restaurant_Order.WebUI/Asp.NetCore10.0_QR_Restaurant_Order.WebUI.csproj" />
 </Solution>
