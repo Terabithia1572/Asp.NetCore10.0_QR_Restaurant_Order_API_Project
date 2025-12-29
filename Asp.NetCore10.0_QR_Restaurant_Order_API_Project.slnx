@@ -1,4 +1,7 @@
 <Solution>
+  <Project Path="Asp.NetCore10.0_QR_Restaurant_Order.BusinessLayer/Asp.NetCore10.0_QR_Restaurant_Order.BusinessLayer.csproj" Id="879ec8f9-f560-4860-9d8f-efc97ea9cdea" />
+  <Project Path="Asp.NetCore10.0_QR_Restaurant_Order.DataAccessLayer/Asp.NetCore10.0_QR_Restaurant_Order.DataAccessLayer.csproj" Id="30351ad4-ee71-4cab-ae8a-a1d84bea0134" />
+  <Project Path="Asp.NetCore10.0_QR_Restaurant_Order.DTOLayer/Asp.NetCore10.0_QR_Restaurant_Order.DTOLayer.csproj" Id="a0d06815-611f-44d9-97cb-c26eb38e5d6a" />
   <Project Path="Asp.NetCore10.0_QR_Restaurant_Order.EntityLayer/Asp.NetCore10.0_QR_Restaurant_Order.EntityLayer.csproj" Id="71300785-807e-4b3e-ab08-81c7bb43f940" />
   <Project Path="Asp.NetCore10.0_QR_Restaurant_Order.WebAPI/Asp.NetCore10.0_QR_Restaurant_Order.WebAPI.csproj" />
   <Project Path="Asp.NetCore10.0_QR_Restaurant_Order.WebUI/Asp.NetCore10.0_QR_Restaurant_Order.WebUI.csproj" />
