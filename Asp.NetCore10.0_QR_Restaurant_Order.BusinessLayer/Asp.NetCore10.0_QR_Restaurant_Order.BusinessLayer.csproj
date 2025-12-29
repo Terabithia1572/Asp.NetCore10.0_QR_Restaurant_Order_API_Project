@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Asp.NetCore10.0_QR_Restaurant_Order.DataAccessLayer\Asp.NetCore10.0_QR_Restaurant_Order.DataAccessLayer.csproj" />
+  </ItemGroup>
+
 </Project>

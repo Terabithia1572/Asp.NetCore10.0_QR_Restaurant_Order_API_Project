@@ -20,4 +20,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Asp.NetCore10.0_QR_Restaurant_Order.BusinessLayer\Asp.NetCore10.0_QR_Restaurant_Order.BusinessLayer.csproj" />
+  </ItemGroup>
+
 </Project>

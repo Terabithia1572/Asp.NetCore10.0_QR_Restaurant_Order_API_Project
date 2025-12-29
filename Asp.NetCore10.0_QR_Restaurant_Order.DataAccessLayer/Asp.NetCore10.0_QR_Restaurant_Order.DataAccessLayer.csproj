@@ -26,4 +26,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Asp.NetCore10.0_QR_Restaurant_Order.EntityLayer\Asp.NetCore10.0_QR_Restaurant_Order.EntityLayer.csproj" />
+  </ItemGroup>
+
 </Project>
