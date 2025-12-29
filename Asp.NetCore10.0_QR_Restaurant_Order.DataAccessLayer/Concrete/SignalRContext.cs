@@ -10,7 +10,7 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=.;initial Catalog=QRRestaurantOrderDB;integrated security=true;");
+            optionsBuilder.UseSqlServer("Server=.;Database=QRRestaurantOrderDB;Trusted_Connection=True;TrustServerCertificate=True;");
         }
         public DbSet<About> Abouts { get; set; } // Hakkımızda tablosu
         public DbSet<Booking> Bookings { get; set; } // Rezervasyon tablosu
