@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="Asp.NetCore10.0_QR_Restaurant_Order.EntityLayer/Asp.NetCore10.0_QR_Restaurant_Order.EntityLayer.csproj" Id="71300785-807e-4b3e-ab08-81c7bb43f940" />
   <Project Path="Asp.NetCore10.0_QR_Restaurant_Order.WebAPI/Asp.NetCore10.0_QR_Restaurant_Order.WebAPI.csproj" />
   <Project Path="Asp.NetCore10.0_QR_Restaurant_Order.WebUI/Asp.NetCore10.0_QR_Restaurant_Order.WebUI.csproj" />
 </Solution>
