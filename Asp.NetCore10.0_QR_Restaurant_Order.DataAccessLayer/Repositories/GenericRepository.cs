@@ -15,29 +15,29 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.DataAccessLayer.Repositories
             _context = context;
         }
 
-        public void TAdd(T t)
+        public void Add(T t)
         {
             _context.Set<T>().Add(t); // Generic olarak gelen T tipindeki varlığı ekle
             _context.SaveChanges(); // Değişiklikleri veritabanına kaydet
         }
 
-        public void TDelete(T t)
+        public void Delete(T t)
         {
             _context.Remove(t); // Generic olarak gelen T tipindeki varlığı sil
             _context.SaveChanges(); // Değişiklikleri veritabanına kaydet
         }
 
-        public T TGetByID(int id)
+        public T GetByID(int id)
         {
             return _context.Set<T>().Find(id); // Generic olarak gelen T tipindeki varlığı ID ile bul ve döndür
         }
 
-        public List<T> TGetListAll()
+        public List<T> GetListAll()
         {
            return _context.Set<T>().ToList(); // Generic olarak gelen T tipindeki tüm varlıkları listele ve döndür
         }
 
-        public void TUpdate(T t)
+        public void Update(T t)
         {
             _context.Update(t); // Generic olarak gelen T tipindeki varlığı güncelle
             _context.SaveChanges(); // Değişiklikleri veritabanına kaydet
