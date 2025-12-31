@@ -11,6 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<SignalRContext>();
 builder.Services.AddScoped<IAboutService,AboutManager>();
 builder.Services.AddScoped<IAboutDAL, EfAboutDAL>();
+builder.Services.AddScoped<IBookingService, BookingManager>();
+builder.Services.AddScoped<IBookingDAL, EfBookingDAL>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
