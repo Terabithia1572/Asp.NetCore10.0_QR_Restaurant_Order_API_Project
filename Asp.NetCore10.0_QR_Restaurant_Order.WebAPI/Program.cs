@@ -24,8 +24,12 @@ builder.Services.AddScoped<IDiscountService, DiscountManager>(); // IDiscountSer
 builder.Services.AddScoped<IDiscountDAL, EfDiscountDAL>(); // IDiscountDAL için EfDiscountDAL'ý ekler
 builder.Services.AddScoped<IFeatureService, FeatureManager>(); // IFeatureService için FeatureManager'ý ekler
 builder.Services.AddScoped<IFeatureDAL, EfFeatureDAL>(); // IFeatureDAL için EfFeatureDAL'ý ekler
+builder.Services.AddScoped<IFooterService, FooterManager>(); // IFooterService için FooterManager'ý ekler
+builder.Services.AddScoped<IFooterDAL, EfFooterDAL>(); // IFooterDAL için EfFooterDAL'ý ekler
 builder.Services.AddScoped<IProductService, ProductManager>(); // IProductService için ProductManager'ý ekler
 builder.Services.AddScoped<IProductDAL, EfProductDAL>(); // IProductDAL için EfProductDAL'ý ekler
+builder.Services.AddScoped<ITestimonialService, TestimonialManager>(); // ITestimonialService için TestimonialManager'ý ekler
+builder.Services.AddScoped<ITestimonialDAL, EfTestimonialDAL>(); // ITestimonialDAL için EfTestimonialDAL'ý ekler
 
 
 builder.Services.AddControllers();
