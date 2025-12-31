@@ -18,6 +18,10 @@ builder.Services.AddScoped<IBookingService, BookingManager>(); // IBookingServic
 builder.Services.AddScoped<IBookingDAL, EfBookingDAL>(); // IBookingDAL için EfBookingDAL'ý ekler
 builder.Services.AddScoped<ICategoryService, CategoryManager>(); // ICategoryService için CategoryManager'ý ekler
 builder.Services.AddScoped<ICategoryDAL, EfCategoryDAL>(); // ICategoryDAL için EfCategoryDAL'ý ekler
+builder.Services.AddScoped<IContactService,ContactManager>(); // IContactService için ContactManager'ý ekler
+builder.Services.AddScoped<IContactDAL, EfContactDAL>(); // IContactDAL için EfContactDAL'ý ekler
+builder.Services.AddScoped<IDiscountService, DiscountManager>(); // IDiscountService için DiscountManager'ý ekler
+builder.Services.AddScoped<IDiscountDAL, EfDiscountDAL>(); // IDiscountDAL için EfDiscountDAL'ý ekler
 
 
 
