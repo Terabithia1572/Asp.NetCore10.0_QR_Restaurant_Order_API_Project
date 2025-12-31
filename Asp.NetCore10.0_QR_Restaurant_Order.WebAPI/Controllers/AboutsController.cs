@@ -1,7 +1,7 @@
 ﻿using Asp.NetCore10._0_QR_Restaurant_Order.BusinessLayer.Abstract;
 using Asp.NetCore10._0_QR_Restaurant_Order.DTOLayer.DTOs.AboutDTO;
 using Asp.NetCore10._0_QR_Restaurant_Order.EntityLayer.Entites;
-using Microsoft.AspNetCore.Http;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Controllers
@@ -11,82 +11,72 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Controllers
     public class AboutsController : ControllerBase
     {
         private readonly IAboutService _aboutService;
+        private readonly IMapper _mapper;
 
-        public AboutsController(IAboutService aboutService)
+        public AboutsController(IAboutService aboutService, IMapper mapper)
         {
             _aboutService = aboutService;
+            _mapper = mapper;
         }
-        [HttpGet]
-        public IActionResult AboutList() // Tüm About verilerini listeleyen bir API endpoint'i
-        {
-            var abouts = _aboutService.TGetListAll(); // IAboutService arayüzündeki TGetListAll metodunu kullanarak tüm About verilerini alır
-            return Ok(abouts); // Alınan verileri HTTP 200 OK yanıtı ile döner
 
+        [HttpGet]
+        public IActionResult AboutList()
+        {
+            var abouts = _mapper.Map<List<ResultAboutDTO>>(_aboutService.TGetListAll());
+            return Ok(abouts);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetAboutByID(int id)
+        {
+            var about = _aboutService.TGetByID(id);
+            if (about == null)
+                return NotFound("Hakkımda Bilgisi Bulunamadı..");
+
+            return Ok(_mapper.Map<ResultAboutDTO>(about));
+        }
+
         [HttpPost]
         public IActionResult CreateAbout(CreateAboutDTO createAboutDTO)
-        // Yeni bir About kaydı oluşturan API endpoint'i
         {
             if (createAboutDTO == null)
-            {
-                // Client geçersiz / boş veri gönderirse HTTP 400 Bad Request
                 return BadRequest("Hakkımda bilgileri boş olamaz.");
-            }
 
-            // DTO → Entity dönüşümü
-            var about = new About
-            {
-                AboutTitle = createAboutDTO.AboutTitle,
-                AboutDescription = createAboutDTO.AboutDescription,
-                AboutImageURL = createAboutDTO.AboutImageURL
-            };
-
-            // Service katmanı entity ile çalışır
+            var about = _mapper.Map<About>(createAboutDTO);
             _aboutService.TAdd(about);
 
-            // REST standardına uygun: 201 Created
             return CreatedAtAction(
                 nameof(GetAboutByID),
                 new { id = about.AboutID },
-                about
+                _mapper.Map<ResultAboutDTO>(about)
             );
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteAbout(int id) // Belirtilen ID'ye sahip About kaydını silen bir API endpoint'i
+        [HttpPut("{id}")]
+        public IActionResult UpdateAbout(int id, UpdateAboutDTO updateAboutDTO)
         {
-            var about = _aboutService.TGetByID(id); // IAboutService arayüzündeki TGetByID metodunu kullanarak belirtilen ID'ye sahip About kaydını alır
-            if (about == null) // Eğer About kaydı bulunamazsa
-            {
-                return NotFound("Hakkımda Bulunamadı.."); // HTTP 404 Not Found yanıtı döner
-            }
-            _aboutService.TDelete(about); // IAboutService arayüzündeki TDelete metodunu kullanarak About kaydını siler
-            return Ok("Hakkımda Silme İşlemi Başarılı.."); // İşlemin başarılı olduğunu belirten HTTP 200 OK yanıtı döner
-        }
-        [HttpPut]
-        public IActionResult UpdateAbout(UpdateAboutDTO updateAboutDTO) // Mevcut bir About kaydını güncelleyen bir API endpoint'i
-        {
-            var about = _aboutService.TGetByID(updateAboutDTO.AboutID); // IAboutService arayüzündeki TGetByID metodunu kullanarak güncellenecek About kaydını alır
-            if (about == null) // Eğer About kaydı bulunamazsa
-            
-                return NotFound("Hakkımda Bulunamadı.."); // HTTP 404 Not Found yanıtı döner
-            
-            about.AboutTitle = updateAboutDTO.AboutTitle;
-            about.AboutDescription = updateAboutDTO.AboutDescription;
-            about.AboutImageURL = updateAboutDTO.AboutImageURL;
+            if (updateAboutDTO == null)
+                return BadRequest("Hakkımda bilgileri boş olamaz.");
 
-            _aboutService.TUpdate(about); // IAboutService arayüzündeki TUpdate metodunu kullanarak About kaydını günceller
-            return NoContent(); // İşlemin başarılı olduğunu belirten HTTP 204 No Content yanıtı döner
+            var about = _aboutService.TGetByID(id);
+            if (about == null)
+                return NotFound("Hakkımda Bilgisi Bulunamadı..");
+
+            _mapper.Map(updateAboutDTO, about);
+            _aboutService.TUpdate(about);
+
+            return NoContent();
         }
-        [HttpGet("GetAboutByID/{id}")]
-        public IActionResult GetAboutByID(int id) // Belirtilen ID'ye sahip About kaydını getiren bir API endpoint'i
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteAbout(int id)
         {
-            var about = _aboutService.TGetByID(id); // IAboutService arayüzündeki TGetByID metodunu kullanarak belirtilen ID'ye sahip About kaydını alır
-            if (about == null) // Eğer About kaydı bulunamazsa
-            {
-                return NotFound("Hakkımda Bulunamadı.."); // HTTP 404 Not Found yanıtı döner
-            }
-            return Ok(about); // Alınan About kaydını HTTP 200 OK yanıtı ile döner
+            var about = _aboutService.TGetByID(id);
+            if (about == null)
+                return NotFound("Hakkımda Bilgisi Bulunamadı..");
+
+            _aboutService.TDelete(about);
+            return NoContent();
         }
     }
 }

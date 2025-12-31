@@ -1,7 +1,7 @@
 ﻿using Asp.NetCore10._0_QR_Restaurant_Order.BusinessLayer.Abstract;
 using Asp.NetCore10._0_QR_Restaurant_Order.DTOLayer.DTOs.BookingDTO;
 using Asp.NetCore10._0_QR_Restaurant_Order.EntityLayer.Entites;
-using Microsoft.AspNetCore.Http;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Controllers
@@ -11,81 +11,72 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Controllers
     public class BookingsController : ControllerBase
     {
         private readonly IBookingService _bookingService;
-        public BookingsController(IBookingService bookingService)
+        private readonly IMapper _mapper;
+
+        public BookingsController(IBookingService bookingService, IMapper mapper)
         {
             _bookingService = bookingService;
+            _mapper = mapper;
         }
+
         [HttpGet]
         public IActionResult BookingList()
         {
-            var bookings = _bookingService.TGetListAll(); // Tüm Booking verilerini alır
-            return Ok(bookings); // HTTP 200 OK ile döner
-        }
-        [HttpPost]
-        public IActionResult CreateBooking(CreateBookingDTO createBookingDTO)
-        {
-            if (createBookingDTO == null) // Gelen DTO null ise
-            {
-                return BadRequest("Rezervasyon bilgileri boş olamaz."); // HTTP 400 Bad Request döner
-            }
-            var booking = new Booking // Yeni Booking nesnesi oluşturur
-            {
-                BookingName = createBookingDTO.BookingName, // Ad
-                BookingPhone = createBookingDTO.BookingPhone, // Telefon
-                BookingDate = createBookingDTO.BookingDate, // Tarih
-                BookingStatus = createBookingDTO.BookingStatus, // Durum
-                BookingMail = createBookingDTO.BookingMail, // Mail
-                BookingPersonCount = createBookingDTO.BookingPersonCount // Kişi Sayısı
-            };
-            _bookingService.TAdd(booking); // Veritabanına ekler
-            return CreatedAtAction( // HTTP 201 Created döner
-                nameof(GetBookingByID), // Yeni oluşturulan kaydı almak için kullanılacak action
-                new { id = booking.BookingID }, // Yeni kaydın ID'si
-                booking // Yeni oluşturulan Booking nesnesi
-            );
-        }
-        [HttpDelete("{id}")]
-        public IActionResult DeleteBooking(int id)
-        {
-            var booking = _bookingService.TGetByID(id); // Belirtilen ID'ye sahip Booking kaydını alır
-            if (booking == null) // Kayıt bulunamazsa
-            {
-                return NotFound("Rezervasyon Bilgisi Bulunamadı.."); // HTTP 404 Not Found döner
-            }
-            _bookingService.TDelete(booking); // Kayıt silinir
-            return NoContent(); // HTTP 204 No Content döner
-        }
-        [HttpPut]
-        public IActionResult UpdateBooking(UpdateBookingDTO updateBookingDTO) // Rezervasyon güncelleme
-        {
-            if (updateBookingDTO == null) // Gelen DTO null ise
-            {
-                return BadRequest("Rezervasyon bilgileri boş olamaz."); // HTTP 400 Bad Request döner
-            }
-            var existingBooking = _bookingService.TGetByID(updateBookingDTO.BookingID); // Mevcut rezervasyonu al
-            if (existingBooking == null) // Rezervasyon bulunamazsa
-            {
-                return NotFound("Rezervasyon Bilgisi Bulunamadı.."); // HTTP 404 Not Found döner
-            }
-            existingBooking.BookingName = updateBookingDTO.BookingName; // Rezervasyon adını güncelle
-            existingBooking.BookingPhone = updateBookingDTO.BookingPhone; // Rezervasyon telefonunu güncelle
-            existingBooking.BookingDate = updateBookingDTO.BookingDate; // Rezervasyon tarihini güncelle
-            existingBooking.BookingStatus = updateBookingDTO.BookingStatus; // Rezervasyon durumunu güncelle
-            existingBooking.BookingMail = updateBookingDTO.BookingMail; // Rezervasyon mailini güncelle
-            existingBooking.BookingPersonCount = updateBookingDTO.BookingPersonCount; // Rezervasyon kişi sayısını güncelle
-            _bookingService.TUpdate(existingBooking); // Rezervasyonu veritabanında güncelle
-            return NoContent(); // HTTP 204 No Content döner
+            var bookings = _mapper.Map<List<ResultBookingDTO>>(_bookingService.TGetListAll());
+            return Ok(bookings);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetBookingByID(int id)
         {
-            var booking = _bookingService.TGetByID(id); // Belirtilen ID'ye sahip Booking kaydını alır
-            if (booking == null) // Kayıt bulunamazsa
-            {
-                return NotFound("Rezervasyon Bilgisi Bulunamadı.."); // HTTP 404 Not Found döner
-            } 
-            return Ok(booking); // HTTP 200 OK ile döner
+            var booking = _bookingService.TGetByID(id);
+            if (booking == null)
+                return NotFound("Rezervasyon Bilgisi Bulunamadı..");
+
+            return Ok(_mapper.Map<ResultBookingDTO>(booking));
+        }
+
+        [HttpPost]
+        public IActionResult CreateBooking(CreateBookingDTO createBookingDTO)
+        {
+            if (createBookingDTO == null)
+                return BadRequest("Rezervasyon bilgileri boş olamaz.");
+
+            var booking = _mapper.Map<Booking>(createBookingDTO);
+            _bookingService.TAdd(booking);
+
+            return CreatedAtAction(
+                nameof(GetBookingByID),
+                new { id = booking.BookingID },
+                _mapper.Map<ResultBookingDTO>(booking)
+            );
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateBooking(int id, UpdateBookingDTO updateBookingDTO)
+        {
+            if (updateBookingDTO == null)
+                return BadRequest("Rezervasyon bilgileri boş olamaz.");
+
+            var booking = _bookingService.TGetByID(id);
+            if (booking == null)
+                return NotFound("Rezervasyon Bilgisi Bulunamadı..");
+
+            _mapper.Map(updateBookingDTO, booking);
+            _bookingService.TUpdate(booking);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBooking(int id)
+        {
+            var booking = _bookingService.TGetByID(id);
+            if (booking == null)
+                return NotFound("Rezervasyon Bilgisi Bulunamadı..");
+
+            _bookingService.TDelete(booking);
+            return NoContent();
         }
     }
 }

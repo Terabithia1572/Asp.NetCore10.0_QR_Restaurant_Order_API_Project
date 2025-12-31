@@ -22,7 +22,10 @@ builder.Services.AddScoped<IContactService,ContactManager>(); // IContactService
 builder.Services.AddScoped<IContactDAL, EfContactDAL>(); // IContactDAL için EfContactDAL'ý ekler
 builder.Services.AddScoped<IDiscountService, DiscountManager>(); // IDiscountService için DiscountManager'ý ekler
 builder.Services.AddScoped<IDiscountDAL, EfDiscountDAL>(); // IDiscountDAL için EfDiscountDAL'ý ekler
-
+builder.Services.AddScoped<IFeatureService, FeatureManager>(); // IFeatureService için FeatureManager'ý ekler
+builder.Services.AddScoped<IFeatureDAL, EfFeatureDAL>(); // IFeatureDAL için EfFeatureDAL'ý ekler
+builder.Services.AddScoped<IProductService, ProductManager>(); // IProductService için ProductManager'ý ekler
+builder.Services.AddScoped<IProductDAL, EfProductDAL>(); // IProductDAL için EfProductDAL'ý ekler
 
 
 builder.Services.AddControllers();
