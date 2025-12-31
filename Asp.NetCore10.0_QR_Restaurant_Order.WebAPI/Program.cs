@@ -1,6 +1,16 @@
+using Asp.NetCore10._0_QR_Restaurant_Order.BusinessLayer.Abstract;
+using Asp.NetCore10._0_QR_Restaurant_Order.BusinessLayer.Concrete;
+using Asp.NetCore10._0_QR_Restaurant_Order.DataAccessLayer.Abstract;
+using Asp.NetCore10._0_QR_Restaurant_Order.DataAccessLayer.Concrete;
+using Asp.NetCore10._0_QR_Restaurant_Order.DataAccessLayer.EntityFramework;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDbContext<SignalRContext>();
+builder.Services.AddScoped<IAboutService,AboutManager>();
+builder.Services.AddScoped<IAboutDAL, EfAboutDAL>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
