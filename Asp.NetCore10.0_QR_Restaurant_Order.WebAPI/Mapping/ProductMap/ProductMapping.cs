@@ -12,6 +12,7 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Mapping.ProductMap
             CreateMap<Product, CreateProductDTO>().ReverseMap(); //Product ile CreateProductDTO arasında çift yönlü eşleme yapar
             CreateMap<Product, UpdateProductDTO>().ReverseMap(); //Product ile UpdateProductDTO arasında çift yönlü eşleme yapar
             CreateMap<Product, GetProductByIDDTO>().ReverseMap(); //Product ile GetProductByIDDTO arasında çift yönlü eşleme yapar
+            CreateMap<Product, ResultProductWithCategoryDTO>().ReverseMap(); //Product ile ResultProductWithCategoryDTO arasında çift yönlü eşleme yapar    
         }
     }
 }

@@ -26,6 +26,13 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Controllers
             var result = _mapper.Map<List<ResultProductDTO>>(values);
             return Ok(result);
         }
+        [HttpGet("with-category")]
+        public IActionResult ProductListWithCategory()
+        {
+            var values = _productService.TGetProductsWithCategories();
+            var result = _mapper.Map<List<ResultProductWithCategoryDTO>>(values);
+            return Ok(result);
+        }
 
         [HttpGet("{id:int}")]
         public IActionResult GetProductByID(int id)

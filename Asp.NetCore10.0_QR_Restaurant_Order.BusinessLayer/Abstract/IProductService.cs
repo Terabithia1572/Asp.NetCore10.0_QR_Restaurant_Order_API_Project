@@ -7,5 +7,6 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.BusinessLayer.Abstract
 {
     public interface IProductService:IGenericService<Product>
     {
+        List<Product> TGetProductsWithCategories(); // Ürünleri kategorileri ile birlikte getiren metot
     }
 }

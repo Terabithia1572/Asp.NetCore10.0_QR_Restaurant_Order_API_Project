@@ -36,6 +36,11 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.BusinessLayer.Concrete
            return _productDAL.GetListAll(); // İş katmanı mantığı burada uygulanabilir (örneğin, doğrulama, iş kuralları vb.)
         }
 
+        public List<Product> TGetProductsWithCategories()
+        {
+            return _productDAL.GetProductsWithCategories(); // İş katmanı mantığı burada uygulanabilir (örneğin, doğrulama, iş kuralları vb.)
+        }
+
         public void TUpdate(Product t)
         {
             _productDAL.Update(t); // İş katmanı mantığı burada uygulanabilir (örneğin, doğrulama, iş kuralları vb.) 
