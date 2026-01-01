@@ -8,5 +8,7 @@
         public decimal ProductPrice { get; set; } //Ürün Fiyatı
         public string ProductImageURL { get; set; } // Ürünün Görseli
         public bool ProductStatus { get; set; } // Ürün Durumu (Aktif/Pasif)
+        public int CategoryID { get; set; } // Ürünün Kategori ID'si
+        public Category Category { get; set; } // Ürünün Kategorisi
     }
 }
