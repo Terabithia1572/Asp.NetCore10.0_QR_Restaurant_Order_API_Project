@@ -142,26 +142,27 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.Controllers
             // HttpClient oluşturuyoruz
             var client = _httpClientFactory.CreateClient();
 
-            // Update DTO’yu JSON string’e çeviriyoruz
+            // Güncelleme DTO'sunu JSON'a çeviriyoruz
             var jsonData = JsonConvert.SerializeObject(updateCategoryDTO);
 
-            // JSON içeriği request body olarak hazırlıyoruz
+            // JSON içeriğini request body olarak hazırlıyoruz
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            // API’ye PUT isteği atıyoruz (güncelleme)
-            // Not: Bazı API'lerde route "PUT /{id}" olur.
-            // Senin API öyleyse: await client.PutAsync($"{ApiBaseUrl}/{updateCategoryDTO.CategoryID}", content);
-            var responseMessage = await client.PutAsync(ApiBaseUrl, content);
+            // Swagger'da update endpoint'in bu şekilde: PUT /api/Categories/{id}
+            // Bu yüzden URL'e CategoryID'yi ekleyerek istek atıyoruz
+            var responseMessage = await client.PutAsync($"{ApiBaseUrl}/{updateCategoryDTO.CategoryID}", content);
 
-            // Başarılıysa listeye dön
+            // API başarılı dönerse listeye geri yönlendiriyoruz
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("CategoryList");
             }
 
-            // Başarısızsa update sayfasında kal
+            // Başarısızsa (404/400/500 vb.) aynı sayfada kalıp formu geri gösteriyoruz
+            // İstersen burada hata mesajını da okuyup ekrana basabiliriz
             return View(updateCategoryDTO);
         }
+
 
         // ============================
         // 6) DELETE CATEGORY (GET)
