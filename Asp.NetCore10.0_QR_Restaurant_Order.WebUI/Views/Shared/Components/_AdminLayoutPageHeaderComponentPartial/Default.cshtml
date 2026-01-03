@@ -1,7 +1,6 @@
 ﻿<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4 mt-1">
     <h3 class="mb-0">@ViewData["Title"]</h3>
 
-    @* Breadcrumb istersen ViewData ile kontrol edersin *@
     @if (ViewData["ShowBreadcrumb"] as bool? ?? true)
     {
         <nav aria-label="breadcrumb">
@@ -13,17 +12,29 @@
                     </a>
                 </li>
 
-                @* İstersen breadcrumb'ı buradan dinamik üretiriz (sonra birlikte yaparız) *@
-                @if (ViewData["Breadcrumb"] is List<string> bc && bc.Count > 0)
+                @* Orijinal template gibi: ara elemanlar "breadcrumb-item active" görünebilir,
+                   ama en önemli fark: SON eleman text-secondary olacak *@
+                @if (ViewData["Breadcrumb"] is List<(string Text, string Url)> bc && bc.Count > 0)
                 {
                     for (int i = 0; i < bc.Count; i++)
                     {
                         var isLast = i == bc.Count - 1;
+
                         <li class="breadcrumb-item active" aria-current="page">
-                            <span class="@(isLast ? "text-secondary" : "")">@bc[i]</span>
+                            @if (!isLast && !string.IsNullOrEmpty(bc[i].Url))
+                            {
+                                <a href="@bc[i].Url" class="text-body fs-14 hover text-decoration-none">
+                                    @bc[i].Text
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="text-secondary">@bc[i].Text</span>
+                            }
                         </li>
                     }
                 }
+
             </ol>
         </nav>
     }

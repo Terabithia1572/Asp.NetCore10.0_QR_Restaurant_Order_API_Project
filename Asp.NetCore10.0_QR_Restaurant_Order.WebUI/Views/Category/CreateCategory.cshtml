@@ -1,8 +1,15 @@
 ﻿@model CreateCategoryDTO
 @{
-    ViewData["Title"] = "CreateCategory";
+    ViewData["Title"] = "Kategori Ekle";
     Layout = "~/Views/AdminLayout/Index.cshtml";
+
+    ViewData["Breadcrumb"] = new List<(string Text, string Url)>
+    {
+        ("Kategoriler", "/Category/CategoryList/"),
+        ("Kategori Ekle", "") // Son eleman link olmayacak
+    };
 }
+
 
 <div class="card bg-white p-20 rounded-10 border border-white mb-4">
     <h3 class="mb-20">Yeni Kategori Ekle</h3>
