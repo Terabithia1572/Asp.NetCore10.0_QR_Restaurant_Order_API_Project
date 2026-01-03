@@ -16646,6 +16646,24 @@ Custom Hover Area Style
 .hover-text-danger:hover i {
   color: #e74c3c !important;
 }
+.hover-text-success {
+  transition: all ease 0.5s;
+}
+.hover-text-success:hover {
+  color: #2ed47e !important;
+}
+.hover-text-success:hover i {
+  color: #2ed47e !important;
+}
+.hover-text-primary {
+  transition: all ease 0.5s;
+}
+.hover-text-primary:hover {
+  color: #33cbf5 !important;
+}
+.hover-text-primary:hover i {
+  color: #33cbf5 !important;
+}
 
 .hover-text-success {
   transition: all ease 0.5s;

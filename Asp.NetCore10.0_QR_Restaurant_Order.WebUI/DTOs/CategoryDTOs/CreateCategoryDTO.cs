@@ -1,0 +1,8 @@
+﻿namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.DTOs.CategoryDTOs
+{
+    public class CreateCategoryDTO
+    {
+        public string CategoryName { get; set; } // Kategori Adı
+        public bool CategoryStatus { get; set; } // Kategori Durumu (Aktif/Pasif)
+    }
+}
