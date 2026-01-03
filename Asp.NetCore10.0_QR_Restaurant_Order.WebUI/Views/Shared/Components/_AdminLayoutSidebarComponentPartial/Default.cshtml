@@ -1,0 +1,237 @@
+﻿<div class="sidebar-area" id="sidebar-area">
+    <div class="logo position-relative d-flex align-items-center justify-content-between">
+        <a href="/Dashboard/Index" class="d-block text-decoration-none position-relative">
+            <img src="/teraQR/assets/images/logo-icon.png" alt="logo-icon">
+            <span class="logo-text text-secondary fw-semibold">TeraQR Bistro</span>
+        </a>
+
+        <button class="sidebar-burger-menu-close bg-transparent py-3 border-0 opacity-0 z-n1 position-absolute top-50 end-0 translate-middle-y"
+                id="sidebar-burger-menu-close">
+            <span class="border-1 d-block for-dark-burger"
+                  style="border-bottom: 1px solid #475569; height: 1px; width: 25px; transform: rotate(45deg);"></span>
+            <span class="border-1 d-block for-dark-burger"
+                  style="border-bottom: 1px solid #475569; height: 1px; width: 25px; transform: rotate(-45deg);"></span>
+        </button>
+
+        <button class="sidebar-burger-menu bg-transparent p-0 border-0" id="sidebar-burger-menu">
+            <span class="border-1 d-block for-dark-burger"
+                  style="border-bottom: 1px solid #475569; height: 1px; width: 25px;"></span>
+            <span class="border-1 d-block for-dark-burger"
+                  style="border-bottom: 1px solid #475569; height: 1px; width: 25px; margin: 6px 0;"></span>
+            <span class="border-1 d-block for-dark-burger"
+                  style="border-bottom: 1px solid #475569; height: 1px; width: 25px;"></span>
+        </button>
+    </div>
+
+    <aside id="layout-menu" class="layout-menu menu-vertical menu active" data-simplebar>
+        <ul class="menu-inner">
+
+            <!-- MAIN -->
+            <li class="menu-title small text-uppercase">
+                <span class="menu-title-text">GENEL</span>
+            </li>
+
+            <li class="menu-item">
+                <a href="/Dashboard/Index/" class="menu-link">
+                    <i class="ri-dashboard-2-line menu-icon"></i>
+                    <span class="title">Ana Sayfa</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="/Notifications/Index" class="menu-link">
+                    <i class="ri-notification-3-line menu-icon"></i>
+                    <span class="title">Bildirimler</span>
+                </a>
+            </li>
+
+            <!-- OPERATIONS -->
+            <li class="menu-title small text-uppercase">
+                <span class="menu-title-text">OPERASYON</span>
+            </li>
+
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="ri-receipt-line menu-icon"></i>
+                    <span class="title">Siparişler</span>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="/Orders/New" class="menu-link">Yeni Siparişler</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/Orders/Preparing" class="menu-link">Hazırlanıyor</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/Orders/Completed" class="menu-link">Tamamlandı</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/Orders/Cancelled" class="menu-link">İptal / İade</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="ri-table-line menu-icon"></i>
+                    <span class="title">Masalar</span>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="/Tables/Index" class="menu-link">Masa Durumu</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/Tables/Qr" class="menu-link">QR Yönetimi</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu-item">
+                <a href="/Reservations/Index" class="menu-link">
+                    <i class="ri-calendar-check-line menu-icon"></i>
+                    <span class="title">Rezervasyonlar</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="/Kitchen/Index" class="menu-link">
+                    <i class="ri-restaurant-2-line menu-icon"></i>
+                    <span class="title">Mutfak Ekranı (KDS)</span>
+                </a>
+            </li>
+
+            <!-- MENU MANAGEMENT -->
+            <li class="menu-title small text-uppercase">
+                <span class="menu-title-text">MENÜ YÖNETİMİ</span>
+            </li>
+
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="ri-store-2-line menu-icon"></i>
+                    <span class="title">Ürünler</span>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="/Products/Index" class="menu-link">Ürün Listesi</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/Products/Create" class="menu-link">Ürün Ekle</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu-item">
+                <a href="/Categories/Index" class="menu-link">
+                    <i class="ri-list-check-2 menu-icon"></i>
+                    <span class="title">Kategoriler</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="/Extras/Index" class="menu-link">
+                    <i class="ri-add-circle-line menu-icon"></i>
+                    <span class="title">Ekstra / Opsiyonlar</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="ri-price-tag-3-line menu-icon"></i>
+                    <span class="title">Kampanya & İndirim</span>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="/Discounts/Index" class="menu-link">İndirimler</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/Coupons/Index" class="menu-link">Kuponlar</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- CUSTOMER -->
+            <li class="menu-title small text-uppercase">
+                <span class="menu-title-text">MÜŞTERİ</span>
+            </li>
+
+            <li class="menu-item">
+                <a href="/Customers/Index" class="menu-link">
+                    <i class="ri-user-3-line menu-icon"></i>
+                    <span class="title">Müşteriler</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="/Reviews/Index" class="menu-link">
+                    <i class="ri-star-smile-line menu-icon"></i>
+                    <span class="title">Yorumlar & Puanlar</span>
+                </a>
+            </li>
+
+            <!-- REPORTS -->
+            <li class="menu-title small text-uppercase">
+                <span class="menu-title-text">RAPORLAR</span>
+            </li>
+
+            <li class="menu-item">
+                <a href="/Reports/Sales" class="menu-link">
+                    <i class="ri-line-chart-line menu-icon"></i>
+                    <span class="title">Satış Raporları</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="/Reports/ProductPerformance" class="menu-link">
+                    <i class="ri-bar-chart-2-line menu-icon"></i>
+                    <span class="title">Ürün Performansı</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="/Reports/PeakHours" class="menu-link">
+                    <i class="ri-time-line menu-icon"></i>
+                    <span class="title">Yoğun Saatler</span>
+                </a>
+            </li>
+
+            <li class="menu-item">
+                <a href="/Stock/Index" class="menu-link">
+                    <i class="ri-archive-line menu-icon"></i>
+                    <span class="title">Stok / Maliyet</span>
+                </a>
+            </li>
+
+            <!-- SETTINGS -->
+            <li class="menu-title small text-uppercase">
+                <span class="menu-title-text">AYARLAR</span>
+            </li>
+
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="ri-settings-3-line menu-icon"></i>
+                    <span class="title">Sistem Ayarları</span>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="/Restaurant/Settings" class="menu-link">Restoran Bilgileri</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/Payment/Settings" class="menu-link">Ödeme / Kasa</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="/Users/Index" class="menu-link">Kullanıcılar & Roller</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- LOGOUT -->
+            <li class="menu-item">
+                <a href="/Account/Logout" class="menu-link">
+                    <i class="ri-logout-box-r-line menu-icon"></i>
+                    <span class="title">Çıkış Yap</span>
+                </a>
+            </li>
+
+        </ul>
+    </aside>
+</div>
