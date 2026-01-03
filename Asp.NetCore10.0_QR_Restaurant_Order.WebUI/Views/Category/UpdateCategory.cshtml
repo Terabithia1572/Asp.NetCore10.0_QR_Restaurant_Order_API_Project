@@ -1,7 +1,12 @@
 ﻿@model UpdateCategoryDTO
 @{
-    ViewData["Title"] = "UpdateCategory";
+    ViewData["Title"] = "Kategori Güncelleme";
     Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Breadcrumb"] = new List<(string Text, string Url)>
+    {
+        ("Kategoriler", "/Category/CategoryList/"),
+        ("Kategori Güncelle", "") // Son eleman link olmayacak
+    };
 }
 
 <div class="card bg-white p-20 rounded-10 border border-white mb-4">

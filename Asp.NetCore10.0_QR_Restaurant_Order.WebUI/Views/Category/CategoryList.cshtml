@@ -2,7 +2,11 @@
 @{
     ViewData["Title"] = "Kategori Listesi";
     Layout = "~/Views/AdminLayout/Index.cshtml";
-
+    ViewData["Breadcrumb"] = new List<(string Text, string Url)>
+    {
+        ("Kategoriler", "/Category/CategoryList/"),
+        ("Kategori Listesi", "") // Son eleman link olmayacak
+    };
 }
 
 <div class="default-table-area mx-minus-1 table-to-do-list">
