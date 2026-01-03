@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 // API’den gelen JSON verisini C# nesnelerine dönüştürmek (Deserialize) için kullanılıyor
 
-using System.Threading.Tasks;
-// async / await yapısını kullanabilmek için gerekli namespace
+using System.Text;
+// POST/PUT isteklerinde JSON body gönderebilmek için (StringContent) gerekli
 
 namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.Controllers
 {
@@ -20,21 +20,25 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.Controllers
         // oluşturmak için Dependency Injection ile kullanılan modern yaklaşımdır
         private readonly IHttpClientFactory _httpClientFactory;
 
+        // API base adresini tek yerde tutmak ileride değiştirmeyi kolaylaştırır
+        private const string ApiBaseUrl = "https://localhost:7074/api/Categories";
+
         // Constructor üzerinden IHttpClientFactory inject edilir
         public CategoryController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
 
-        // Kategori listesini getiren action metodu
-        // async kullanımı sayesinde API çağrısı thread’i kilitlemez
+        // ============================
+        // 1) CATEGORY LIST (GET)
+        // ============================
         public async Task<IActionResult> CategoryList()
         {
             // IHttpClientFactory üzerinden bir HttpClient instance’ı oluşturuyoruz
             var client = _httpClientFactory.CreateClient();
 
             // WebAPI projesindeki Categories endpoint’ine GET isteği atıyoruz
-            var responseMessage = await client.GetAsync("https://localhost:7074/api/Categories");
+            var responseMessage = await client.GetAsync(ApiBaseUrl);
 
             // API’den dönen response başarılıysa devam ediyoruz
             if (responseMessage != null)
@@ -52,6 +56,130 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.Controllers
 
             // API çağrısı başarısız olursa View boş şekilde döner
             return View();
+        }
+
+        // ============================
+        // 2) CREATE CATEGORY (GET)
+        // ============================
+        // Create formunu ekrana basmak için GET action
+        [HttpGet]
+        public IActionResult CreateCategory()
+        {
+            // Kullanıcıya boş formu gösteriyoruz
+            return View();
+        }
+
+        // ============================
+        // 3) CREATE CATEGORY (POST)
+        // ============================
+        // Formdan gelen veriyi API’ye göndererek yeni kategori eklemek için POST action
+        [HttpPost]
+        public async Task<IActionResult> CreateCategory(CreateCategoryDTO createCategoryDTO)
+        {
+            // HttpClient instance’ı oluşturuyoruz
+            var client = _httpClientFactory.CreateClient();
+
+            // Formdan gelen DTO’yu JSON string’e çeviriyoruz
+            var jsonData = JsonConvert.SerializeObject(createCategoryDTO);
+
+            // JSON veriyi request body olarak gönderebilmek için StringContent oluşturuyoruz
+            // Encoding.UTF8 -> Türkçe karakterlerde sorun yaşamamak için
+            // "application/json" -> API’nin JSON beklediğini belirtmek için
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+            // API’ye POST isteği atıyoruz (yeni kayıt ekleme)
+            var responseMessage = await client.PostAsync(ApiBaseUrl, content);
+
+            // İşlem başarılıysa liste sayfasına dönüyoruz
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("CategoryList");
+            }
+
+            // Başarısızsa aynı sayfada kalıp formu tekrar gösteriyoruz
+            // İstersen buraya ModelState hatası da basabiliriz
+            return View(createCategoryDTO);
+        }
+
+        // ============================
+        // 4) UPDATE CATEGORY (GET)
+        // ============================
+        // Güncelleme ekranını doldurmak için önce ilgili kategori bilgilerini API’den çekiyoruz
+        [HttpGet]
+        public async Task<IActionResult> UpdateCategory(int id)
+        {
+            // HttpClient oluşturuyoruz
+            var client = _httpClientFactory.CreateClient();
+
+            // API’den ilgili kategoriyi çekiyoruz (GET /api/Categories/{id})
+            var responseMessage = await client.GetAsync($"{ApiBaseUrl}/{id}");
+
+            // Eğer API’den başarılı response geldiyse
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                // JSON içeriği okuyoruz
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+
+                // JSON verisini UpdateCategoryDTO’ya dönüştürüyoruz
+                // (Update formu için gerekli alanlar burada olmalı)
+                var values = JsonConvert.DeserializeObject<UpdateCategoryDTO>(jsonData);
+
+                // Dolu model ile Update View’a gidiyoruz
+                return View(values);
+            }
+
+            // Kayıt bulunamadıysa veya hata varsa listeye döndürüyoruz
+            return RedirectToAction("CategoryList");
+        }
+
+        // ============================
+        // 5) UPDATE CATEGORY (POST)
+        // ============================
+        // Formdan gelen güncel veriyi API’ye PUT ile gönderiyoruz
+        [HttpPost]
+        public async Task<IActionResult> UpdateCategory(UpdateCategoryDTO updateCategoryDTO)
+        {
+            // HttpClient oluşturuyoruz
+            var client = _httpClientFactory.CreateClient();
+
+            // Update DTO’yu JSON string’e çeviriyoruz
+            var jsonData = JsonConvert.SerializeObject(updateCategoryDTO);
+
+            // JSON içeriği request body olarak hazırlıyoruz
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+            // API’ye PUT isteği atıyoruz (güncelleme)
+            // Not: Bazı API'lerde route "PUT /{id}" olur.
+            // Senin API öyleyse: await client.PutAsync($"{ApiBaseUrl}/{updateCategoryDTO.CategoryID}", content);
+            var responseMessage = await client.PutAsync(ApiBaseUrl, content);
+
+            // Başarılıysa listeye dön
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("CategoryList");
+            }
+
+            // Başarısızsa update sayfasında kal
+            return View(updateCategoryDTO);
+        }
+
+        // ============================
+        // 6) DELETE CATEGORY (GET)
+        // ============================
+        // Silme işlemini link üzerinden çağırıyorsun: /Category/DeleteCategory/{id}
+        // Bu metot API’ye DELETE isteği atar
+        [HttpGet]
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            // HttpClient oluşturuyoruz
+            var client = _httpClientFactory.CreateClient();
+
+            // API’ye DELETE isteği atıyoruz (DELETE /api/Categories/{id})
+            var responseMessage = await client.DeleteAsync($"{ApiBaseUrl}/{id}");
+
+            // Başarılı olsun olmasın kullanıcıyı listeye geri döndürüyoruz
+            // (istersen başarısız durumda TempData ile mesaj gösterebiliriz)
+            return RedirectToAction("CategoryList");
         }
     }
 }

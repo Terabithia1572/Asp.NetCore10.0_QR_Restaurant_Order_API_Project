@@ -1,0 +1,54 @@
+﻿@model CreateCategoryDTO
+@{
+    ViewData["Title"] = "CreateCategory";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="card bg-white p-20 rounded-10 border border-white mb-4">
+    <h3 class="mb-20">Yeni Kategori Ekle</h3>
+
+    <!-- Form mutlaka POST olmalı ki CategoryController'daki [HttpPost] CreateCategory çalışsın -->
+    <form method="post" asp-action="CreateCategory" asp-controller="Category">
+        <div class="row">
+
+            <!-- Category Name -->
+            <div class="col-lg-6">
+                <div class="mb-20">
+                    <label class="label fs-16 mb-2">Kategori Adı</label>
+                    <div class="form-floating">
+                        <input asp-for="CategoryName" type="text" class="form-control" id="floatingInput1" placeholder="Kategori adı">
+                        <label for="floatingInput1">Kategori adı</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Status -->
+            <div class="col-lg-6">
+                <div class="mb-20">
+                    <label class="label fs-16 mb-2">Durum</label>
+                    <div class="form-floating">
+                        <select asp-for="CategoryStatus" class="form-select form-control" id="floatingSelectStatus" aria-label="Durum seç">
+                            <option value="true">Aktif</option>
+                            <option value="false">Pasif</option>
+                        </select>
+                        <label for="floatingSelectStatus">Durum seç</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="col-lg-12">
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary fw-normal text-white">
+                        Kategori Oluştur
+                    </button>
+
+                    <a href="/Category/CategoryList/" class="btn btn-danger fw-normal text-white">
+                        İptal
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
