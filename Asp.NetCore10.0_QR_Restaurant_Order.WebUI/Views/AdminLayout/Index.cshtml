@@ -53,9 +53,28 @@
         *@
     <!-- End Sidebar Area -->
     <!-- Start Main Content Area -->
+
+    @*
+    Admin Layout - Header + Page Title/Breadcrumb + Footer
+    Bu partial; üst bar (arama, dil seçimi, tema switch, mesaj/bildirim dropdownları, admin profil menüsü),
+    sayfa başlığı/breadcrumb alanı ve footer iskeletini tek noktadan yönetmek için kullanılır.
+    İçerik sayfaları bu layout içine RenderBody / View içerikleri ile yerleşir.
+*@
     <div class="container-fluid">
         <div class="main-content d-flex flex-column">
-            <!-- Start Header Area -->
+
+            <!-- =========================
+                 HEADER AREA (Component)
+                 - Burger menu (mobile)
+                 - Search bar
+                 - Language dropdown
+                 - Light/Dark toggle
+                 - Calendar shortcut
+                 - Messages dropdown
+                 - Notifications dropdown
+                 - Admin profile dropdown
+            ========================== -->
+            @* TODO: _AdminLayoutHeaderComponentPartial *@
             <header class="header-area bg-white mb-4 rounded-10 border border-white" id="header-area">
                 <div class="row align-items-center">
                     <div class="col-md-6">
@@ -70,7 +89,7 @@
                                 </li>
                                 <li>
                                     <form class="src-form position-relative">
-                                        <input type="text" class="form-control" placeholder="Search here...">
+                                        <input type="text" class="form-control" placeholder="Ara...">
                                         <div class="src-btn position-absolute top-50 start-0 translate-middle-y bg-transparent p-0 border-0">
                                             <span class="material-symbols-outlined">search</span>
                                         </div>
@@ -83,14 +102,35 @@
                     <div class="col-md-6">
                         <div class="right-header-content mt-3 mt-md-0">
                             <ul class="d-flex align-items-center justify-content-center justify-content-md-end ps-0 mb-0 list-unstyled">
+
+                                <!-- Language -->
+                                <!-- Language -->
                                 <li class="header-right-item language-item">
                                     <div class="dropdown notifications language">
                                         <button class="btn btn-secondary dropdown-toggle border-0 p-0 position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="material-symbols-outlined" style="font-size: 19px;">translate</span>
                                         </button>
+
                                         <div class="dropdown-menu dropdown-lg p-0 border-0 dropdown-menu-end">
-                                            <span class="fw-medium fs-16 text-secondary d-block title" style="padding-top: 20px; padding-bottom: 20px;">Choose Language</span>
+                                            <span class="fw-medium fs-16 text-secondary d-block title" style="padding-top: 20px; padding-bottom: 20px;">
+                                                Dil Değiştir
+                                            </span>
+
                                             <div class="max-h-275" data-simplebar>
+
+                                                <div class="notification-menu">
+                                                    <a href="javascript:void(0);" class="dropdown-item">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-shrink-0">
+                                                                <img src="/teraQR/assets/images/turkey.png" class="wh-30 rounded-circle" alt="turkey">
+                                                            </div>
+                                                            <div class="flex-grow-1 ms-10">
+                                                                <span class="text-secondary fw-medium fs-15">Türkçe</span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+
                                                 <div class="notification-menu">
                                                     <a href="javascript:void(0);" class="dropdown-item">
                                                         <div class="d-flex align-items-center">
@@ -98,23 +138,12 @@
                                                                 <img src="/teraQR/assets/images/usa.png" class="wh-30 rounded-circle" alt="usa">
                                                             </div>
                                                             <div class="flex-grow-1 ms-10">
-                                                                <span class="text-secondary fw-medium fs-15">English</span>
+                                                                <span class="text-secondary fw-medium fs-15">İngilizce</span>
                                                             </div>
                                                         </div>
                                                     </a>
                                                 </div>
-                                                <div class="notification-menu">
-                                                    <a href="javascript:void(0);" class="dropdown-item">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-shrink-0">
-                                                                <img src="/teraQR/assets/images/australia.png" class="wh-30 rounded-circle" alt="australia">
-                                                            </div>
-                                                            <div class="flex-grow-1 ms-10">
-                                                                <span class="text-secondary fw-medium fs-15">Australia</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
+
                                                 <div class="notification-menu">
                                                     <a href="javascript:void(0);" class="dropdown-item">
                                                         <div class="d-flex align-items-center">
@@ -122,39 +151,45 @@
                                                                 <img src="/teraQR/assets/images/spain.png" class="wh-30 rounded-circle" alt="spain">
                                                             </div>
                                                             <div class="flex-grow-1 ms-10">
-                                                                <span class="text-secondary fw-medium fs-15">Spanish</span>
+                                                                <span class="text-secondary fw-medium fs-15">İspanyolca</span>
                                                             </div>
                                                         </div>
                                                     </a>
                                                 </div>
+
                                                 <div class="notification-menu">
                                                     <a href="javascript:void(0);" class="dropdown-item">
                                                         <div class="d-flex align-items-center">
                                                             <div class="flex-shrink-0">
-                                                                <img src="/teraQR/assets/images/france.png" class="wh-30 rounded-circle" alt="portugal">
+                                                                <img src="/teraQR/assets/images/france.png" class="wh-30 rounded-circle" alt="france">
                                                             </div>
                                                             <div class="flex-grow-1 ms-10">
-                                                                <span class="text-secondary fw-medium fs-15">France</span>
+                                                                <span class="text-secondary fw-medium fs-15">Fransızca</span>
                                                             </div>
                                                         </div>
                                                     </a>
                                                 </div>
+
                                                 <div class="notification-menu mb-0">
                                                     <a href="javascript:void(0);" class="dropdown-item">
                                                         <div class="d-flex align-items-center">
                                                             <div class="flex-shrink-0">
-                                                                <img src="/teraQR/assets/images/germany.png" class="wh-30 rounded-circle" alt="Germany">
+                                                                <img src="/teraQR/assets/images/germany.png" class="wh-30 rounded-circle" alt="germany">
                                                             </div>
                                                             <div class="flex-grow-1 ms-10">
-                                                                <span class="text-secondary fw-medium fs-15">Spain</span>
+                                                                <span class="text-secondary fw-medium fs-15">Almanca</span>
                                                             </div>
                                                         </div>
                                                     </a>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
                                 </li>
+
+
+                                <!-- Light / Dark -->
                                 <li class="header-right-item light-dark-item">
                                     <div class="light-dark">
                                         <button class="switch-toggle dark-btn p-0 bg-transparent lh-0 border-0" id="switch-toggle">
@@ -163,13 +198,17 @@
                                         </button>
                                     </div>
                                 </li>
+
+                                <!-- Calendar -->
                                 <li class="header-right-item calendar-item">
                                     <div class="dropdown notifications">
-                                        <a href="calendar.html" class="btn btn-secondary border-0 p-0 position-relative">
+                                        <a href="/Calendar/Index/" class="btn btn-secondary border-0 p-0 position-relative">
                                             <span class="material-symbols-outlined" style="font-size: 19px;">calendar_today</span>
                                         </a>
                                     </div>
                                 </li>
+
+                                <!-- Messages -->
                                 <li class="header-right-item messages-item">
                                     <div class="dropdown notifications noti messages">
                                         <button class="btn btn-secondary border-0 p-0 position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -178,58 +217,22 @@
                                         </button>
                                         <div class="dropdown-menu dropdown-lg p-0 border-0 p-0 dropdown-menu-end">
                                             <div class="d-flex justify-content-between align-items-center title">
-                                                <span class="fw-medium fs-16 text-secondary">Messages <span class="fw-normal text-body fs-16">(03)</span></span>
-                                                <button class="p-0 m-0 bg-transparent border-0 fs-15 text-primary fw-medium">Mark all as read</button>
+                                                <span class="fw-medium fs-16 text-secondary">Mesajlar <span class="fw-normal text-body fs-16">(03)</span></span>
+                                                <button class="p-0 m-0 bg-transparent border-0 fs-15 text-primary fw-medium">Tümünü Okundu İşaretle</button>
                                             </div>
 
                                             <div style="max-height: 300px;" data-simplebar>
-                                                <div class="notification-menu unseen">
-                                                    <a href="chat.html" class="dropdown-item">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-shrink-0">
-                                                                <img src="/teraQR/assets/images/user1.jpg" class="rounded-circle" style="width: 44px; height: 44px;" alt="images">
-                                                            </div>
-                                                            <div class="flex-grow-1 ms-10">
-                                                                <p class="fs-16 fw-medium text-secondary mb-2">Jacob Liwiski <span class="fs-14 fw-normal text-body ms-2">35 min ago</span></p>
-                                                                <span class="fs-14-5 fw-medium d-inline-block" style="line-height: 1.4;">Hey Victor! Could you please...</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <div class="notification-menu unseen">
-                                                    <a href="chat.html" class="dropdown-item">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-shrink-0">
-                                                                <img src="/teraQR/assets/images/user2.jpg" class="rounded-circle" style="width: 44px; height: 44px;" alt="images">
-                                                            </div>
-                                                            <div class="flex-grow-1 ms-10">
-                                                                <p class="fs-16 fw-medium text-secondary mb-2">Angela Carter <span class="fs-14 fw-normal text-body ms-2">1 day ago</span></p>
-                                                                <span class="fs-14-5 fw-medium d-inline-block" style="line-height: 1.4;">How are you Angela? Would you please...</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <div class="notification-menu">
-                                                    <a href="chat.html" class="dropdown-item">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-shrink-0">
-                                                                <img src="/teraQR/assets/images/user3.jpg" class="rounded-circle" style="width: 44px; height: 44px;" alt="images">
-                                                            </div>
-                                                            <div class="flex-grow-1 ms-10">
-                                                                <p class="fs-16 fw-medium text-secondary mb-2">Brad Traversy <span class="fs-14 fw-normal text-body ms-2">2 days ago</span></p>
-                                                                <span class="fs-14-5 fw-medium d-inline-block" style="line-height: 1.4;">Hey Brad Traversy! Could you please...</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
+                                                <!-- message items -->
                                             </div>
 
-                                            <a href="chat.html" class="dropdown-item text-center text-primary d-block view-all fw-medium rounded-bottom-3">
-                                                <span>See All Messages</span>
+                                            <a href="/Message/MessageList/" class="dropdown-item text-center text-primary d-block view-all fw-medium rounded-bottom-3">
+                                                <span>Tüm Mesajları Gör</span>
                                             </a>
                                         </div>
                                     </div>
                                 </li>
+
+                                <!-- Notifications -->
                                 <li class="header-right-item">
                                     <div class="dropdown notifications noti">
                                         <button class="btn btn-secondary border-0 p-0 position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -238,58 +241,22 @@
                                         </button>
                                         <div class="dropdown-menu dropdown-lg p-0 border-0 p-0 dropdown-menu-end">
                                             <div class="d-flex justify-content-between align-items-center title">
-                                                <span class="fw-medium fs-16 text-secondary">Notifications <span class="fw-normal text-body fs-16">(03)</span></span>
-                                                <button class="p-0 m-0 bg-transparent border-0 fs-15 text-primary fw-medium">Clear All</button>
+                                                <span class="fw-medium fs-16 text-secondary">Bildirimler <span class="fw-normal text-body fs-16">(03)</span></span>
+                                                <button class="p-0 m-0 bg-transparent border-0 fs-15 text-primary fw-medium">Tümünü Temizle</button>
                                             </div>
 
                                             <div style="max-height: 300px;" data-simplebar>
-                                                <div class="notification-menu unseen">
-                                                    <a href="notifications.html" class="dropdown-item">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-shrink-0">
-                                                                <i class="material-symbols-outlined text-primary">sms</i>
-                                                            </div>
-                                                            <div class="flex-grow-1 ms-3">
-                                                                <p class="fs-16 fw-medium text-secondary">You have requested to withdrawal</p>
-                                                                <span class="fs-14 fw-medium">2 hrs ago</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <div class="notification-menu unseen">
-                                                    <a href="notifications.html" class="dropdown-item">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-shrink-0">
-                                                                <i class="material-symbols-outlined text-info">person</i>
-                                                            </div>
-                                                            <div class="flex-grow-1 ms-3">
-                                                                <p class="fs-16 fw-medium text-secondary">A new user added in Fila</p>
-                                                                <span class="fs-14 fw-medium">3 hrs ago</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <div class="notification-menu">
-                                                    <a href="notifications.html" class="dropdown-item">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-shrink-0">
-                                                                <i class="material-symbols-outlined text-success">mark_email_unread</i>
-                                                            </div>
-                                                            <div class="flex-grow-1 ms-3">
-                                                                <p class="fs-16 fw-medium text-secondary">You have requested to withdrawal</p>
-                                                                <span class="fs-14 fw-medium">1 day ago</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
+                                                <!-- notification items -->
                                             </div>
 
-                                            <a href="notifications.html" class="dropdown-item text-center text-primary d-block view-all fw-medium rounded-bottom-3">
-                                                <span>See All Notifications </span>
+                                            <a href="/Notification/NotificationList/" class="dropdown-item text-center text-primary d-block view-all fw-medium rounded-bottom-3">
+                                                <span>Tüm Bildirimleri Gör</span>
                                             </a>
                                         </div>
                                     </div>
                                 </li>
+
+                                <!-- Admin Profile -->
                                 <li class="header-right-item">
                                     <div class="dropdown admin-profile">
                                         <div class="d-xxl-flex align-items-center bg-transparent border-0 text-start p-0 cursor dropdown-toggle" data-bs-toggle="dropdown">
@@ -305,86 +272,108 @@
                                                     <img class="rounded-circle admin-img-width-for-mobile" style="width: 40px; height: 40px;" src="/teraQR/assets/images/admin.png" alt="admin">
                                                 </div>
                                                 <div class="flex-grow-1 ms-10">
-                                                    <h3 class="fw-medium fs-17 mb-0">Mateo Luca</h3>
+                                                    <h3 class="fw-medium fs-17 mb-0">Yunus İNAN</h3>
                                                     <span class="fs-15 fw-medium">Admin</span>
                                                 </div>
                                             </div>
                                             <ul class="admin-link mb-0 list-unstyled">
                                                 <li>
-                                                    <a class="dropdown-item admin-item-link d-flex align-items-center text-body" href="my-profile.html">
+                                                    <a class="dropdown-item admin-item-link d-flex align-items-center text-body" href="/Profile/Index/">
                                                         <i class="material-symbols-outlined">person</i>
-                                                        <span class="ms-2">My Profile</span>
+                                                        <span class="ms-2">Profilim</span>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="dropdown-item admin-item-link d-flex align-items-center text-body" href="settings.html">
+                                                    <a class="dropdown-item admin-item-link d-flex align-items-center text-body" href="/Settings/Index/">
                                                         <i class="material-symbols-outlined">settings</i>
-                                                        <span class="ms-2">Settings</span>
+                                                        <span class="ms-2">Ayarlar</span>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="dropdown-item admin-item-link d-flex align-items-center text-body" href="tickets.html">
+                                                    <a class="dropdown-item admin-item-link d-flex align-items-center text-body" href="/Support/Index/">
                                                         <i class="material-symbols-outlined">info</i>
-                                                        <span class="ms-2">Support</span>
+                                                        <span class="ms-2">Destek</span>
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a class="dropdown-item admin-item-link d-flex align-items-center text-body" href="logout.html">
+                                                    <a class="dropdown-item admin-item-link d-flex align-items-center text-body" href="/Login/Logout/">
                                                         <i class="material-symbols-outlined">logout</i>
-                                                        <span class="ms-2">Logout</span>
+                                                        <span class="ms-2">Çıkış</span>
                                                     </a>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </li>
+
                             </ul>
                         </div>
                     </div>
                 </div>
             </header>
-            <!-- End Header Area -->
+
 
             <div class="main-content-container overflow-hidden">
+
+                <!-- =========================
+                     PAGE HEADER / BREADCRUMB (Component)
+                     - PageTitle (ViewData ile)
+                     - Breadcrumb (opsiyonel)
+                ========================== -->
+                @* TODO: _AdminLayoutPageHeaderComponentPartial *@
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4 mt-1">
-                    <h3 class="mb-0">Blank Page</h3>
+                    <h3 class="mb-0">@ViewData["Title"]</h3>
 
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb align-items-center mb-0 lh-1">
-                            <li class="breadcrumb-item">
-                                <a href="index.html" class="d-flex align-items-center text-decoration-none">
-                                    <i class="ri-home-8-line fs-15 text-primary me-1"></i>
-                                    <span class="text-body fs-14 hover">Dashboard</span>
-                                </a>
-                            </li>
-                            <li class="breadcrumb-item active" aria-current="page">
-                                <span>Modules</span>
-                            </li>
-                            <li class="breadcrumb-item active" aria-current="page">
-                                <span>Extra Pages</span>
-                            </li>
-                            <li class="breadcrumb-item active" aria-current="page">
-                                <span class="text-secondary">Blank Page</span>
-                            </li>
-                        </ol>
-                    </nav>
+                    @* Breadcrumb istersen ViewData ile kontrol edersin *@
+                    @if (ViewData["ShowBreadcrumb"] as bool? ?? true)
+                    {
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb align-items-center mb-0 lh-1">
+                                <li class="breadcrumb-item">
+                                    <a href="/Dashboard/Index/" class="d-flex align-items-center text-decoration-none">
+                                        <i class="ri-home-8-line fs-15 text-primary me-1"></i>
+                                        <span class="text-body fs-14 hover">Dashboard</span>
+                                    </a>
+                                </li>
+
+                                @* İstersen breadcrumb'ı buradan dinamik üretiriz (sonra birlikte yaparız) *@
+                                @if (ViewData["Breadcrumb"] is List<string> bc && bc.Count > 0)
+                                {
+                                    for (int i = 0; i < bc.Count; i++)
+                                    {
+                                        var isLast = i == bc.Count - 1;
+                                        <li class="breadcrumb-item active" aria-current="page">
+                                            <span class="@(isLast ? "text-secondary" : "")">@bc[i]</span>
+                                        </li>
+                                    }
+                                }
+                            </ol>
+                        </nav>
+                    }
                 </div>
 
-                <div class="card bg-white border border-white rounded-10 p-20">
-                    <h3 class="mb-20">Content goes here!</h3>
-                    <span class="">Hello World!</span>
-                </div>
+                <!-- =========================
+                     PAGE BODY (RenderBody)
+                     Blank Page demo yerine burası
+                ========================== -->
+                @RenderBody()
             </div>
 
             <div class="flex-grow-1"></div>
 
-            <!-- Start Footer Area -->
+            <!-- =========================
+                 FOOTER AREA (Component)
+            ========================== -->
+            @* TODO: _AdminLayoutFooterComponentPartial *@
             <footer class="footer-area bg-white text-center rounded-10 rounded-bottom-0">
-                <p class="fs-16 text-body">© <span class="text-secondary">Fila</span> is Proudly Owned by <a href="https://envytheme.com/" target="_blank" class="text-decoration-none text-primary">EnvyTheme</a></p>
+                <p class="fs-16 text-body">
+                    © <span class="text-secondary">TeraQR Bistro</span>
+                </p>
             </footer>
-            <!-- End Footer Area -->
+
         </div>
     </div>
+
     <!-- Start Main Content Area -->
     <!-- Start Theme Setting Area -->
     <button class="btn btn-primary theme-settings-btn p-0 position-fixed z-2 text-center rounded-circle" style="bottom: 24px; right: 24px; width: 56px; height: 56px; line-height: 54px;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
