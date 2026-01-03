@@ -114,90 +114,52 @@
 
     <!-- Start Main Content Area -->
     <!-- Start Theme Setting Area -->
-    <button class="btn btn-primary theme-settings-btn p-0 position-fixed z-2 text-center rounded-circle" style="bottom: 24px; right: 24px; width: 56px; height: 56px; line-height: 54px;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
-        <i class="text-white ri-settings-3-fill fs-28" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Click On Theme Settings"></i>
-    </button>
+    @await Component.InvokeAsync("_AdminLayoutThemeSettingsComponentPartial")
+    @*
+    _AdminLayoutThemeSettingsComponentPartial
+    ------------------------------------------------
+    Bu ViewComponent, Admin Panel için tema ve görünüm
+    ayarlarını yöneten yapıdan sorumludur.
 
-    <!-- Start Theme Setting Area -->
-    <div class="offcanvas offcanvas-end bg-white border-0" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" style="box-shadow: 0 4px 20px #2f8fe812 !important; max-width: 300px;">
-        <div class="offcanvas-header bg-light p-20">
-            <h5 class="offcanvas-title fs-18 fw-medium" id="offcanvasScrollingLabel">Configuration Panel</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body p-0 overflow-hidden">
-            <div class="last-child-none" style="max-height: 858px;" data-simplebar>
-                <div class="p-20 border-bottom child">
-                    <h4 class="fs-15 fw-medium mb-12">RTL Mode</h4>
-                    <div class="rtl-btn">
-                        <label id="switch">
-                            <input type="checkbox" onchange="toggleTheme()" class="toggle-switch rtl-switch" id="slider">
-                        </label>
-                    </div>
-                </div>
-                <div class="p-20 border-bottom child">
-                    <h4 class="fs-15 fw-medium mb-12">Only Sidebar Dark</h4>
-                    <div class="sidebar-light-dark" id="sidebar-light-dark">
-                        <input type="checkbox" class="toggle-switch sidebar-dark-switch">
-                    </div>
-                </div>
-                <div class="p-20 border-bottom child">
-                    <h4 class="fs-15 fw-medium mb-12">Only Header Dark</h4>
-                    <div class="header-light-dark" id="header-light-dark">
-                        <input type="checkbox" class="toggle-switch header-dark-switch">
-                    </div>
-                </div>
-                <div class="p-20 border-bottom child">
-                    <h4 class="fs-15 fw-medium mb-12">Right Sidebar</h4>
-                    <div class="right-sidebar" id="right-sidebar">
-                        <input type="checkbox" class="toggle-switch right-sidebar-switch">
-                    </div>
-                </div>
-                <div class="p-20 border-bottom child">
-                    <h4 class="fs-15 fw-medium mb-12">Hide Sidebar</h4>
-                    <div class="icon-sidebar" id="icon-sidebar">
-                        <input type="checkbox" class="toggle-switch icon-sidebar-switch">
-                    </div>
-                </div>
-                <div class="p-20 border-bottom child">
-                    <h4 class="fs-15 fw-medium mb-12">Bordered Card</h4>
-                    <div class="card-border" id="card-border">
-                        <input type="checkbox" class="toggle-switch border-switch">
-                    </div>
-                </div>
-                <div class="p-20 border-bottom child">
-                    <h4 class="fs-15 fw-medium mb-12">Card Border Radius</h4>
-                    <div class="card-radius-square" id="card-radius-square">
-                        <input type="checkbox" class="toggle-switch border-radius-switch">
-                    </div>
-                </div>
+    İçerik:
+    - Tema ayarlarını açan floating action button (ayar butonu)
+    - Offcanvas yapı (sağdan açılan ayar paneli)
+    - RTL / LTR mod geçişi
+    - Sadece Sidebar / Header için Dark Mode ayarları
+    - Sidebar konumu ve görünüm seçenekleri
+    - Kart border ve border-radius ayarları
 
-                <div class="p-20 border-bottom child">
-                    <a href="#" class="btn btn-primary text-white">
-                        Buy Fila
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
+    Amaç:
+    - Tema ve UI ayarlarını layout içerisinden ayırmak
+    - Admin layout yapısını modüler ve okunabilir hale getirmek
+    - Tema ayarlarının tek bir merkezden yönetilmesini sağlamak
+*@
+
     <!-- End Theme Setting Area -->
     <!-- Link Of JS File -->
-    <script src="/teraQR/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="/teraQR/assets/js/sidebar-menu.js"></script>
-    <script src="/teraQR/assets/js/quill.min.js"></script>
-    <script src="/teraQR/assets/js/data-table.js"></script>
-    <script src="/teraQR/assets/js/prism.js"></script>
-    <script src="/teraQR/assets/js/clipboard.min.js"></script>
-    <script src="/teraQR/assets/js/simplebar.min.js"></script>
-    <script src="/teraQR/assets/js/apexcharts.min.js"></script>
-    <script src="/teraQR/assets/js/echarts.min.js"></script>
-    <script src="/teraQR/assets/js/swiper-bundle.min.js"></script>
-    <script src="/teraQR/assets/js/fullcalendar.main.js"></script>
-    <script src="/teraQR/assets/js/jsvectormap.min.js"></script>
-    <script src="/teraQR/assets/js/world-merc.js"></script>
-    <script src="/teraQR/assets/js/custom/apexcharts.js"></script>
-    <script src="/teraQR/assets/js/custom/echarts.js"></script>
-    <script src="/teraQR/assets/js/custom/maps.js"></script>
-    <script src="/teraQR/assets/js/custom/custom.js"></script>
+    @await Component.InvokeAsync("_AdminLayoutScriptsComponentPartial")
+    @*
+    _AdminLayoutScriptsComponentPartial
+    ------------------------------------------------
+    Bu ViewComponent, Admin Panel genelinde kullanılan
+    tüm JavaScript bağımlılıklarını tek bir merkezden
+    yönetmek amacıyla oluşturulmuştur.
+
+    İçerik:
+    - Core JS bağımlılıkları (Bootstrap, Sidebar Menu)
+    - UI yardımcı kütüphaneleri (Simplebar, Swiper)
+    - Editör ve kod araçları (Quill, Prism, Clipboard)
+    - Grafik ve veri görselleştirme kütüphaneleri
+      (ApexCharts, ECharts)
+    - Takvim ve harita kütüphaneleri
+      (FullCalendar, JSVectormap)
+    - Projeye özel custom JS dosyaları
+
+    Amaç:
+    - Script bağımlılıklarını layout dosyasından ayırmak
+    - Admin panel JS yapısını modüler hale getirmek
+    - Bakım ve genişletilebilirliği artırmak
+*@
+
 </body>
 </html>
-@RenderBody()
