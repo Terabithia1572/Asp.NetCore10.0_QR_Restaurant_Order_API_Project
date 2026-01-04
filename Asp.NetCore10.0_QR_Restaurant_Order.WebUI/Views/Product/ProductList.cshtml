@@ -87,11 +87,17 @@
                         <!-- Actions -->
                         <td>
                             <div class="d-flex justify-content-end" style="gap:12px;">
-                                <a href="/Product/UpdateProduct/@item.ProductID"
+                                <a href="/Product/CreateProduct/"
                                    class="bg-transparent p-0 border-0 hover-text-success"
                                    data-bs-toggle="tooltip"
-                                   title="Düzenle">
-                                    <i class="material-symbols-outlined fs-16 text-body">edit</i>
+                                   title="Ekle">
+                                    <i class="material-symbols-outlined fs-16 text-body">create</i>
+                                </a>
+                                <a href="/Product/UpdateProduct/@item.ProductID"
+                                   class="bg-transparent p-0 border-0 hover-text-primary"
+                                   data-bs-toggle="tooltip"
+                                   title="Güncelle">
+                                    <i class="material-symbols-outlined fs-16 text-body">update</i>
                                 </a>
 
                                 <a href="/Product/DeleteProduct/@item.ProductID"

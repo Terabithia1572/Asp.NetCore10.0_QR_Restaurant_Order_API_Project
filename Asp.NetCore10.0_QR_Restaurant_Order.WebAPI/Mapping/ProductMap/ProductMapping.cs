@@ -4,17 +4,57 @@ using AutoMapper;
 
 namespace Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Mapping.ProductMap
 {
-    public class ProductMapping:Profile
+    public class ProductMapping : Profile
     {
         public ProductMapping()
         {
-            CreateMap<Product, ResultProductDTO>().ReverseMap(); //Product ile ResultProductDTO arasında çift yönlü eşleme yapar
-            CreateMap<Product, CreateProductDTO>().ReverseMap(); //Product ile CreateProductDTO arasında çift yönlü eşleme yapar
-            CreateMap<Product, UpdateProductDTO>().ReverseMap(); //Product ile UpdateProductDTO arasında çift yönlü eşleme yapar
-            CreateMap<Product, GetProductByIDDTO>().ReverseMap(); //Product ile GetProductByIDDTO arasında çift yönlü eşleme yapar
+            // ================================
+            // PRODUCT LIST (NORMAL)
+            // ================================
+            // Product entity -> ResultProductDTO
+            // API ProductList() endpointi bunu kullanır
+            CreateMap<Product, ResultProductDTO>()
+                .ReverseMap();
+
+            // ================================
+            // PRODUCT LIST (WITH CATEGORY)
+            // ================================
+            // Product entity -> ResultProductWithCategoryDTO
+            // CategoryName alanı Product.Category.CategoryName üzerinden gelir
             CreateMap<Product, ResultProductWithCategoryDTO>()
-    .ForMember(dest => dest.CategoryName,
-        opt => opt.MapFrom(src => src.Category != null ? src.Category.CategoryName : "")); // Product ile ResultProductWithCategoryDTO arasında eşleme yapar ve CategoryName alanını doldurur  
+                .ForMember(dest => dest.CategoryName,
+                           opt => opt.MapFrom(src => src.Category.CategoryName))
+                .ReverseMap();
+
+            // ================================
+            // CREATE PRODUCT
+            // ================================
+            // CreateProductDTO -> Product
+            // FK hatası almamak için CategoryID'nin kesin map edilmesi kritik
+            CreateMap<CreateProductDTO, Product>()
+                .ForMember(dest => dest.CategoryID,
+                           opt => opt.MapFrom(src => src.CategoryID));
+
+            // İstersen tersini de açabilirsin (şart değil)
+            CreateMap<Product, CreateProductDTO>()
+                .ForMember(dest => dest.CategoryID,
+                           opt => opt.MapFrom(src => src.CategoryID));
+
+            // ================================
+            // UPDATE PRODUCT
+            // ================================
+            // UpdateProductDTO -> Product (mevcut entity üzerine map)
+            // CategoryID güncellenebilsin diye map şart
+            CreateMap<UpdateProductDTO, Product>()
+                .ForMember(dest => dest.CategoryID,
+                           opt => opt.MapFrom(src => src.CategoryID));
+
+            // Product -> UpdateProductDTO
+            // Update sayfasını doldururken CategoryID de gelsin
+            CreateMap<Product, UpdateProductDTO>()
+                .ForMember(dest => dest.CategoryID,
+                           opt => opt.MapFrom(src => src.CategoryID));
         }
     }
 }
+
