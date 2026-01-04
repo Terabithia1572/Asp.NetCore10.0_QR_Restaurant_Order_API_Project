@@ -1,0 +1,116 @@
+﻿@using Asp.NetCore10._0_QR_Restaurant_Order.WebUI.DTOs.FeatureDTOs
+@model CreateFeatureDTO
+
+@{
+    ViewData["Title"] = "Özellik Ekle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Breadcrumb"] = new List<(string Text, string Url)>
+    {
+        ("Özellikler", "/Feature/FeatureList/"),
+        ("Özellik Ekle", "")
+    };
+}
+
+<div class="card bg-white p-20 rounded-10 border border-white mb-4">
+    <form method="post" asp-action="CreateFeature">
+        <div class="row">
+
+            <!-- SOL TARAF -->
+            <div class="col-lg-8">
+                <h3 class="mb-20">Özellik Ekle</h3>
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Başlık</label>
+                            <div class="form-floating">
+                                <input asp-for="FeatureTitle" type="text" class="form-control" id="floatingTitle" placeholder="Başlık">
+                                <label for="floatingTitle">Başlık</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="FeatureTitle"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Açıklama</label>
+                            <div class="form-floating">
+                                <textarea asp-for="FeatureDescription"
+                                          class="form-control"
+                                          id="floatingDesc"
+                                          placeholder="Açıklama"
+                                          style="height: 160px; border-color: #D5D9E2;"></textarea>
+                                <label for="floatingDesc">Açıklama</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="FeatureDescription"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Durum</label>
+                            <div class="form-floating">
+                                <select asp-for="FeatureStatus" class="form-select form-control" id="floatingStatus">
+                                    <option value="true">Aktif</option>
+                                    <option value="false">Pasif</option>
+                                </select>
+                                <label for="floatingStatus">Durum</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="FeatureStatus"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6"></div>
+
+                    <div class="col-lg-12">
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary fw-normal text-white">Kaydet</button>
+                            <a href="/Feature/FeatureList/" class="btn btn-danger fw-normal text-white">İptal</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SAĞ TARAF -->
+            <div class="col-lg-4">
+                <h3 class="mb-20">Önizleme</h3>
+
+                <div class="card p-3 border">
+                    <div class="fw-semibold" id="titlePreview">Başlık</div>
+                    <small class="text-muted d-block mt-1" id="statusPreview">Durum: Aktif</small>
+                    <hr class="my-3" />
+                    <div class="text-muted" style="max-height: 150px; overflow:auto;" id="descPreview">
+                        Açıklama buraya yansır...
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<script>
+    // canlı önizleme (tasarımı bozmadan)
+    const titleInput = document.getElementById("floatingTitle");
+    const descInput = document.getElementById("floatingDesc");
+    const statusSelect = document.getElementById("floatingStatus");
+
+    const titlePreview = document.getElementById("titlePreview");
+    const descPreview = document.getElementById("descPreview");
+    const statusPreview = document.getElementById("statusPreview");
+
+    titleInput.addEventListener("input", () => {
+        titlePreview.textContent = titleInput.value?.trim() ? titleInput.value : "Başlık";
+    });
+
+    descInput.addEventListener("input", () => {
+        descPreview.textContent = descInput.value?.trim() ? descInput.value : "Açıklama buraya yansır...";
+    });
+
+    statusSelect.addEventListener("change", () => {
+        const val = statusSelect.value === "true" ? "Aktif" : "Pasif";
+        statusPreview.textContent = `Durum: ${val}`;
+    });
+</script>

@@ -1,0 +1,119 @@
+﻿@using Asp.NetCore10._0_QR_Restaurant_Order.WebUI.DTOs.FeatureDTOs
+@model UpdateFeatureDTO
+
+@{
+    ViewData["Title"] = "Özellik Güncelle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Breadcrumb"] = new List<(string Text, string Url)>
+    {
+        ("Özellikler", "/Feature/FeatureList/"),
+        ("Özellik Güncelle", "")
+    };
+}
+
+<div class="card bg-white p-20 rounded-10 border border-white mb-4">
+    <form method="post" asp-action="UpdateFeature">
+        <div class="row">
+
+            @* Update için ID mutlaka taşınmalı *@
+            <input type="hidden" asp-for="FeatureID" />
+
+            <!-- SOL TARAF -->
+            <div class="col-lg-8">
+                <h3 class="mb-20">Özellik Güncelle</h3>
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Başlık</label>
+                            <div class="form-floating">
+                                <input asp-for="FeatureTitle" type="text" class="form-control" id="floatingTitle2" placeholder="Başlık">
+                                <label for="floatingTitle2">Başlık</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="FeatureTitle"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Açıklama</label>
+                            <div class="form-floating">
+                                <textarea asp-for="FeatureDescription"
+                                          class="form-control"
+                                          id="floatingDesc2"
+                                          placeholder="Açıklama"
+                                          style="height: 160px; border-color: #D5D9E2;"></textarea>
+                                <label for="floatingDesc2">Açıklama</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="FeatureDescription"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Durum</label>
+                            <div class="form-floating">
+                                <select asp-for="FeatureStatus" class="form-select form-control" id="floatingStatus2">
+                                    <option value="true">Aktif</option>
+                                    <option value="false">Pasif</option>
+                                </select>
+                                <label for="floatingStatus2">Durum</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="FeatureStatus"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6"></div>
+
+                    <div class="col-lg-12">
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary fw-normal text-white">Güncelle</button>
+                            <a href="/Feature/FeatureList/" class="btn btn-danger fw-normal text-white">İptal</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SAĞ TARAF -->
+            <div class="col-lg-4">
+                <h3 class="mb-20">Önizleme</h3>
+
+                <div class="card p-3 border">
+                    <div class="fw-semibold" id="titlePreview2">@(!string.IsNullOrWhiteSpace(Model.FeatureTitle) ? Model.FeatureTitle : "Başlık")</div>
+                    <small class="text-muted d-block mt-1" id="statusPreview2">Durum: @(Model.FeatureStatus ? "Aktif" : "Pasif")</small>
+                    <hr class="my-3" />
+                    <div class="text-muted" style="max-height: 150px; overflow:auto;" id="descPreview2">
+                        @(!string.IsNullOrWhiteSpace(Model.FeatureDescription) ? Model.FeatureDescription : "Açıklama")
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<script>
+    // canlı önizleme
+    const titleInput2 = document.getElementById("floatingTitle2");
+    const descInput2 = document.getElementById("floatingDesc2");
+    const statusSelect2 = document.getElementById("floatingStatus2");
+
+    const titlePreview2 = document.getElementById("titlePreview2");
+    const descPreview2 = document.getElementById("descPreview2");
+    const statusPreview2 = document.getElementById("statusPreview2");
+
+    titleInput2.addEventListener("input", () => {
+        titlePreview2.textContent = titleInput2.value?.trim() ? titleInput2.value : "Başlık";
+    });
+
+    descInput2.addEventListener("input", () => {
+        descPreview2.textContent = descInput2.value?.trim() ? descInput2.value : "Açıklama";
+    });
+
+    statusSelect2.addEventListener("change", () => {
+        const val = statusSelect2.value === "true" ? "Aktif" : "Pasif";
+        statusPreview2.textContent = `Durum: ${val}`;
+    });
+</script>

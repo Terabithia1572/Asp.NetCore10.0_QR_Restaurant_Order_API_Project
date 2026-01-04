@@ -1,0 +1,142 @@
+﻿@using Asp.NetCore10._0_QR_Restaurant_Order.WebUI.DTOs.FeatureDTOs
+@model List<ResultFeatureDTO>
+
+@{
+    ViewData["Title"] = "Özellik Listesi";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Breadcrumb"] = new List<(string Text, string Url)>
+    {
+        ("Özellikler", "/Feature/FeatureList/"),
+        ("Özellik Listesi", "")
+    };
+}
+
+<div class="default-table-area mx-minus-1 table-to-do-list">
+    <div class="table-responsive">
+        <table class="table align-middle w-100">
+            <thead>
+                <tr>
+                    <th scope="col" class="fw-medium">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="flexCheckDefault1">
+                        </div>
+                    </th>
+
+                    <th scope="col" class="fw-medium">Başlık</th>
+                    <th scope="col" class="fw-medium">Açıklama</th>
+                    <th scope="col" class="fw-medium">Durum</th>
+                    <th scope="col" class="fw-medium text-end">İşlemler</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-body" style="width: 62px;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="flexCheckDefault2">
+                            </div>
+                        </td>
+
+                        <td class="text-secondary fw-medium">@item.FeatureTitle</td>
+
+                        <td class="text-body" style="max-width:520px;">
+                            <span class="d-inline-block text-truncate" style="max-width:520px;"
+                                  title="@item.FeatureDescription">
+                                @item.FeatureDescription
+                            </span>
+                        </td>
+
+                        <td>
+                            @if (item.FeatureStatus == false)
+                            {
+                                <span class="text-danger bg-danger bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">Pasif</span>
+                            }
+                            else
+                            {
+                                <span class="text-success bg-success bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">Aktif</span>
+                            }
+                        </td>
+
+                        <td>
+                            <div class="d-flex justify-content-end" style="gap: 12px;">
+
+                                @* Ekle *@
+                                <a href="/Feature/CreateFeature/"
+                                   class="bg-transparent p-0 border-0 hover-text-success"
+                                   data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ekle">
+                                    <i class="material-symbols-outlined fs-16 fw-normal text-body">create</i>
+                                </a>
+
+                                @* Güncelle *@
+                                <a href="/Feature/UpdateFeature/@item.FeatureID"
+                                   class="bg-transparent p-0 border-0 hover-text-primary"
+                                   data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Güncelle">
+                                    <i class="material-symbols-outlined fs-16 fw-normal text-body">update</i>
+                                </a>
+
+                                @* Tek tık Durum *@
+                                @if (item.FeatureStatus == false)
+                                {
+                                    <a href="/Feature/ActivateFeature/@item.FeatureID"
+                                       class="bg-transparent p-0 border-0 hover-text-success"
+                                       data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Aktif Yap">
+                                        <i class="material-symbols-outlined fs-16 fw-normal text-body">check_circle</i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="/Feature/DeactivateFeature/@item.FeatureID"
+                                       onclick="return confirm('Bu özelliği pasif yapmak istiyor musun?');"
+                                       class="bg-transparent p-0 border-0 hover-text-danger"
+                                       data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Pasif Yap">
+                                        <i class="material-symbols-outlined fs-16 fw-normal text-body">cancel</i>
+                                    </a>
+                                }
+
+                                @* Sil *@
+                                <a href="/Feature/DeleteFeature/@item.FeatureID"
+                                   onclick="return confirm('Bu özelliği silmek istiyor musun?');"
+                                   class="bg-transparent p-0 border-0 hover-text-danger"
+                                   data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sil">
+                                    <i class="material-symbols-outlined fs-16 fw-normal text-body">delete</i>
+                                </a>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-center justify-content-sm-between align-items-center text-center flex-wrap gap-2 showing-wrap pt-15 p-20">
+        <span class="fs-15">Showing 1 to 10 of 50 entries</span>
+
+        <nav class="custom-pagination" aria-label="Page navigation example">
+            <ul class="pagination mb-0 justify-content-center">
+                <li class="page-item">
+                    <button class="page-link icon" aria-label="Previous">
+                        <i class="material-symbols-outlined">west</i>
+                    </button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link active">1</button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link">2</button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link">3</button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link icon" aria-label="Next">
+                        <i class="material-symbols-outlined">east</i>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
