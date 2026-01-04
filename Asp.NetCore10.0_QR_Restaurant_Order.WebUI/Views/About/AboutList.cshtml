@@ -1,0 +1,136 @@
+﻿@model List<ResultAboutDTO>
+@* AboutList sayfasında API’den gelen About kayıtlarını listeleyeceğimiz için modelimiz List<ResultAboutDTO> *@
+
+@{
+    ViewData["Title"] = "Hakkımızda Listesi";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+
+    // Breadcrumb yapısı CategoryList ile aynı mantıkta
+    ViewData["Breadcrumb"] = new List<(string Text, string Url)>
+    {
+        ("Hakkımızda", "/About/AboutList/"),
+        ("Hakkımızda Listesi", "") // Son eleman link olmayacak
+    };
+}
+
+<div class="default-table-area mx-minus-1 table-to-do-list">
+    <div class="table-responsive">
+        <table class="table align-middle w-100">
+            <thead>
+                <tr>
+                    <th scope="col" class="fw-medium">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="flexCheckDefault1">
+                        </div>
+                    </th>
+
+                    @* DB Sütunlarına göre kolonlar:
+                       AboutImageURL, AboutTitle, AboutDescription, AboutStatus *@
+                    <th scope="col" class="fw-medium">Görsel</th>
+                    <th scope="col" class="fw-medium">Başlık</th>
+                    <th scope="col" class="fw-medium">Açıklama</th>
+                    <th scope="col" class="fw-medium">Durum</th>
+                    <th scope="col" class="fw-medium text-end">İşlemler</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-body" style="width: 62px;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="flexCheckDefault2">
+                            </div>
+                        </td>
+
+                        @* AboutImageURL görseli küçük thumbnail olarak basıyoruz *@
+                        <td style="width: 110px;">
+                            <img src="@item.AboutImageURL"
+                                 alt="About Image"
+                                 style="width: 70px; height: 50px; object-fit: cover; border-radius: 8px;" />
+                        </td>
+
+                        @* AboutTitle *@
+                        <td class="text-secondary fw-medium">
+                            @item.AboutTitle
+                        </td>
+
+                        @* AboutDescription (çok uzunsa taşmasın diye kırpıyoruz) *@
+                        <td class="text-body" style="max-width: 520px;">
+                            <span class="d-inline-block text-truncate" style="max-width: 520px;"
+                                  title="@item.AboutDescription">
+                                @item.AboutDescription
+                            </span>
+                        </td>
+
+                        @* AboutStatus (bool) *@
+                        <td>
+                            @if (item.AboutStatus == false)
+                            {
+                                <span class="text-danger bg-danger bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">Pasif</span>
+                            }
+                            else
+                            {
+                                <span class="text-success bg-success bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">Aktif</span>
+                            }
+                        </td>
+
+                        @* İşlemler: Ekle / Güncelle / Sil *@
+                        <td>
+                            <div class="d-flex justify-content-end" style="gap: 12px;">
+                                <a href="/About/CreateAbout/"
+                                   class="bg-transparent p-0 border-0 hover-text-success"
+                                   data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ekle">
+                                    <i class="material-symbols-outlined fs-16 fw-normal text-body">create</i>
+                                </a>
+
+                                <a href="/About/UpdateAbout/@item.AboutID"
+                                   class="bg-transparent p-0 border-0 hover-text-primary"
+                                   data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Güncelle">
+                                    <i class="material-symbols-outlined fs-16 fw-normal text-body">update</i>
+                                </a>
+
+                                <a href="/About/DeleteAbout/@item.AboutID"
+                                   class="bg-transparent p-0 border-0 hover-text-danger"
+                                   data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sil">
+                                    <i class="material-symbols-outlined fs-16 fw-normal text-body">delete</i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+    @* Sayfalama alanı CategoryList ile aynı tasarımda (şimdilik statik) *@
+    <div class="d-flex justify-content-center justify-content-sm-between align-items-center text-center flex-wrap gap-2 showing-wrap pt-15 p-20">
+        <span class="fs-15">Showing 1 to 10 of 50 entries</span>
+
+        <nav class="custom-pagination" aria-label="Page navigation example">
+            <ul class="pagination mb-0 justify-content-center">
+                <li class="page-item">
+                    <button class="page-link icon" aria-label="Previous">
+                        <i class="material-symbols-outlined">west</i>
+                    </button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link active">1</button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link">2</button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link">3</button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link icon" aria-label="Next">
+                        <i class="material-symbols-outlined">east</i>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
