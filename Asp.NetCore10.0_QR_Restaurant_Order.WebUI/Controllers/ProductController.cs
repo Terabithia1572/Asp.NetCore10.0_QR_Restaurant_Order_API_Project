@@ -148,12 +148,21 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.Controllers
             // Dropdown tekrar dolu gelsin diye kategori listesini yüklüyoruz
             await LoadCategoryList();
 
+            // Basit doğrulama: (istersen bunu kaldırabilirsin)
+            // ModelState başarısızsa formu geri döndürür
+            if (!ModelState.IsValid)
+            {
+                return View(createProductDTO);
+            }
+
             // Eğer dosya seçildiyse wwwroot/productImages içine kaydedeceğiz
             if (createProductDTO.ProductImageFile != null && createProductDTO.ProductImageFile.Length > 0)
             {
-                // wwwroot yolu: _env.WebRootPath
+                // wwwroot fiziksel yolu (örn: ...\WebUI\wwwroot)
+                var webRootPath = _env.WebRootPath;
+
                 // klasör: wwwroot/productImages
-                var uploadFolder = Path.Combine(_env.WebRootPath, "productImages");
+                var uploadFolder = Path.Combine(webRootPath, "productImages");
 
                 // Klasör yoksa oluştur
                 if (!Directory.Exists(uploadFolder))
@@ -161,8 +170,17 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.Controllers
                     Directory.CreateDirectory(uploadFolder);
                 }
 
-                // Dosya uzantısını al (jpg/png/webp)
-                var extension = Path.GetExtension(createProductDTO.ProductImageFile.FileName);
+                // Dosya uzantısını al (jpg/png/webp/jpeg)
+                var extension = Path.GetExtension(createProductDTO.ProductImageFile.FileName).ToLowerInvariant();
+
+                // Güvenlik: sadece izin verilen uzantılar
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".webp" };
+                if (!allowedExtensions.Contains(extension))
+                {
+                    // Hata mesajını istersen View tarafında gösterebilirsin
+                    ModelState.AddModelError("", "Lütfen yalnızca JPG, JPEG, PNG veya WEBP formatında görsel yükleyin.");
+                    return View(createProductDTO);
+                }
 
                 // Güvenli benzersiz dosya adı
                 var fileName = $"{Guid.NewGuid()}{extension}";
@@ -178,6 +196,12 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.Controllers
 
                 // DB'ye kaydedilecek URL/path (API'ye bunu yolluyoruz)
                 createProductDTO.ProductImageURL = $"/productImages/{fileName}";
+            }
+            else
+            {
+                // İstersen görsel zorunlu olsun diye burayı açabilirsin:
+                // ModelState.AddModelError("", "Ürün görseli seçmelisin.");
+                // return View(createProductDTO);
             }
 
             // HttpClient oluşturuyoruz
@@ -198,6 +222,7 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.Controllers
             // Başarısızsa formu tekrar gösteriyoruz
             return View(createProductDTO);
         }
+
 
 
         // =====================================================
@@ -238,6 +263,14 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.Controllers
         // UPDATE PRODUCT (POST)
         // =====================================================
         // Güncellenmiş ürünü API’ye gönderir
+        // =====================================================
+        // UPDATE PRODUCT (POST)
+        // =====================================================
+        // Güncellenmiş ürünü API’ye gönderir
+        // =====================================================
+        // UPDATE PRODUCT (POST)
+        // =====================================================
+        // Güncellenmiş ürünü API’ye gönderir
         [HttpPost]
         public async Task<IActionResult> UpdateProduct(UpdateProductDTO updateProductDTO)
         {
@@ -245,10 +278,76 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.Controllers
             // dropdown tekrar dolu gelsin diye yüklemeyi burada da yapıyoruz
             await LoadCategoryList();
 
+            // Kullanıcı yeni görsel seçtiyse:
+            // 1) Eski görseli sil
+            // 2) Yeni görseli wwwroot/productImages içine kaydet
+            // 3) ProductImageURL'yi yeni path ile güncelle
+            if (updateProductDTO.ProductImageFile != null && updateProductDTO.ProductImageFile.Length > 0)
+            {
+                // wwwroot fiziksel yolu (örn: ...\WebUI\wwwroot)
+                var webRootPath = _env.WebRootPath;
+
+                // productImages klasörü (örn: ...\wwwroot\productImages)
+                var uploadFolder = Path.Combine(webRootPath, "productImages");
+
+                // Klasör yoksa oluştur
+                if (!Directory.Exists(uploadFolder))
+                {
+                    Directory.CreateDirectory(uploadFolder);
+                }
+
+                // -------------------------------------------------
+                // 1) ESKİ GÖRSELİ SİLME
+                // -------------------------------------------------
+                // updateProductDTO.ProductImageURL hidden input'tan gelir
+                // Örn: /productImages/abc.jpg
+                if (!string.IsNullOrWhiteSpace(updateProductDTO.ProductImageURL))
+                {
+                    // URL'yi fiziksel path'e çeviriyoruz
+                    // Baştaki "/" karakterini kaldırıp path combine yapıyoruz
+                    var oldRelativePath = updateProductDTO.ProductImageURL.TrimStart('/');
+
+                    // Eski dosyanın fiziksel yolu
+                    var oldFilePath = Path.Combine(webRootPath, oldRelativePath);
+
+                    // Dosya gerçekten varsa siliyoruz
+                    if (System.IO.File.Exists(oldFilePath))
+                    {
+                        System.IO.File.Delete(oldFilePath);
+                    }
+                }
+
+                // -------------------------------------------------
+                // 2) YENİ GÖRSELİ KAYDETME
+                // -------------------------------------------------
+                // Uzantıyı al (jpg/png/webp)
+                var extension = Path.GetExtension(updateProductDTO.ProductImageFile.FileName);
+
+                // Güvenli benzersiz dosya adı
+                var newFileName = $"{Guid.NewGuid()}{extension}";
+
+                // Yeni dosyanın fiziksel kaydetme yolu
+                var newFilePath = Path.Combine(uploadFolder, newFileName);
+
+                // Dosyayı diske yaz
+                using (var stream = new FileStream(newFilePath, FileMode.Create))
+                {
+                    await updateProductDTO.ProductImageFile.CopyToAsync(stream);
+                }
+
+                // -------------------------------------------------
+                // 3) DB'ye/API'ye gidecek yeni görsel yolu
+                // -------------------------------------------------
+                updateProductDTO.ProductImageURL = $"/productImages/{newFileName}";
+            }
+            // Eğer kullanıcı yeni görsel seçmediyse:
+            // ProductImageURL aynen korunur ve eski dosyaya dokunmayız.
+
             // HttpClient oluşturuyoruz
             var client = _httpClientFactory.CreateClient();
 
             // DTO’yu JSON string’e çeviriyoruz
+            // Not: ProductImageFile JSON'a çevrilmez, biz string olan ProductImageURL'yi gönderiyoruz
             var jsonData = JsonConvert.SerializeObject(updateProductDTO);
 
             // JSON body oluşturuyoruz
@@ -268,6 +367,8 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.Controllers
             // Başarısızsa aynı sayfada kal
             return View(updateProductDTO);
         }
+
+
 
         // =====================================================
         // DELETE PRODUCT
