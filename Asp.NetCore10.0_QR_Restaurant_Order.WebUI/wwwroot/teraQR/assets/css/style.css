@@ -16664,6 +16664,15 @@ Custom Hover Area Style
 .hover-text-primary:hover i {
   color: #33cbf5 !important;
 }
+.hover-text-warning {
+  transition: all ease 0.5s;
+}
+.hover-text-warning:hover {
+  color: #FE9039 !important;
+}
+.hover-text-warning:hover i {
+  color: #FE9039 !important;
+}
 
 .hover-text-success {
   transition: all ease 0.5s;

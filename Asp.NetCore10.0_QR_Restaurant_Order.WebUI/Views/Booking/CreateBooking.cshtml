@@ -1,0 +1,118 @@
+﻿@using Asp.NetCore10._0_QR_Restaurant_Order.WebUI.DTOs.BookingDTOs
+@model CreateBookingDTO
+
+@{
+    ViewData["Title"] = "Rezervasyon Ekle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Breadcrumb"] = new List<(string Text, string Url)>
+    {
+        ("Rezervasyonlar", "/Booking/BookingList/"),
+        ("Rezervasyon Ekle", "")
+    };
+}
+
+<div class="card bg-white p-20 rounded-10 border border-white mb-4">
+    <form method="post" asp-action="CreateBooking">
+        <div class="row">
+
+            <!-- SOL TARAF -->
+            <div class="col-lg-8">
+                <h3 class="mb-20">Rezervasyon Ekle</h3>
+
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Ad Soyad</label>
+                            <div class="form-floating">
+                                <input asp-for="BookingName" type="text" class="form-control" id="floatingName" placeholder="Ad Soyad">
+                                <label for="floatingName">Ad Soyad</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="BookingName"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Telefon</label>
+                            <div class="form-floating">
+                                <input asp-for="BookingPhone" type="text" class="form-control" id="floatingPhone" placeholder="Telefon">
+                                <label for="floatingPhone">Telefon</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="BookingPhone"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Mail</label>
+                            <div class="form-floating">
+                                <input asp-for="BookingMail" type="email" class="form-control" id="floatingMail" placeholder="Mail">
+                                <label for="floatingMail">Mail</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="BookingMail"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Kişi Sayısı</label>
+                            <div class="form-floating">
+                                <input asp-for="BookingPersonCount" type="number" min="1" class="form-control" id="floatingCount" placeholder="Kişi Sayısı">
+                                <label for="floatingCount">Kişi Sayısı</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="BookingPersonCount"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Tarih</label>
+                            <div class="form-floating">
+                                @* datetime-local: input formatı 2026-01-04T18:30 gibi *@
+                                <input asp-for="BookingDate" type="datetime-local" class="form-control" id="floatingDate" placeholder="Tarih">
+                                <label for="floatingDate">Tarih</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="BookingDate"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Durum</label>
+                            <div class="form-floating">
+                                <select asp-for="BookingStatus" class="form-select form-control" id="floatingStatus">
+                                    <option value="true">Aktif</option>
+                                    <option value="false">Pasif</option>
+                                </select>
+                                <label for="floatingStatus">Durum</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="BookingStatus"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary fw-normal text-white">Kaydet</button>
+                            <a href="/Booking/BookingList/" class="btn btn-danger fw-normal text-white">İptal</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SAĞ TARAF -->
+            <div class="col-lg-4">
+                <h3 class="mb-20">Bilgi</h3>
+
+                <div class="card p-3 border">
+                    <div class="text-muted">
+                        Bu ekrandan admin panel üzerinden manuel rezervasyon ekleyebilirsin.
+                        Tarih alanı için <strong>datetime-local</strong> kullanıldı.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
