@@ -1,0 +1,146 @@
+﻿@using Asp.NetCore10._0_QR_Restaurant_Order.WebUI.DTOs.ContactDTOs
+@model List<ResultContactDTO>
+
+@{
+    ViewData["Title"] = "İletişim Listesi";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Breadcrumb"] = new List<(string Text, string Url)>
+    {
+        ("İletişim", "/Contact/ContactList/"),
+        ("İletişim Listesi", "")
+    };
+}
+
+<div class="default-table-area mx-minus-1 table-to-do-list">
+    <div class="table-responsive">
+        <table class="table align-middle w-100">
+            <thead>
+                <tr>
+                    <th scope="col" class="fw-medium">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="flexCheckDefault1">
+                        </div>
+                    </th>
+
+                    <th scope="col" class="fw-medium">Adres / Konum</th>
+                    <th scope="col" class="fw-medium">Telefon</th>
+                    <th scope="col" class="fw-medium">Mail</th>
+                    <th scope="col" class="fw-medium">Durum</th>
+                    <th scope="col" class="fw-medium text-end">İşlemler</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-body" style="width: 62px;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="flexCheckDefault2">
+                            </div>
+                        </td>
+
+                        <td class="text-secondary fw-medium" style="max-width: 520px;">
+                            <span class="d-inline-block text-truncate" style="max-width: 520px;"
+                                  title="@item.ContactLocation">
+                                @item.ContactLocation
+                            </span>
+                        </td>
+
+                        <td class="text-body">@item.ContactPhone</td>
+                        <td class="text-body">@item.ContactMail</td>
+
+                        <td>
+                            @if (item.ContactStatus == false)
+                            {
+                                <span class="text-danger bg-danger bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">Pasif</span>
+                            }
+                            else
+                            {
+                                <span class="text-success bg-success bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">Aktif</span>
+                            }
+                        </td>
+
+                        <td>
+                            <div class="d-flex justify-content-end" style="gap: 12px;">
+
+                                @* Ekle *@
+                                <a href="/Contact/CreateContact/"
+                                   class="bg-transparent p-0 border-0 hover-text-success"
+                                   data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ekle">
+                                    <i class="material-symbols-outlined fs-16 fw-normal text-body">create</i>
+                                </a>
+
+                                @* Güncelle *@
+                                <a href="/Contact/UpdateContact/@item.ContactID"
+                                   class="bg-transparent p-0 border-0 hover-text-primary"
+                                   data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Güncelle">
+                                    <i class="material-symbols-outlined fs-16 fw-normal text-body">update</i>
+                                </a>
+
+                                @* Durum Değiştir (Tek Tık) *@
+                                @if (item.ContactStatus == false)
+                                {
+                                    @* Pasif ise: Aktif Yap *@
+                                    <a href="/Contact/ActivateContact/@item.ContactID"
+                                       class="bg-transparent p-0 border-0 hover-text-success"
+                                       data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Aktif Yap">
+                                        <i class="material-symbols-outlined fs-16 fw-normal text-body">check_circle</i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    @* Aktif ise: Pasif Yap *@
+                                    <a href="/Contact/DeactivateContact/@item.ContactID"
+                                       onclick="return confirm('Bu iletişim bilgisini pasif yapmak istiyor musun?');"
+                                       class="bg-transparent p-0 border-0 hover-text-danger"
+                                       data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Pasif Yap">
+                                        <i class="material-symbols-outlined fs-16 fw-normal text-body">cancel</i>
+                                    </a>
+                                }
+
+                                @* Sil *@
+                                <a href="/Contact/DeleteContact/@item.ContactID"
+                                   onclick="return confirm('Bu iletişim kaydını silmek istiyor musun?');"
+                                   class="bg-transparent p-0 border-0 hover-text-danger"
+                                   data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sil">
+                                    <i class="material-symbols-outlined fs-16 fw-normal text-body">delete</i>
+                                </a>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-center justify-content-sm-between align-items-center text-center flex-wrap gap-2 showing-wrap pt-15 p-20">
+        <span class="fs-15">Showing 1 to 10 of 50 entries</span>
+
+        <nav class="custom-pagination" aria-label="Page navigation example">
+            <ul class="pagination mb-0 justify-content-center">
+                <li class="page-item">
+                    <button class="page-link icon" aria-label="Previous">
+                        <i class="material-symbols-outlined">west</i>
+                    </button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link active">1</button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link">2</button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link">3</button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link icon" aria-label="Next">
+                        <i class="material-symbols-outlined">east</i>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

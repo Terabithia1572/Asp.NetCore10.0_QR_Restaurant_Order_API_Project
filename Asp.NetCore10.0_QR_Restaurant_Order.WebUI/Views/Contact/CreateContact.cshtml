@@ -1,0 +1,102 @@
+﻿@using Asp.NetCore10._0_QR_Restaurant_Order.WebUI.DTOs.ContactDTOs
+@model CreateContactDTO
+
+@{
+    ViewData["Title"] = "İletişim Ekle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Breadcrumb"] = new List<(string Text, string Url)>
+    {
+        ("İletişim", "/Contact/ContactList/"),
+        ("İletişim Ekle", "")
+    };
+}
+
+<div class="card bg-white p-20 rounded-10 border border-white mb-4">
+    <form method="post" asp-action="CreateContact">
+        <div class="row">
+
+            <!-- SOL TARAF -->
+            <div class="col-lg-8">
+                <h3 class="mb-20">İletişim Ekle</h3>
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Adres / Konum</label>
+                            <div class="form-floating">
+                                <textarea asp-for="ContactLocation"
+                                          class="form-control"
+                                          id="floatingLocation"
+                                          placeholder="Adres / Konum"
+                                          style="height: 140px; border-color: #D5D9E2;"></textarea>
+                                <label for="floatingLocation">Adres / Konum</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="ContactLocation"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Telefon</label>
+                            <div class="form-floating">
+                                <input asp-for="ContactPhone" type="text" class="form-control" id="floatingPhone" placeholder="Telefon">
+                                <label for="floatingPhone">Telefon</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="ContactPhone"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Mail</label>
+                            <div class="form-floating">
+                                <input asp-for="ContactMail" type="email" class="form-control" id="floatingMail" placeholder="Mail">
+                                <label for="floatingMail">Mail</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="ContactMail"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Durum</label>
+                            <div class="form-floating">
+                                <select asp-for="ContactStatus" class="form-select form-control" id="floatingStatus">
+                                    <option value="true">Aktif</option>
+                                    <option value="false">Pasif</option>
+                                </select>
+                                <label for="floatingStatus">Durum</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="ContactStatus"></span>
+                        </div>
+                    </div>
+
+                    <!-- boşluk -->
+                    <div class="col-lg-6"></div>
+
+                    <div class="col-lg-12">
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary fw-normal text-white">Kaydet</button>
+                            <a href="/Contact/ContactList/" class="btn btn-danger fw-normal text-white">İptal</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SAĞ TARAF -->
+            <div class="col-lg-4">
+                <h3 class="mb-20">Bilgi</h3>
+
+                <div class="card p-3 border">
+                    <div class="text-muted">
+                        Bu alandaki bilgiler genelde sitede “İletişim” bölümünde görüntülenir.
+                        Birden fazla kayıt tutulabilir; istersen “tek aktif Contact” kuralı da ekleriz.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
