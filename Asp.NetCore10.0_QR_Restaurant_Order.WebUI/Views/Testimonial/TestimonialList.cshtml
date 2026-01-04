@@ -1,0 +1,127 @@
+﻿@model List<ResultTestimonialDTO>
+
+@{
+    ViewData["Title"] = "Yorum Listesi";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Breadcrumb"] = new List<(string Text, string Url)>
+    {
+        ("Yorumlar", "/Testimonial/TestimonialList/"),
+        ("Yorum Listesi", "")
+    };
+}
+
+<div class="default-table-area mx-minus-1 table-to-do-list">
+    <div class="table-responsive">
+        <table class="table align-middle w-100">
+            <thead>
+                <tr>
+                    <th scope="col" class="fw-medium">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="flexCheckDefault1">
+                        </div>
+                    </th>
+                    <th scope="col" class="fw-medium">Görsel</th>
+                    <th scope="col" class="fw-medium">Ad Soyad</th>
+                    <th scope="col" class="fw-medium">Yorum</th>
+                    <th scope="col" class="fw-medium">Durum</th>
+                    <th scope="col" class="fw-medium text-end">İşlemler</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-body" style="width:62px;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="flexCheckDefault2">
+                            </div>
+                        </td>
+
+                        <td style="width: 76px;">
+                            <img src="@(!string.IsNullOrWhiteSpace(item.TestimonialImageURL) ? item.TestimonialImageURL : "/images/default-user.png")"
+                                 alt="img"
+                                 style="width:52px;height:52px;object-fit:cover;border-radius:12px;" />
+                        </td>
+
+                        <td class="text-secondary fw-medium">
+                            @item.TestimonialName @item.TestimonialSurname
+                        </td>
+
+                        <td class="text-body" style="max-width:520px;">
+                            <span class="d-inline-block text-truncate" style="max-width:520px;"
+                                  title="@item.TestimonialComment">
+                                @item.TestimonialComment
+                            </span>
+                        </td>
+
+                        <td>
+                            @if (item.TestimonialStatus == false)
+                            {
+                                <span class="text-danger bg-danger bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">Pasif</span>
+                            }
+                            else
+                            {
+                                <span class="text-success bg-success bg-opacity-10 fs-15 fw-normal d-inline-block default-badge">Aktif</span>
+                            }
+                        </td>
+
+                        <td>
+                            <div class="d-flex justify-content-end" style="gap:12px;">
+
+                                <a href="/Testimonial/CreateTestimonial/"
+                                   class="bg-transparent p-0 border-0 hover-text-success"
+                                   data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Ekle">
+                                    <i class="material-symbols-outlined fs-16 fw-normal text-body">create</i>
+                                </a>
+
+                                <a href="/Testimonial/UpdateTestimonial/@item.TestimonialID"
+                                   class="bg-transparent p-0 border-0 hover-text-primary"
+                                   data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Güncelle">
+                                    <i class="material-symbols-outlined fs-16 fw-normal text-body">update</i>
+                                </a>
+
+                                <a href="/Testimonial/DeleteTestimonial/@item.TestimonialID"
+                                   onclick="return confirm('Bu yorumu silmek istiyor musun?');"
+                                   class="bg-transparent p-0 border-0 hover-text-danger"
+                                   data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sil">
+                                    <i class="material-symbols-outlined fs-16 fw-normal text-body">delete</i>
+                                </a>
+
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-center justify-content-sm-between align-items-center text-center flex-wrap gap-2 showing-wrap pt-15 p-20">
+        <span class="fs-15">Showing 1 to 10 of 50 entries</span>
+
+        <nav class="custom-pagination" aria-label="Page navigation example">
+            <ul class="pagination mb-0 justify-content-center">
+                <li class="page-item">
+                    <button class="page-link icon" aria-label="Previous">
+                        <i class="material-symbols-outlined">west</i>
+                    </button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link active">1</button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link">2</button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link">3</button>
+                </li>
+                <li class="page-item">
+                    <button class="page-link icon" aria-label="Next">
+                        <i class="material-symbols-outlined">east</i>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

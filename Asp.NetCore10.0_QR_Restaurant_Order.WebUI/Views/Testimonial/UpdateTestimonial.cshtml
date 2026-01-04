@@ -1,0 +1,222 @@
+﻿@using Asp.NetCore10._0_QR_Restaurant_Order.WebUI.DTOs.TestimonialDTOs
+@model UpdateTestimonialDTO
+
+@{
+    ViewData["Title"] = "Yorum Güncelle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Breadcrumb"] = new List<(string Text, string Url)>
+    {
+        ("Yorumlar", "/Testimonial/TestimonialList/"),
+        ("Yorum Güncelle", "")
+    };
+}
+
+<div class="card bg-white p-20 rounded-10 border border-white mb-4">
+    <form method="post" asp-action="UpdateTestimonial" enctype="multipart/form-data">
+        <div class="row">
+
+            <input type="hidden" asp-for="TestimonialID" />
+            @* Görsel seçilmezse kaybolmaması için URL’yi hidden taşıyoruz *@
+            <input type="hidden" asp-for="TestimonialImageURL" />
+
+            <!-- SOL TARAF -->
+            <div class="col-lg-8">
+                <h3 class="mb-20">Yorum Güncelle</h3>
+
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Ad</label>
+                            <div class="form-floating">
+                                <input asp-for="TestimonialName" type="text" class="form-control" id="floatingName2" placeholder="Ad">
+                                <label for="floatingName2">Ad</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="TestimonialName"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Soyad</label>
+                            <div class="form-floating">
+                                <input asp-for="TestimonialSurname" type="text" class="form-control" id="floatingSurname2" placeholder="Soyad">
+                                <label for="floatingSurname2">Soyad</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="TestimonialSurname"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group mb-4 only-file-upload" id="file-upload">
+                            <label class="label fs-16 mb-2 text-secondary">Kullanıcı Görseli (Opsiyonel)</label>
+
+                            <div class="form-control h-100 text-center position-relative p-4 p-lg-5" id="dropArea2"
+                                 style="cursor:pointer;">
+                                <div class="product-upload">
+                                    <label class="file-upload mb-0">
+                                        <i class="ri-folder-image-line bg-primary bg-opacity-10 p-2 rounded-1 text-primary"></i>
+                                        <span class="d-block text-body fs-14">
+                                            Görseli sürükleyip bırak veya
+                                            <span class="text-primary text-decoration-underline">Gözat</span>
+                                        </span>
+                                        <small class="text-muted d-block mt-1">Seçmezsen mevcut görsel korunur</small>
+                                    </label>
+
+                                    <label class="position-absolute top-0 bottom-0 start-0 end-0 cursor">
+                                        <input asp-for="TestimonialImageFile" class="form__file bottom-0"
+                                               id="upload-files2" type="file" accept="image/*">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="mt-2 d-flex align-items-center gap-2">
+                                <img id="previewImg2"
+                                     src="@(!string.IsNullOrWhiteSpace(Model.TestimonialImageURL) ? Model.TestimonialImageURL : "/images/default-user.png")"
+                                     alt=""
+                                     style="width:48px;height:48px;object-fit:cover;border-radius:10px;" />
+                                <span id="fileName2" class="text-body fs-14"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Durum</label>
+                            <div class="form-floating">
+                                <select asp-for="TestimonialStatus" class="form-select form-control" id="floatingStatus2">
+                                    <option value="true">Aktif</option>
+                                    <option value="false">Pasif</option>
+                                </select>
+                                <label for="floatingStatus2">Durum</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="TestimonialStatus"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6"></div>
+
+                    <div class="col-lg-12">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Yorum</label>
+                            <div class="form-floating">
+                                <textarea asp-for="TestimonialComment"
+                                          class="form-control"
+                                          id="floatingComment2"
+                                          placeholder="Yorum"
+                                          style="height: 160px; border-color: #D5D9E2;"></textarea>
+                                <label for="floatingComment2">Yorum</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="TestimonialComment"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary fw-normal text-white">Güncelle</button>
+                            <a href="/Testimonial/TestimonialList/" class="btn btn-danger fw-normal text-white">İptal</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SAĞ TARAF -->
+            <div class="col-lg-4">
+                <h3 class="mb-20">Önizleme</h3>
+
+                <div class="card p-3 border">
+                    <div class="d-flex align-items-center gap-2">
+                        <img id="previewImgRight2"
+                             src="@(!string.IsNullOrWhiteSpace(Model.TestimonialImageURL) ? Model.TestimonialImageURL : "/images/default-user.png")"
+                             style="width:44px;height:44px;border-radius:12px;object-fit:cover;" />
+                        <div>
+                            <div class="fw-semibold" id="namePreview2">@Model.TestimonialName @Model.TestimonialSurname</div>
+                            <small class="text-muted" id="statusPreview2">Durum: @(Model.TestimonialStatus ? "Aktif" : "Pasif")</small>
+                        </div>
+                    </div>
+                    <hr class="my-3" />
+                    <div class="text-muted" style="max-height: 160px; overflow:auto;" id="commentPreview2">
+                        @(!string.IsNullOrWhiteSpace(Model.TestimonialComment) ? Model.TestimonialComment : "Yorum")
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<script>
+    // Drag & Drop + preview
+    const dropArea2 = document.getElementById("dropArea2");
+    const fileInput2 = document.getElementById("upload-files2");
+    const fileName2 = document.getElementById("fileName2");
+    const previewImg2 = document.getElementById("previewImg2");
+    const previewImgRight2 = document.getElementById("previewImgRight2");
+
+    function showPreview2(file) {
+        if (!file) return;
+
+        fileName2.textContent = file.name;
+
+        const url = URL.createObjectURL(file);
+        previewImg2.src = url;
+        previewImgRight2.src = url;
+    }
+
+    fileInput2.addEventListener("change", () => {
+        const file = fileInput2.files && fileInput2.files[0];
+        showPreview2(file);
+    });
+
+    ["dragenter", "dragover"].forEach(evt => {
+        dropArea2.addEventListener(evt, e => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropArea2.classList.add("border", "border-primary");
+        });
+    });
+
+    ["dragleave", "drop"].forEach(evt => {
+        dropArea2.addEventListener(evt, e => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropArea2.classList.remove("border", "border-primary");
+        });
+    });
+
+    dropArea2.addEventListener("drop", e => {
+        const files = e.dataTransfer.files;
+        if (!files || files.length === 0) return;
+        fileInput2.files = files;
+        showPreview2(files[0]);
+    });
+
+    // canlı önizleme
+    const nameInput2 = document.getElementById("floatingName2");
+    const surnameInput2 = document.getElementById("floatingSurname2");
+    const statusSelect2 = document.getElementById("floatingStatus2");
+    const commentInput2 = document.getElementById("floatingComment2");
+
+    const namePreview2 = document.getElementById("namePreview2");
+    const statusPreview2 = document.getElementById("statusPreview2");
+    const commentPreview2 = document.getElementById("commentPreview2");
+
+    function renderName2() {
+        const n = nameInput2.value?.trim() || "Ad";
+        const s = surnameInput2.value?.trim() || "Soyad";
+        namePreview2.textContent = `${n} ${s}`;
+    }
+
+    nameInput2.addEventListener("input", renderName2);
+    surnameInput2.addEventListener("input", renderName2);
+
+    statusSelect2.addEventListener("change", () => {
+        const val = statusSelect2.value === "true" ? "Aktif" : "Pasif";
+        statusPreview2.textContent = `Durum: ${val}`;
+    });
+
+    commentInput2.addEventListener("input", () => {
+        commentPreview2.textContent = commentInput2.value?.trim() ? commentInput2.value : "Yorum";
+    });
+</script>
