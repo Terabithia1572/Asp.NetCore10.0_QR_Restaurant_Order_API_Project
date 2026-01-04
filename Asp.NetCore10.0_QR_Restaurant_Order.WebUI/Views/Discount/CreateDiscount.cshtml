@@ -1,0 +1,221 @@
+﻿@using Asp.NetCore10._0_QR_Restaurant_Order.WebUI.DTOs.DiscountDTOs
+@model CreateDiscountDTO
+
+@{
+    ViewData["Title"] = "İndirim Ekle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Breadcrumb"] = new List<(string Text, string Url)>
+    {
+        ("İndirimler", "/Discount/DiscountList/"),
+        ("İndirim Ekle", "")
+    };
+}
+
+<div class="card bg-white p-20 rounded-10 border border-white mb-4">
+    <form method="post" asp-action="CreateDiscount" enctype="multipart/form-data">
+        <div class="row">
+
+            <!-- SOL TARAF -->
+            <div class="col-lg-8">
+                <h3 class="mb-20">İndirim Ekle</h3>
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Başlık</label>
+                            <div class="form-floating">
+                                <input asp-for="DiscountTitle" type="text" class="form-control" id="floatingTitle" placeholder="Başlık">
+                                <label for="floatingTitle">Başlık</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="DiscountTitle"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">İndirim Oranı</label>
+                            <div class="form-floating">
+                                <input asp-for="DiscountAmount" type="number" step="0.01" class="form-control" id="floatingAmount" placeholder="İndirim">
+                                <label for="floatingAmount">İndirim</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="DiscountAmount"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-20">
+                            <label class="label fs-16 mb-2">Durum</label>
+                            <div class="form-floating">
+                                <select asp-for="DiscountStatus" class="form-select form-control" id="floatingStatus">
+                                    <option value="true">Aktif</option>
+                                    <option value="false">Pasif</option>
+                                </select>
+                                <label for="floatingStatus">Durum</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="DiscountStatus"></span>
+                        </div>
+                    </div>
+
+                    <!-- Görsel (Drag & Drop) -->
+                    <div class="col-lg-12">
+                        <div class="form-group mb-4 only-file-upload" id="file-upload">
+                            <label class="label fs-16 mb-2 text-secondary">İndirim Görseli Yükle</label>
+
+                            <div class="form-control h-100 text-center position-relative p-4 p-lg-5" id="dropArea" style="cursor:pointer;">
+                                <div class="product-upload">
+                                    <label class="file-upload mb-0">
+                                        <i class="ri-folder-image-line bg-primary bg-opacity-10 p-2 rounded-1 text-primary"></i>
+                                        <span class="d-block text-body fs-14">
+                                            Görseli sürükleyip bırak veya
+                                            <span class="text-primary text-decoration-underline">Gözat</span>
+                                        </span>
+                                        <small class="text-muted d-block mt-1">JPG, PNG, WEBP önerilir</small>
+                                    </label>
+
+                                    <label class="position-absolute top-0 bottom-0 start-0 end-0 cursor">
+                                        <input asp-for="DiscountImageFile" class="form__file bottom-0"
+                                               id="upload-files" type="file" accept="image/*">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="mt-2 d-flex align-items-center gap-2">
+                                <img id="previewImg" src="" alt=""
+                                     style="width:48px;height:48px;object-fit:cover;display:none;border-radius:8px;" />
+                                <span id="fileName" class="text-body fs-14"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="form-group mb-20">
+                            <label class="label fs-16 mb-2">Açıklama</label>
+                            <div class="form-floating">
+                                <textarea asp-for="DiscountDescription"
+                                          class="form-control"
+                                          id="floatingDesc"
+                                          placeholder="Açıklama"
+                                          style="height: 163px; border-color: #D5D9E2;"></textarea>
+                                <label for="floatingDesc">Açıklama</label>
+                            </div>
+                            <span class="text-danger" asp-validation-for="DiscountDescription"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary fw-normal text-white">Kaydet</button>
+                            <a href="/Discount/DiscountList/" class="btn btn-danger fw-normal text-white">İptal</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SAĞ TARAF -->
+            <div class="col-lg-4">
+                <h3 class="mb-20">Önizleme</h3>
+
+                <div class="card p-3 border">
+                    <div class="d-flex align-items-center gap-3">
+                        <img id="previewImgSide" src="" alt=""
+                             style="width:72px;height:72px;object-fit:cover;display:none;border-radius:12px;" />
+                        <div class="flex-grow-1">
+                            <div class="fw-semibold" id="titlePreview">Başlık buraya yansır</div>
+                            <small class="text-muted d-block" id="amountPreview">İndirim: %0</small>
+                            <small class="text-muted d-block" id="statusPreview">Durum: Aktif</small>
+                        </div>
+                    </div>
+                    <hr class="my-3" />
+                    <div class="text-muted" style="max-height: 120px; overflow:auto;" id="descPreview">
+                        Açıklama buraya yansır...
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<script>
+    // Drag & Drop + preview
+    const dropArea = document.getElementById("dropArea");
+    const fileInput = document.getElementById("upload-files");
+    const fileName = document.getElementById("fileName");
+    const previewImg = document.getElementById("previewImg");
+    const previewImgSide = document.getElementById("previewImgSide");
+
+    // canlı önizleme
+    const titleInput = document.getElementById("floatingTitle");
+    const amountInput = document.getElementById("floatingAmount");
+    const statusSelect = document.getElementById("floatingStatus");
+    const descInput = document.getElementById("floatingDesc");
+
+    const titlePreview = document.getElementById("titlePreview");
+    const amountPreview = document.getElementById("amountPreview");
+    const statusPreview = document.getElementById("statusPreview");
+    const descPreview = document.getElementById("descPreview");
+
+    function showPreview(file) {
+        if (!file) return;
+
+        fileName.textContent = file.name;
+
+        const url = URL.createObjectURL(file);
+        previewImg.src = url;
+        previewImg.style.display = "block";
+
+        previewImgSide.src = url;
+        previewImgSide.style.display = "block";
+    }
+
+    fileInput.addEventListener("change", () => {
+        const file = fileInput.files && fileInput.files[0];
+        showPreview(file);
+    });
+
+    // drag over
+    ["dragenter", "dragover"].forEach(evt => {
+        dropArea.addEventListener(evt, e => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropArea.classList.add("border", "border-primary");
+        });
+    });
+
+    ["dragleave", "drop"].forEach(evt => {
+        dropArea.addEventListener(evt, e => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropArea.classList.remove("border", "border-primary");
+        });
+    });
+
+    dropArea.addEventListener("drop", e => {
+        const files = e.dataTransfer.files;
+        if (!files || files.length === 0) return;
+
+        fileInput.files = files;
+        showPreview(files[0]);
+    });
+
+    // sağ kart canlı önizleme
+    titleInput.addEventListener("input", () => {
+        titlePreview.textContent = titleInput.value?.trim() ? titleInput.value : "Başlık buraya yansır";
+    });
+
+    amountInput.addEventListener("input", () => {
+        const val = amountInput.value?.trim() ? amountInput.value : "0";
+        amountPreview.textContent = `İndirim: %${val}`;
+    });
+
+    statusSelect.addEventListener("change", () => {
+        const val = statusSelect.value === "true" ? "Aktif" : "Pasif";
+        statusPreview.textContent = `Durum: ${val}`;
+    });
+
+    descInput.addEventListener("input", () => {
+        descPreview.textContent = descInput.value?.trim() ? descInput.value : "Açıklama buraya yansır...";
+    });
+</script>
