@@ -8,6 +8,18 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(opt=>
+{
+    opt.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyHeader() //
+        .AllowAnyMethod()
+        .AllowCredentials()
+        .SetIsOriginAllowed((host) => true);
+    });
+});
+builder.Services.AddSignalR();
+
 // Add services to the container.
 
 builder.Services.AddDbContext<SignalRContext>(); // DbContext'i ekler
@@ -52,6 +64,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 
