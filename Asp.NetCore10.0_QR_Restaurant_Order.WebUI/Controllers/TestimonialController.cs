@@ -1,5 +1,4 @@
-﻿using Asp.NetCore10._0_QR_Restaurant_Order.DTOLayer.WebUI.TestimonialDTOs;
-using Asp.NetCore10._0_QR_Restaurant_Order.WebUI.DTOs.TestimonialDTOs;
+﻿using Asp.NetCore10._0_QR_Restaurant_Order.WebUI.DTOs.TestimonialDTOs;
 // UI katmanında Testimonial (Müşteri Yorumları) verilerini taşımak için kullanılan DTO sınıflarını ekliyoruz
 // (ResultTestimonialDTO, CreateTestimonialDTO, UpdateTestimonialDTO vb.)
 

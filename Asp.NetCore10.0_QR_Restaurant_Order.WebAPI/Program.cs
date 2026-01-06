@@ -3,6 +3,7 @@ using Asp.NetCore10._0_QR_Restaurant_Order.BusinessLayer.Concrete;
 using Asp.NetCore10._0_QR_Restaurant_Order.DataAccessLayer.Abstract;
 using Asp.NetCore10._0_QR_Restaurant_Order.DataAccessLayer.Concrete;
 using Asp.NetCore10._0_QR_Restaurant_Order.DataAccessLayer.EntityFramework;
+using Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Hubs;
 using System.Reflection;
 
 
@@ -72,5 +73,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<SignalRHub>("/signalRHub");
 
 app.Run();
+//localhost:44328/swagger/index.html
