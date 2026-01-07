@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Restaurant | Scan. Choose. Enjoy.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/dist/custom.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- Swiper (Testimonial Slider) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+
+<!-- GLightbox (Gallery Lightbox) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="100">
+
+    <nav id="mainNav" class="navbar navbar-expand-lg sticky-top navbar-dark transition-all">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#home">
+                <span class="text-emerald">QR</span> RESTAURANT
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Ana Sayfa</a></li>
+                    <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#menuTop" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Menü
+  </a>
+  <ul class="dropdown-menu dropdown-menu-dark rounded-4 shadow-lg p-2">
+    <li><a class="dropdown-item rounded-3 py-2" href="#menu-breakfast"><i class="bi bi-sunrise me-2"></i> Kahvaltı</a></li>
+    <li><a class="dropdown-item rounded-3 py-2" href="#menu-lunch"><i class="bi bi-brightness-high me-2"></i> Öğle</a></li>
+    <li><a class="dropdown-item rounded-3 py-2" href="#menu-dinner"><i class="bi bi-moon-stars me-2"></i> Akşam</a></li>
+    <li><a class="dropdown-item rounded-3 py-2" href="#menu-dessert"><i class="bi bi-cup-hot me-2"></i> Tatlı</a></li>
+    <li><hr class="dropdown-divider opacity-25"></li>
+    <li><a class="dropdown-item rounded-3 py-2" href="#menu"><i class="bi bi-grid-3x3-gap me-2"></i> Menü Bölümü</a></li>
+  </ul>
+</li>
+
+                    <li class="nav-item"><a class="nav-link" href="#discounts">Kampanyalar</a></li> 
+                    <li class="nav-item"><a class="nav-link" href="#features">Özellikler</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">Hakkımızda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#reviews">Yorumlar</a></li>
+                    <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Daha Fazla
+    </a>
+    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end rounded-4 shadow-lg p-2">
+        <li><a class="dropdown-item rounded-3 py-2" href="#blog"><i class="bi bi-journal-text me-2"></i> Blog</a></li>
+        <li><a class="dropdown-item rounded-3 py-2" href="#faq"><i class="bi bi-patch-question me-2"></i> SSS</a></li>
+        <li><hr class="dropdown-divider opacity-25"></li>
+        <li><a class="dropdown-item rounded-3 py-2" href="#"><i class="bi bi-shield-lock me-2"></i> KVKK</a></li>
+        <li><a class="dropdown-item rounded-3 py-2" href="#"><i class="bi bi-cookie me-2"></i> Çerezler</a></li>
+    </ul>
+</li>
+
+                    <li class="nav-item"><a class="nav-link" href="#contact">İletişim</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#howitworks">Nasıl Çalışır?</a></li>
+                </ul>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-emerald btn-sm rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#reserveModal">Rezervasyon</button>
+                    <a href="#menu" class="btn btn-emerald btn-sm rounded-pill px-3">QR Menü</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNav">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title fw-bold"><span class="text-emerald">QR</span> MENU</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav gap-3 fs-5">
+                <li class="nav-item"><a class="nav-link" href="#home" data-bs-dismiss="offcanvas">Ana Sayfa</a></li>
+                <li class="nav-item"><a class="nav-link" href="#menu" data-bs-dismiss="offcanvas">Menü</a></li>
+                <li class="nav-item"><a class="nav-link" href="#discounts" data-bs-dismiss="offcanvas">Kampanyalar</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about" data-bs-dismiss="offcanvas">Hakkımızda</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact" data-bs-dismiss="offcanvas">İletişim</a></li>
+            </ul>
+            <div class="mt-5 d-grid gap-2">
+                <button class="btn btn-emerald rounded-pill py-3" data-bs-toggle="modal" data-bs-target="#reserveModal">Rezervasyon Yap</button>
+            </div>
+        </div>
+    </div>
+    <section id="home" class="hero-section d-flex align-items-center">
+        <div class="container mt-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-up">
+                    <div class="d-flex gap-2 mb-3">
+                        <span class="badge bg-emerald-soft text-emerald rounded-pill px-3 py-2">#2026Premium</span>
+                    </div>
+                    <h1 class="display-3 fw-extrabold text-white mb-4">
+                        QR ile Menü <span class="text-emerald">•</span> Hızlı Sipariş <span class="text-emerald">•</span> Keyifli Deneyim
+                    </h1>
+                    <p class="lead text-gray-400 mb-5">
+                        Masadaki kodu taratın, saniyeler içinde zengin mutfağımızı keşfedin ve siparişinizi verin. Beklemek yok, sadece lezzet var.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#menu" class="btn btn-emerald btn-lg rounded-pill px-5 shadow-emerald">QR Menüye Git</a>
+                        <button class="btn btn-outline-white btn-lg rounded-pill px-5" data-bs-toggle="modal" data-bs-target="#reserveModal">Rezervasyon</button>
+                    </div>
+                    <div class="mt-5 d-flex gap-4">
+                        <div class="text-center"><i class="bi bi-qr-code-scan d-block fs-2 text-emerald"></i><small class="text-white">Temassız</small></div>
+                        <div class="text-center"><i class="bi bi-lightning-charge d-block fs-2 text-emerald"></i><small class="text-white">Hızlı Servis</small></div>
+                        <div class="text-center"><i class="bi bi-shield-check d-block fs-2 text-emerald"></i><small class="text-white">Güvenli</small></div>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center position-relative" data-aos="zoom-in">
+                    <div class="phone-mockup mx-auto">
+                        <div class="phone-screen bg-dark">
+                            <div class="qr-scanner-animation"></div>
+                            <i class="bi bi-qr-code text-white" style="font-size: 10rem;"></i>
+                        </div>
+                    </div>
+                    <div class="floating-card-1 bg-white p-3 rounded-4 shadow-lg position-absolute">
+                        <i class="bi bi-heart-fill text-danger"></i> <span class="fw-bold">Popüler: Antrikot</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+<section id="howitworks" class="py-100 bg-white position-relative overflow-hidden">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="text-emerald fw-bold text-uppercase">Nasıl Çalışır?</span>
+            <h2 class="display-5 fw-bold mb-3">3 Adımda QR Deneyimi</h2>
+            <p class="text-muted fs-5 mb-0">
+                Masadaki QR kodu okut, menüyü incele, siparişini saniyeler içinde ver.
+            </p>
+        </div>
+
+        <div class="row g-4 align-items-stretch">
+            <!-- Step 1 -->
+            <div class="col-md-4">
+                <div class="work-card p-4 p-lg-5 rounded-5 border h-100 transition-all">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="work-icon rounded-4 d-inline-flex align-items-center justify-content-center">
+                            <i class="bi bi-qr-code-scan fs-2"></i>
+                        </div>
+                        <span class="work-step">01</span>
+                    </div>
+                    <h4 class="fw-bold mb-2">QR’ı Tara</h4>
+                    <p class="text-muted mb-0">
+                        Kameranı aç, masandaki QR kodu tarat ve anında menüye ulaş.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="col-md-4">
+                <div class="work-card p-4 p-lg-5 rounded-5 border h-100 transition-all">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="work-icon rounded-4 d-inline-flex align-items-center justify-content-center">
+                            <i class="bi bi-journal-richtext fs-2"></i>
+                        </div>
+                        <span class="work-step">02</span>
+                    </div>
+                    <h4 class="fw-bold mb-2">Menüyü İncele</h4>
+                    <p class="text-muted mb-0">
+                        Kategoriler arasında gez, öne çıkanları gör, favorilerini seç.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="col-md-4">
+                <div class="work-card p-4 p-lg-5 rounded-5 border h-100 transition-all">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <div class="work-icon rounded-4 d-inline-flex align-items-center justify-content-center">
+                            <i class="bi bi-lightning-charge fs-2"></i>
+                        </div>
+                        <span class="work-step">03</span>
+                    </div>
+                    <h4 class="fw-bold mb-2">Sipariş Ver</h4>
+                    <p class="text-muted mb-0">
+                        Ürünleri seç, istersen not ekle, hızlıca siparişini tamamla.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- bottom mini CTA -->
+        <div class="mt-5 text-center">
+            <a href="#menu" class="btn btn-emerald btn-lg rounded-pill px-5 shadow-emerald">
+                Şimdi Menüye Bak
+            </a>
+        </div>
+    </div>
+
+    <!-- background blobs -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+</section>
+
+
+    <section class="py-100 bg-white">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="text-emerald fw-bold text-uppercase">Öne Çıkanlar</span>
+                <h2 class="display-5 fw-bold">Şefin İmza Lezzetleri</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="dish-card text-center p-4 rounded-5 border transition-all">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop" class="img-fluid rounded-circle mb-3 shadow-sm" alt="Salata">
+                        <h5 class="fw-bold">Avokado Bahçesi</h5>
+                        <p class="text-muted small">Taze avokado, kinoa, nar taneleri...</p>
+                        <span class="fs-5 fw-bold text-emerald">240 TL</span>
+                        <div class="mt-2"><span class="badge bg-warning rounded-pill">Popüler</span></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dish-card text-center p-4 rounded-5 border transition-all">
+                        <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7bb7445?w=400&h=400&fit=crop" class="img-fluid rounded-circle mb-3 shadow-sm" alt="Pancake">
+                        <h5 class="fw-bold">Altın Pancake</h5>
+                        <p class="text-muted small">Akçaağaç şurubu ve taze meyveler.</p>
+                        <span class="fs-5 fw-bold text-emerald">185 TL</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dish-card text-center p-4 rounded-5 border transition-all">
+                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=400&fit=crop" class="img-fluid rounded-circle mb-3 shadow-sm" alt="Izgara">
+                        <h5 class="fw-bold">Kuzu Pirzola</h5>
+                        <p class="text-muted small">Dağ kekiği ve fırın patates eşliğinde.</p>
+                        <span class="fs-5 fw-bold text-emerald">420 TL</span>
+                        <div class="mt-2"><span class="badge bg-emerald-soft text-emerald rounded-pill">En İyi Seçim</span></div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dish-card text-center p-4 rounded-5 border transition-all">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=400&fit=crop" class="img-fluid rounded-circle mb-3 shadow-sm" alt="Pizza">
+                        <h5 class="fw-bold">Trufulu Pizza</h5>
+                        <p class="text-muted small">İtalyan unundan 48 saat mayalanmış.</p>
+                        <span class="fs-5 fw-bold text-emerald">310 TL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section id="menu" class="py-100 bg-gray-50">
+    <div class="container">
+        <div id="menuTop"></div>
+        <div class="text-center mb-5">
+            <span class="text-emerald fw-bold">Zengin Seçenekler</span>
+            <h2 class="display-5 fw-bold">Damak Tadınıza Uygun Menü</h2>
+        </div>
+
+        <ul class="nav nav-pills justify-content-center gap-2 mb-5" id="menuTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active rounded-pill px-4 py-2" data-bs-toggle="pill" data-bs-target="#tab-breakfast" type="button">
+                    Kahvaltı
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-pill px-4 py-2" data-bs-toggle="pill" data-bs-target="#tab-lunch" type="button">
+                    Öğle Yemeği
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-pill px-4 py-2" data-bs-toggle="pill" data-bs-target="#tab-dinner" type="button">
+                    Akşam Yemeği
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-pill px-4 py-2" data-bs-toggle="pill" data-bs-target="#tab-dessert" type="button">
+                    Tatlı
+                </button>
+            </li>
+        </ul>
+
+
+
+        <div class="tab-content" id="menuContent">
+            <!-- BREAKFAST -->
+            <div class="tab-pane fade show active" id="tab-breakfast" role="tabpanel">
+                  <div id="menu-breakfast"></div>
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm menu-item-row transition-all">
+                            <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=100&h=100&fit=crop" class="rounded-3 me-3" alt="Serpme">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center border-bottom border-dotted pb-1 mb-1">
+                                    <h6 class="fw-bold mb-0">Ege Serpme Kahvaltı</h6>
+                                    <span class="text-emerald fw-bold">295 TL</span>
+                                </div>
+                                <p class="text-muted small mb-0">Zeytin çeşitleri, ev yapımı reçeller, organik yumurta...</p>
+                            </div>
+                            <button class="btn btn-sm btn-light rounded-circle ms-3 btn-add-cart" data-name="Ege Serpme Kahvaltı">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm menu-item-row transition-all">
+                            <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=100&h=100&fit=crop" class="rounded-3 me-3" alt="Omlet">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center border-bottom border-dotted pb-1 mb-1">
+                                    <h6 class="fw-bold mb-0">Mantar & Peynirli Omlet <i class="bi bi-patch-check text-info ms-1"></i></h6>
+                                    <span class="text-emerald fw-bold">145 TL</span>
+                                </div>
+                                <p class="text-muted small mb-0">3 organik yumurta, istiridye mantarı, kaşar peyniri.</p>
+                            </div>
+                            <button class="btn btn-sm btn-light rounded-circle ms-3 btn-add-cart" data-name="Mantar & Peynirli Omlet">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LUNCH -->
+            <div class="tab-pane fade" id="tab-lunch" role="tabpanel">
+                  <div id="menu-lunch"></div>
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm menu-item-row transition-all">
+                            <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=100&h=100&fit=crop" class="rounded-3 me-3" alt="Izgara">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center border-bottom border-dotted pb-1 mb-1">
+                                    <h6 class="fw-bold mb-0">Izgara Tavuk Bowl</h6>
+                                    <span class="text-emerald fw-bold">265 TL</span>
+                                </div>
+                                <p class="text-muted small mb-0">Izgara tavuk, kinoalı salata, özel sos.</p>
+                            </div>
+                            <button class="btn btn-sm btn-light rounded-circle ms-3 btn-add-cart" data-name="Izgara Tavuk Bowl">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm menu-item-row transition-all">
+                            <img src="https://images.unsplash.com/photo-1604908176997-125f25cc500f?w=100&h=100&fit=crop" class="rounded-3 me-3" alt="Burger">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center border-bottom border-dotted pb-1 mb-1">
+                                    <h6 class="fw-bold mb-0">Signature Burger</h6>
+                                    <span class="text-emerald fw-bold">320 TL</span>
+                                </div>
+                                <p class="text-muted small mb-0">180g et, cheddar, karamelize soğan, brioche.</p>
+                            </div>
+                            <button class="btn btn-sm btn-light rounded-circle ms-3 btn-add-cart" data-name="Signature Burger">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DINNER -->
+            <div class="tab-pane fade" id="tab-dinner" role="tabpanel">
+                  <div id="menu-dinner"></div>
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm menu-item-row transition-all">
+                            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=100&h=100&fit=crop" class="rounded-3 me-3" alt="Steak">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center border-bottom border-dotted pb-1 mb-1">
+                                    <h6 class="fw-bold mb-0">Antrikot (Şef Önerisi)</h6>
+                                    <span class="text-emerald fw-bold">520 TL</span>
+                                </div>
+                                <p class="text-muted small mb-0">Özel baharat, fırın patates, yeşil salata.</p>
+                            </div>
+                            <button class="btn btn-sm btn-light rounded-circle ms-3 btn-add-cart" data-name="Antrikot">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm menu-item-row transition-all">
+                            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=100&h=100&fit=crop" class="rounded-3 me-3" alt="Pizza">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center border-bottom border-dotted pb-1 mb-1">
+                                    <h6 class="fw-bold mb-0">Trüflü Pizza</h6>
+                                    <span class="text-emerald fw-bold">310 TL</span>
+                                </div>
+                                <p class="text-muted small mb-0">48 saat hamur, trüf yağı, mozzarella.</p>
+                            </div>
+                            <button class="btn btn-sm btn-light rounded-circle ms-3 btn-add-cart" data-name="Trüflü Pizza">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DESSERT -->
+            <div class="tab-pane fade" id="tab-dessert" role="tabpanel">
+                  <div id="menu-dessert"></div>
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm menu-item-row transition-all">
+                            <img src="https://images.unsplash.com/photo-1541783245831-57d6fb0926d3?w=100&h=100&fit=crop" class="rounded-3 me-3" alt="Tiramisu">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center border-bottom border-dotted pb-1 mb-1">
+                                    <h6 class="fw-bold mb-0">Tiramisu</h6>
+                                    <span class="text-emerald fw-bold">165 TL</span>
+                                </div>
+                                <p class="text-muted small mb-0">Kakao, mascarpone, espresso dokunuşu.</p>
+                            </div>
+                            <button class="btn btn-sm btn-light rounded-circle ms-3 btn-add-cart" data-name="Tiramisu">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 mb-4">
+                        <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm menu-item-row transition-all">
+                            <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=100&h=100&fit=crop" class="rounded-3 me-3" alt="Donut">
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between align-items-center border-bottom border-dotted pb-1 mb-1">
+                                    <h6 class="fw-bold mb-0">Çikolata Donut</h6>
+                                    <span class="text-emerald fw-bold">110 TL</span>
+                                </div>
+                                <p class="text-muted small mb-0">Çikolata sos, sprinkles, yumuşacık hamur.</p>
+                            </div>
+                            <button class="btn btn-sm btn-light rounded-circle ms-3 btn-add-cart" data-name="Çikolata Donut">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5">
+            <a href="#menu" class="btn btn-dark btn-lg rounded-pill px-5">Tüm Menüyü Görüntüle</a>
+        </div>
+    </div>
+</section>
+
+
+    <section class="py-5 bg-emerald text-white text-center position-relative overflow-hidden">
+        <div class="container position-relative z-1">
+            <h2 class="fw-extrabold mb-3">Acıktın mı? Kapına getirelim!</h2>
+            <p class="mb-4 fs-5 opacity-75">Sadece QR değil, eve servis ile de yanınızdayız.</p>
+            <a href="#" class="btn btn-white btn-lg rounded-pill px-5">Hemen Online Sipariş Ver</a>
+        </div>
+        <div class="bg-pattern-dots"></div>
+    </section>
+
+    <section id="discounts" class="py-100">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card border-0 rounded-5 overflow-hidden shadow-lg h-100 card-discount transition-all">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop" class="card-img-top" alt="Kampanya">
+                        <div class="card-body p-4">
+                            <span class="badge bg-danger mb-2">%20 İNDİRİM</span>
+                            <h4 class="fw-bold">Hafta İçi Öğle Menüsü</h4>
+                            <p class="text-muted">Saat 12:00 - 15:00 arası tüm ana yemeklerde geçerli özel indirim.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 rounded-5 overflow-hidden shadow-lg h-100 card-discount transition-all bg-dark text-white">
+                        <div class="card-body p-5 d-flex flex-column justify-content-center align-items-center text-center">
+                            <div class="display-4 fw-bold text-emerald mb-3">Hediye</div>
+                            <h3>İlk QR Siparişine</h3>
+                            <p class="opacity-75">Tatlı ikramımızdır! Sadece QR Menü üzerinden verilen ilk siparişlerde.</p>
+                            <button class="btn btn-emerald rounded-pill px-4 mt-3">Kodu Al</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 rounded-5 overflow-hidden shadow-lg h-100 card-discount transition-all">
+                        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&h=400&fit=crop" class="card-img-top" alt="Kampanya">
+                        <div class="card-body p-4">
+                            <span class="badge bg-danger mb-2">1 ALANA 1 BEDAVA</span>
+                            <h4 class="fw-bold">Kahve Saatleri</h4>
+                            <p class="text-muted">Pazartesi ve Salı günleri tüm espresso bazlı içeceklerde geçerlidir.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="gallery" class="py-100 bg-gray-50">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="text-emerald fw-bold text-uppercase">Galeri</span>
+            <h2 class="display-5 fw-bold">Atmosferi Keşfet</h2>
+            <p class="text-muted fs-5 mb-0">Mekan, sunum ve lezzetten kareler.</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <a class="gallery-item glightbox" href="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=1600&h=1100&fit=crop" data-gallery="qr-gallery">
+                    <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=800&h=600&fit=crop" class="img-fluid rounded-5" alt="Gallery">
+                    <span class="gallery-overlay">
+                        <span class="gallery-badge"><i class="bi bi-zoom-in me-1"></i> Gör</span>
+                    </span>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a class="gallery-item glightbox" href="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=1600&h=1100&fit=crop" data-gallery="qr-gallery">
+                    <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=800&h=600&fit=crop" class="img-fluid rounded-5" alt="Gallery">
+                    <span class="gallery-overlay">
+                        <span class="gallery-badge"><i class="bi bi-zoom-in me-1"></i> Gör</span>
+                    </span>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a class="gallery-item glightbox" href="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=1600&h=1100&fit=crop" data-gallery="qr-gallery">
+                    <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=800&h=600&fit=crop" class="img-fluid rounded-5" alt="Gallery">
+                    <span class="gallery-overlay">
+                        <span class="gallery-badge"><i class="bi bi-zoom-in me-1"></i> Gör</span>
+                    </span>
+                </a>
+            </div>
+
+            <div class="col-md-6">
+                <a class="gallery-item glightbox" href="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1600&h=1100&fit=crop" data-gallery="qr-gallery">
+                    <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1000&h=650&fit=crop" class="img-fluid rounded-5" alt="Gallery">
+                    <span class="gallery-overlay">
+                        <span class="gallery-badge"><i class="bi bi-zoom-in me-1"></i> Gör</span>
+                    </span>
+                </a>
+            </div>
+
+            <div class="col-md-6">
+                <a class="gallery-item glightbox" href="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=1600&h=1100&fit=crop" data-gallery="qr-gallery">
+                    <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=1000&h=650&fit=crop" class="img-fluid rounded-5" alt="Gallery">
+                    <span class="gallery-overlay">
+                        <span class="gallery-badge"><i class="bi bi-zoom-in me-1"></i> Gör</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <section id="about" class="py-100 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="position-relative">
+                        <img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=800&h=600&fit=crop" class="img-fluid rounded-5 shadow-xl" alt="Mutfak">
+                        <div class="experience-badge bg-emerald text-white p-4 rounded-4 shadow-lg">
+                            <span class="d-block h2 fw-bold mb-0">15+</span>
+                            <small>Yıllık Lezzet</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 ps-lg-5">
+                    <span class="text-emerald fw-bold">Hikayemiz</span>
+                    <h2 class="display-4 fw-bold mb-4">Kalite ve Gelenek <br>Modern Dokunuşla</h2>
+                    <p class="text-muted fs-5 mb-4">2010 yılından beri, geleneksel tarifleri modern sunumlarla birleştiriyoruz. 2026 teknolojisiyle QR Menü sistemine geçerek deneyiminizi kusursuzlaştırıyoruz.</p>
+                    <ul class="list-unstyled mb-5">
+                        <li class="mb-3 d-flex align-items-center"><i class="bi bi-check-circle-fill text-emerald me-3 fs-4"></i> %100 Organik ve Yerel Ürünler</li>
+                        <li class="mb-3 d-flex align-items-center"><i class="bi bi-check-circle-fill text-emerald me-3 fs-4"></i> Ödüllü Şef Kadrosu</li>
+                        <li class="mb-3 d-flex align-items-center"><i class="bi bi-check-circle-fill text-emerald me-3 fs-4"></i> Şık ve Modern Atmosfer</li>
+                    </ul>
+                    <a href="#" class="btn btn-dark btn-lg rounded-pill px-5">Daha Fazlası</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="stats" class="py-100 bg-gray-50">
+    <div class="container">
+        <div class="row g-4 align-items-stretch">
+            <div class="col-lg-4">
+                <div class="p-5 rounded-5 bg-dark text-white h-100 shadow-lg">
+                    <span class="text-emerald fw-bold text-uppercase">Güven</span>
+                    <h2 class="fw-extrabold mt-2 mb-3">Rakamlarla QR Restaurant</h2>
+                    <p class="text-gray-400 mb-0">
+                        Kaliteyi sadece sözle değil, verilerle de gösteriyoruz. Her gün binlerce tarama, yüzlerce sipariş.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="stat-card p-4 rounded-5 bg-white border h-100">
+                            <div class="stat-icon mb-3"><i class="bi bi-qr-code-scan"></i></div>
+                            <div class="stat-number">
+                                <span class="counter" data-target="250">0</span><span class="suffix">K+</span>
+                            </div>
+                            <p class="text-muted mb-0">Toplam QR Tarama</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="stat-card p-4 rounded-5 bg-white border h-100">
+                            <div class="stat-icon mb-3"><i class="bi bi-bag-check"></i></div>
+                            <div class="stat-number">
+                                <span class="counter" data-target="120">0</span><span class="suffix">K+</span>
+                            </div>
+                            <p class="text-muted mb-0">Başarılı Sipariş</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="stat-card p-4 rounded-5 bg-white border h-100">
+                            <div class="stat-icon mb-3"><i class="bi bi-star-fill"></i></div>
+                            <div class="stat-number">
+                                <span class="counter-decimal" data-target="4.9">0</span>
+                            </div>
+                            <p class="text-muted mb-0">Ortalama Puan</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="stat-wide p-4 rounded-5 bg-white border h-100">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h5 class="fw-bold mb-1">Ortalama Servis Süresi</h5>
+                                    <p class="text-muted mb-0">QR menü ile sipariş sonrası hız.</p>
+                                </div>
+                                <div class="stat-pill">
+                                    <span class="counter" data-target="12">0</span> dk
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="stat-wide p-4 rounded-5 bg-white border h-100">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h5 class="fw-bold mb-1">Günlük Aktif Masa</h5>
+                                    <p class="text-muted mb-0">Yoğun saatlerde canlı kullanım.</p>
+                                </div>
+                                <div class="stat-pill">
+                                    <span class="counter" data-target="180">0</span>+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="faq" class="py-100 bg-light position-relative overflow-hidden">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="text-emerald fw-bold text-uppercase">SSS</span>
+            <h2 class="display-5 fw-bold mb-2">Sık Sorulan Sorular</h2>
+            <p class="text-muted fs-5 mb-0">
+                QR Menü, rezervasyon ve sipariş süreçleri ile ilgili en çok sorulanlar.
+            </p>
+        </div>
+
+        <div class="row g-4 align-items-start">
+            <div class="col-lg-5">
+                <div class="faq-side p-5 rounded-5 bg-dark text-white shadow-lg">
+                    <h3 class="fw-extrabold mb-3">Hızlı & Temassız Deneyim</h3>
+                    <p class="text-gray-400 mb-4">
+                        Masadaki QR kodu tarat, menüyü gör, siparişini ver. İstersen rezervasyon da yap.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-emerald-soft text-emerald rounded-pill px-3 py-2">QR Menü</span>
+                        <span class="badge bg-emerald-soft text-emerald rounded-pill px-3 py-2">Rezervasyon</span>
+                        <span class="badge bg-emerald-soft text-emerald rounded-pill px-3 py-2">Kampanya</span>
+                        <span class="badge bg-emerald-soft text-emerald rounded-pill px-3 py-2">Hızlı Servis</span>
+                    </div>
+
+                    <div class="mt-4">
+                        <button class="btn btn-emerald rounded-pill px-4 py-3 fw-bold w-100" data-bs-toggle="modal" data-bs-target="#reserveModal">
+                            Hemen Rezervasyon Yap
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="accordion faq-accordion" id="faqAccordion">
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                QR Menü nasıl çalışır?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Masadaki QR kodu telefon kameranızla okuttuğunuzda menü otomatik açılır.
+                                Ürünleri inceleyip sepete ekleyebilir, siparişi tamamlayabilirsiniz (demo kısmı API ile bağlanacak).
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                Rezervasyon yaptığımda nasıl onay alırım?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Rezervasyon formunu doldurduğunuzda talebiniz alınır. SignalR entegrasyonu sonrası
+                                onay ve bildirimleri canlı göstereceğiz (SMS/mail/ekran bildirimi).
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Kampanyalar otomatik uygulanıyor mu?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Evet, kampanyalar ürün veya sipariş şartlarına göre otomatik uygulanabilir.
+                                Admin panelinden kampanya ekleyip aktif/pasif yönetebilirsiniz.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                Gluten/alerjen bilgisi görebilir miyim?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Ürün detayına alerjen ikonları ve içerik bilgisi ekleyebiliriz.
+                                (Admin paneline “Alerjen Etiketleri” ekleyip ürünle eşleyeceğiz.)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                Online sipariş / paket servis var mı?
+                            </button>
+                        </h2>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Var. Landing’de buton hazır, API tarafında sipariş modülüyle bağladığımızda
+                                direkt online sipariş akışı çalışacak.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <section id="blog" class="py-100 bg-white">
+    <div class="container">
+        <div class="d-flex align-items-end justify-content-between flex-wrap gap-3 mb-5">
+            <div>
+                <span class="text-emerald fw-bold text-uppercase">Blog</span>
+                <h2 class="display-5 fw-bold mb-1">Lezzet Günlüğü</h2>
+                <p class="text-muted fs-5 mb-0">Duyurular, yeni menüler, etkinlikler ve şef ipuçları.</p>
+            </div>
+
+            <a href="#" class="btn btn-outline-emerald rounded-pill px-4">
+                Tüm Yazılar <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+        </div>
+
+        <div class="row g-4">
+            <!-- Blog Card 1 -->
+            <div class="col-md-6 col-lg-4">
+                <article class="blog-card h-100">
+                    <a href="#" class="blog-thumb">
+                        <img src="https://images.unsplash.com/photo-1541542684-4bf98c6c2fb4?w=900&h=650&fit=crop" alt="Blog">
+                        <span class="blog-badge">Duyuru</span>
+                    </a>
+
+                    <div class="p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <small class="text-muted"><i class="bi bi-calendar3 me-1"></i> 07 Ocak 2026</small>
+                            <small class="text-muted"><i class="bi bi-clock me-1"></i> 4 dk</small>
+                        </div>
+
+                        <h5 class="fw-bold mb-2">
+                            <a href="#" class="text-decoration-none text-dark blog-title-link">
+                                QR Menü ile Sipariş Deneyimini Yeniledik
+                            </a>
+                        </h5>
+
+                        <p class="text-muted mb-3">
+                            Daha hızlı, daha modern ve daha keyifli. Yeni arayüzle menüyü tarayıp saniyeler içinde sipariş verebilirsiniz.
+                        </p>
+
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="blog-dot"></span>
+                                <small class="text-muted">QR Menü</small>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-dark rounded-pill px-3">Oku</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Blog Card 2 -->
+            <div class="col-md-6 col-lg-4">
+                <article class="blog-card h-100">
+                    <a href="#" class="blog-thumb">
+                        <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=900&h=650&fit=crop" alt="Blog">
+                        <span class="blog-badge blog-badge-emerald">Menü</span>
+                    </a>
+
+                    <div class="p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <small class="text-muted"><i class="bi bi-calendar3 me-1"></i> 05 Ocak 2026</small>
+                            <small class="text-muted"><i class="bi bi-clock me-1"></i> 3 dk</small>
+                        </div>
+
+                        <h5 class="fw-bold mb-2">
+                            <a href="#" class="text-decoration-none text-dark blog-title-link">
+                                Şefin İmza Lezzetleri: Yeni Sezon
+                            </a>
+                        </h5>
+
+                        <p class="text-muted mb-3">
+                            Sezonun en iyi ürünleriyle hazırladığımız yeni tabaklar. Trüflü pizza ve antrikot favori!
+                        </p>
+
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="blog-dot"></span>
+                                <small class="text-muted">Öne Çıkanlar</small>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-dark rounded-pill px-3">Oku</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Blog Card 3 -->
+            <div class="col-md-6 col-lg-4">
+                <article class="blog-card h-100">
+                    <a href="#" class="blog-thumb">
+                        <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=900&h=650&fit=crop" alt="Blog">
+                        <span class="blog-badge blog-badge-dark">Kampanya</span>
+                    </a>
+
+                    <div class="p-4">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <small class="text-muted"><i class="bi bi-calendar3 me-1"></i> 02 Ocak 2026</small>
+                            <small class="text-muted"><i class="bi bi-clock me-1"></i> 2 dk</small>
+                        </div>
+
+                        <h5 class="fw-bold mb-2">
+                            <a href="#" class="text-decoration-none text-dark blog-title-link">
+                                Hafta İçi Öğle Menüsü %20 İndirim
+                            </a>
+                        </h5>
+
+                        <p class="text-muted mb-3">
+                            12:00–15:00 arasında geçerli kampanyayı kaçırmayın. QR Menüden indirim otomatik uygulanır.
+                        </p>
+
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="blog-dot"></span>
+                                <small class="text-muted">İndirim</small>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-dark rounded-pill px-3">Oku</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+    <section id="reviews" class="py-100 bg-white position-relative overflow-hidden">
+    <div class="container">
+        <div class="d-flex align-items-end justify-content-between flex-wrap gap-3 mb-5">
+            <div>
+                <span class="text-emerald fw-bold text-uppercase">Yorumlar</span>
+                <h2 class="display-5 fw-bold mb-1">Misafirlerimiz Ne Diyor?</h2>
+                <p class="text-muted fs-5 mb-0">Gerçek deneyimler, gerçek lezzet.</p>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-emerald rounded-pill px-3 swiper-btn-prev">
+                    <i class="bi bi-arrow-left"></i>
+                </button>
+                <button class="btn btn-emerald rounded-pill px-3 swiper-btn-next">
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="swiper testimonialSwiper">
+            <div class="swiper-wrapper">
+
+                <div class="swiper-slide">
+                    <div class="testimonial-card p-4 p-lg-5 rounded-5 border h-100">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <img class="testimonial-avatar"
+                                 src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=160&h=160&fit=crop"
+                                 alt="Müşteri">
+                            <div>
+                                <h6 class="fw-bold mb-0">Elif Y.</h6>
+                                <small class="text-muted">Beşiktaş</small>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-stars mb-3">
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                        </div>
+
+                        <p class="text-muted fs-5 mb-0">
+                            QR menü inanılmaz hızlı. Menü çok şık, sipariş vermek aşırı kolay. Antrikot efsane!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="testimonial-card p-4 p-lg-5 rounded-5 border h-100">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <img class="testimonial-avatar"
+                                 src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=160&h=160&fit=crop"
+                                 alt="Müşteri">
+                            <div>
+                                <h6 class="fw-bold mb-0">Mert K.</h6>
+                                <small class="text-muted">Kadıköy</small>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-stars mb-3">
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+                        </div>
+
+                        <p class="text-muted fs-5 mb-0">
+                            Tasarım premium hissettiriyor. Kampanyalar bölümü ve rezervasyon modalı çok iyi düşünülmüş.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="testimonial-card p-4 p-lg-5 rounded-5 border h-100">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <img class="testimonial-avatar"
+                                 src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=160&h=160&fit=crop"
+                                 alt="Müşteri">
+                            <div>
+                                <h6 class="fw-bold mb-0">Zeynep A.</h6>
+                                <small class="text-muted">Şişli</small>
+                            </div>
+                        </div>
+
+                        <div class="testimonial-stars mb-3">
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                        </div>
+
+                        <p class="text-muted fs-5 mb-0">
+                            Menü kartlarındaki hover ve animasyonlar çok tatlı. Kesinlikle modern restoran hissi var.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="swiper-pagination mt-4 position-static"></div>
+        </div>
+    </div>
+
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+</section>
+
+
+    <section id="contact" class="py-100">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <h2 class="fw-bold mb-4">Bize Ulaşın</h2>
+                    <div class="mb-4">
+                        <h6 class="fw-bold text-uppercase text-muted">Adres</h6>
+                        <p class="fs-5">Lezzet Sokak No:26, Beşiktaş / İstanbul</p>
+                    </div>
+                    <div class="mb-4">
+                        <h6 class="fw-bold text-uppercase text-muted">Telefon</h6>
+                        <a href="tel:+902120000000" class="fs-5 text-dark text-decoration-none fw-bold">+90 (212) 000 00 00</a>
+                    </div>
+                    <div class="mb-4">
+                        <h6 class="fw-bold text-uppercase text-muted">Çalışma Saatleri</h6>
+                        <p class="mb-1">Pazartesi - Cumartesi: 09:00 - 23:00</p>
+                        <p>Pazar: 10:00 - 22:00</p>
+                    </div>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-twitter-x"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="map-placeholder bg-light rounded-5 h-100 d-flex align-items-center justify-content-center border shadow-sm" style="min-height: 400px;">
+                        <div class="text-center p-5">
+                            <i class="bi bi-geo-alt fs-1 text-emerald"></i>
+                            <h4 class="fw-bold mt-3">Konumumuz</h4>
+                            <p class="text-muted">İnteraktif harita yükleniyor...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h4 class="fw-bold"><span class="text-emerald">QR</span> RESTAURANT</h4>
+                    <p class="text-gray-400 small mt-3">Geleceğin restoran deneyimi burada. <br> Her scan bir hikaye başlatır.</p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0 text-center">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item mx-2"><a href="#" class="text-white text-decoration-none">KVKK</a></li>
+                        <li class="list-inline-item mx-2"><a href="#" class="text-white text-decoration-none">Çerezler</a></li>
+                        <li class="list-inline-item mx-2"><a href="#" class="text-white text-decoration-none">İletişim</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <p class="text-gray-500 small mb-0">&copy; 2026 QR Restaurant. Tüm Hakları Saklıdır.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Cart Button -->
+<button class="cart-fab" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas">
+    <i class="bi bi-bag"></i>
+    <span class="cart-count" id="cartCount">0</span>
+</button>
+
+<!-- Cart Offcanvas -->
+<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="cartOffcanvas">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title fw-bold">
+            <i class="bi bi-bag me-2 text-emerald"></i> Sipariş Sepeti
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+
+    <div class="offcanvas-body d-flex flex-column">
+        <div id="cartItems" class="cart-items flex-grow-1">
+            <div class="cart-empty text-center py-5">
+                <i class="bi bi-emoji-smile fs-1 text-emerald"></i>
+                <h6 class="fw-bold mt-3">Sepet boş</h6>
+                <p class="text-gray-400 mb-0">Menüden ürün ekleyerek siparişe başlayabilirsin.</p>
+            </div>
+        </div>
+
+        <div class="cart-summary border-top border-light border-opacity-10 pt-3">
+            <div class="d-flex justify-content-between mb-2">
+                <span class="text-gray-400">Ara Toplam</span>
+                <span class="fw-bold" id="cartSubtotal">0 TL</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+                <span class="text-gray-400">Servis</span>
+                <span class="fw-bold" id="cartService">0 TL</span>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="fw-bold">Toplam</span>
+                <span class="fs-5 fw-bold text-emerald" id="cartTotal">0 TL</span>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button class="btn btn-emerald rounded-pill py-3 fw-bold" id="checkoutBtn">
+                    Siparişi Tamamla
+                </button>
+                <button class="btn btn-outline-white rounded-pill py-3" id="clearCartBtn">
+                    Sepeti Temizle
+                </button>
+            </div>
+
+            <small class="d-block text-center text-gray-400 mt-3">
+                Demo sepet: gerçek sipariş entegrasyonu API ile bağlanacak.
+            </small>
+        </div>
+    </div>
+</div>
+
+
+    <div class="modal fade" id="reserveModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 rounded-5 overflow-hidden">
+                <div class="row g-0">
+                    <div class="col-md-5 d-none d-md-block bg-cover" style="background-image: url('https://images.unsplash.com/photo-1550966841-396ad88675c7?w=500');"></div>
+                    <div class="col-md-7 p-5">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="fw-bold mb-0">Rezervasyon</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <form id="reservationForm">
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">Ad Soyad</label>
+                                <input type="text" class="form-control rounded-pill px-3" placeholder="Yunus..." required>
+                            </div>
+                            <div class="row g-3 mb-3">
+                                <div class="col-6">
+                                    <label class="form-label small fw-bold">Telefon</label>
+                                    <input type="tel" class="form-control rounded-pill px-3" placeholder="05XX..." required>
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label small fw-bold">Kişi Sayısı</label>
+                                    <select class="form-select rounded-pill px-3">
+                                        <option>1 Kişi</option>
+                                        <option selected>2 Kişi</option>
+                                        <option>4 Kişi</option>
+                                        <option>6+ Kişi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label small fw-bold">Tarih</label>
+                                <input type="date" class="form-control rounded-pill px-3" required>
+                            </div>
+                            <button type="submit" class="btn btn-emerald w-100 rounded-pill py-3 fw-bold">Masayı Ayır</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="cartToast" class="toast align-items-center text-white bg-emerald border-0 rounded-4 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="bi bi-check2-circle me-2"></i> <span id="toastMsg">Sepete eklendi!</span>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+    <button id="scrollTopBtn" class="scroll-top-btn" aria-label="Yukarı çık">
+    <i class="bi bi-arrow-up"></i>
+</button>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+</body>
+</html>
