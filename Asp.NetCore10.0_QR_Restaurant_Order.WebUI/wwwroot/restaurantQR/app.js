@@ -1,15 +1,28 @@
 /* app.js */
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1) Navbar Scroll Effect
+    // 1) Navbar Scroll Effect (Enhanced Glassmorphism)
     const mainNav = document.getElementById('mainNav');
+    let lastScroll = 0;
+    
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
+        const currentScroll = window.scrollY;
+        
+        if (currentScroll > 50) {
             mainNav.classList.add('scrolled');
         } else {
             mainNav.classList.remove('scrolled');
         }
-    });
+        
+        // Smooth opacity transition
+        if (currentScroll > lastScroll && currentScroll > 100) {
+            mainNav.style.opacity = '0.98';
+        } else {
+            mainNav.style.opacity = '1';
+        }
+        
+        lastScroll = currentScroll;
+    }, { passive: true });
 
     // 2) Reservation Form Logic
     const reservationForm = document.getElementById('reservationForm');
@@ -206,9 +219,9 @@ if (cartCountEl && cartItemsEl) renderCart();
     `;
     document.head.appendChild(style);
 
-    // 4) Premium Scroll Reveal (stagger)
+    // 4) Premium Scroll Reveal (stagger with scale)
 const revealEls = document.querySelectorAll(
-  'section .container, .dish-card, .menu-item-row, .card-discount, .work-card, .experience-badge, .map-placeholder'
+  'section .container, .dish-card, .menu-item-row, .card-discount, .work-card, .experience-badge, .map-placeholder, .chef-card, .testimonial-card, .stat-card, .stat-wide'
 );
 
 revealEls.forEach((el, i) => {
@@ -227,7 +240,7 @@ const revealObserver = new IntersectionObserver((entries) => {
       revealObserver.unobserve(entry.target);
     }
   });
-}, { threshold: 0.12 });
+}, { threshold: 0.08 });
 
 revealEls.forEach(el => revealObserver.observe(el));
 // Menu tab switch animation
@@ -243,15 +256,15 @@ document.querySelectorAll('#menuTabs button[data-bs-toggle="pill"]').forEach(btn
   });
 });
 
-// 6) Testimonials Slider (Swiper)
+// 6) Testimonials Slider (Swiper) - Premium Smooth
 if (document.querySelector('.testimonialSwiper')) {
     new Swiper('.testimonialSwiper', {
         slidesPerView: 1,
-        spaceBetween: 20,
+        spaceBetween: 24,
         loop: true,
-        speed: 800,
+        speed: 1200,
         autoplay: {
-            delay: 3500,
+            delay: 5000,
             disableOnInteraction: false
         },
         pagination: {
@@ -262,9 +275,13 @@ if (document.querySelector('.testimonialSwiper')) {
             nextEl: '.swiper-btn-next',
             prevEl: '.swiper-btn-prev'
         },
+        effect: 'slide',
+        fadeEffect: {
+            crossFade: true
+        },
         breakpoints: {
-            768: { slidesPerView: 2 },
-            1200: { slidesPerView: 3 }
+            768: { slidesPerView: 2, spaceBetween: 24 },
+            1200: { slidesPerView: 3, spaceBetween: 24 }
         }
     });
 }
@@ -347,6 +364,22 @@ if (window.GLightbox) {
                     top: target.offsetTop - 80,
                     behavior: 'smooth'
                 });
+            }
+        });
+    });
+
+    // 8) Dropdown Animation Enhancement
+    document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+        toggle.addEventListener('shown.bs.dropdown', function () {
+            const menu = this.nextElementSibling;
+            if (menu && menu.classList.contains('dropdown-menu')) {
+                menu.classList.add('show');
+            }
+        });
+        toggle.addEventListener('hidden.bs.dropdown', function () {
+            const menu = this.nextElementSibling;
+            if (menu && menu.classList.contains('dropdown-menu')) {
+                menu.classList.remove('show');
             }
         });
     });

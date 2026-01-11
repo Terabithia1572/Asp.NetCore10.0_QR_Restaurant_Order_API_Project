@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Restaurant | Scan. Choose. Enjoy.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/dist/custom.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
     <!-- Swiper (Testimonial Slider) -->
@@ -62,9 +61,13 @@
                     <li class="nav-item"><a class="nav-link" href="#contact">İletişim</a></li>
                     <li class="nav-item"><a class="nav-link" href="#howitworks">Nasıl Çalışır?</a></li>
                 </ul>
-                <div class="d-flex gap-2">
-                    <button class="btn btn-outline-emerald btn-sm rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#reserveModal">Rezervasyon</button>
-                    <a href="#menu" class="btn btn-emerald btn-sm rounded-pill px-3">QR Menü</a>
+                <div class="d-flex gap-2 align-items-center">
+                    <button class="btn btn-navbar btn-outline-light rounded-pill fw-bold" data-bs-toggle="modal" data-bs-target="#reserveModal">
+                        <i class="bi bi-calendar-check me-1"></i> Rezervasyon
+                    </button>
+                    <a href="#menu" class="btn btn-navbar btn-emerald rounded-pill fw-bold">
+                        <i class="bi bi-qr-code-scan me-1"></i> QR Menü
+                    </a>
                 </div>
             </div>
         </div>
@@ -95,15 +98,21 @@
                     <div class="d-flex gap-2 mb-3">
                         <span class="badge bg-emerald-soft text-emerald rounded-pill px-3 py-2">#2026Premium</span>
                     </div>
-                    <h1 class="display-3 fw-extrabold text-white mb-4">
-                        QR ile Menü <span class="text-emerald">•</span> Hızlı Sipariş <span class="text-emerald">•</span> Keyifli Deneyim
+                    <h1 class="display-3 fw-extrabold text-white mb-4 hero-title">
+                        <span>QR ile Menü</span>
+                        <span class="text-emerald">Hızlı Sipariş</span>
+                        <span>Keyifli Deneyim</span>
                     </h1>
                     <p class="lead text-gray-400 mb-5">
                         Masadaki kodu taratın, saniyeler içinde zengin mutfağımızı keşfedin ve siparişinizi verin. Beklemek yok, sadece lezzet var.
                     </p>
                     <div class="d-flex flex-wrap gap-3">
-                        <a href="#menu" class="btn btn-emerald btn-lg rounded-pill px-5 shadow-emerald">QR Menüye Git</a>
-                        <button class="btn btn-outline-white btn-lg rounded-pill px-5" data-bs-toggle="modal" data-bs-target="#reserveModal">Rezervasyon</button>
+                        <a href="#menu" class="btn btn-emerald btn-lg rounded-pill px-5 py-3 fw-bold shadow-emerald">
+                            <i class="bi bi-qr-code-scan me-2"></i> QR Menüye Git
+                        </a>
+                        <button class="btn btn-outline-white btn-lg rounded-pill px-5 py-3 fw-bold" data-bs-toggle="modal" data-bs-target="#reserveModal">
+                            <i class="bi bi-calendar-check me-2"></i> Rezervasyon
+                        </button>
                     </div>
                     <div class="mt-5 d-flex gap-4">
                         <div class="text-center"><i class="bi bi-qr-code-scan d-block fs-2 text-emerald"></i><small class="text-white">Temassız</small></div>
@@ -189,8 +198,8 @@
 
         <!-- bottom mini CTA -->
         <div class="mt-5 text-center">
-            <a href="#menu" class="btn btn-emerald btn-lg rounded-pill px-5 shadow-emerald">
-                Şimdi Menüye Bak
+            <a href="#menu" class="btn btn-emerald btn-lg rounded-pill px-5 py-3 fw-bold shadow-emerald">
+                <i class="bi bi-arrow-right-circle me-2"></i> Şimdi Menüye Bak
             </a>
         </div>
     </div>
@@ -256,22 +265,22 @@
 
         <ul class="nav nav-pills justify-content-center gap-2 mb-5" id="menuTabs" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active rounded-pill px-4 py-2" data-bs-toggle="pill" data-bs-target="#tab-breakfast" type="button">
+                <button class="nav-link menu-tab-btn active rounded-pill" data-bs-toggle="pill" data-bs-target="#tab-breakfast" type="button">
                     Kahvaltı
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link rounded-pill px-4 py-2" data-bs-toggle="pill" data-bs-target="#tab-lunch" type="button">
+                <button class="nav-link menu-tab-btn rounded-pill" data-bs-toggle="pill" data-bs-target="#tab-lunch" type="button">
                     Öğle Yemeği
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link rounded-pill px-4 py-2" data-bs-toggle="pill" data-bs-target="#tab-dinner" type="button">
+                <button class="nav-link menu-tab-btn rounded-pill" data-bs-toggle="pill" data-bs-target="#tab-dinner" type="button">
                     Akşam Yemeği
                 </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link rounded-pill px-4 py-2" data-bs-toggle="pill" data-bs-target="#tab-dessert" type="button">
+                <button class="nav-link menu-tab-btn rounded-pill" data-bs-toggle="pill" data-bs-target="#tab-dessert" type="button">
                     Tatlı
                 </button>
             </li>
@@ -440,13 +449,15 @@
 </section>
 
 
-    <section class="py-5 bg-emerald text-white text-center position-relative overflow-hidden">
-        <div class="container position-relative z-1">
-            <h2 class="fw-extrabold mb-3">Acıktın mı? Kapına getirelim!</h2>
-            <p class="mb-4 fs-5 opacity-75">Sadece QR değil, eve servis ile de yanınızdayız.</p>
-            <a href="#" class="btn btn-white btn-lg rounded-pill px-5">Hemen Online Sipariş Ver</a>
+    <section class="cta-section py-100 text-white text-center position-relative overflow-hidden">
+        <div class="cta-overlay"></div>
+        <div class="container position-relative z-2">
+            <h2 class="display-3 fw-bold mb-4 cta-title">Acıktın mı?<br>Kapına getirelim!</h2>
+            <p class="mb-5 fs-4 opacity-90 cta-subtitle">Sadece QR değil, eve servis ile de yanınızdayız.</p>
+            <a href="#" class="btn btn-cta btn-lg rounded-pill px-5 py-3 fw-bold">
+                <i class="bi bi-bag-check me-2"></i> Hemen Sipariş Ver
+            </a>
         </div>
-        <div class="bg-pattern-dots"></div>
     </section>
 
     <section id="discounts" class="py-100">
@@ -547,7 +558,7 @@
     <div class="container">
         <div class="section-heading text-center">
             <span class="section-eyebrow">Şeflerimiz</span>
-            <h2 class="section-title">Executive Culinary Team</h2>
+            <h2 class="section-title">Şef Kadromuz</h2>
             <p class="section-subtitle">
                 Menüdeki her tabağın arkasında, teknik ustalık ile hikâye anlatımını birleştiren özel bir ekip var.
             </p>
@@ -557,8 +568,9 @@
             <!-- Chef 1 -->
             <article class="chef-card">
                 <div class="chef-image-wrapper">
-                    <img src="images/chefs/chef-1.jpg" alt="Executive Chef" class="chef-image" />
-                    <span class="chef-role-badge">Executive Chef</span>
+                    <img src="images/chefs/chef-1.jpg" alt="Baş Şef" class="chef-image" />
+                    <div class="chef-overlay"></div>
+                    <span class="chef-role-badge">Baş Şef</span>
                 </div>
                 <div class="chef-content">
                     <h3 class="chef-name">Mert Kaya</h3>
@@ -568,18 +580,18 @@
                         lokal ürünleri modern tekniklerle yeniden yorumluyor.
                     </p>
                     <ul class="chef-meta">
-                        <li>15+ yıllık deneyim</li>
-                        <li>Mevsimsel tadım menülerinin küratörü</li>
+                        <li><i class="bi bi-award text-emerald me-2"></i> 15+ yıllık deneyim</li>
+                        <li><i class="bi bi-star text-emerald me-2"></i> Mevsimsel tadım menülerinin küratörü</li>
                     </ul>
                     <div class="chef-social">
                         <a href="#" aria-label="Instagram">
-                            <i class="fa-brands fa-instagram"></i>
+                            <i class="bi bi-instagram"></i>
                         </a>
                         <a href="#" aria-label="Facebook">
-                            <i class="fa-brands fa-facebook-f"></i>
+                            <i class="bi bi-facebook"></i>
                         </a>
                         <a href="#" aria-label="YouTube">
-                            <i class="fa-brands fa-youtube"></i>
+                            <i class="bi bi-youtube"></i>
                         </a>
                     </div>
                 </div>
@@ -588,26 +600,27 @@
             <!-- Chef 2 -->
             <article class="chef-card">
                 <div class="chef-image-wrapper">
-                    <img src="images/chefs/chef-2.jpg" alt="Pastry Chef" class="chef-image" />
-                    <span class="chef-role-badge">Pastry Chef</span>
+                    <img src="images/chefs/chef-2.jpg" alt="Pastacı Şef" class="chef-image" />
+                    <div class="chef-overlay"></div>
+                    <span class="chef-role-badge">Pastacı Şef</span>
                 </div>
                 <div class="chef-content">
                     <h3 class="chef-name">Elif Arslan</h3>
-                    <p class="chef-title">Patisserie & Dessert Tasting</p>
+                    <p class="chef-title">Pastisserie & Tatlı Tadım Menüsü</p>
                     <p class="chef-bio">
                         Fransız pastacılık tekniklerini, Anadolu tatlarıyla buluşturan Elif,
                         her servisi küçük bir seremoniye dönüştürüyor.
                     </p>
                     <ul class="chef-meta">
-                        <li>Şef imzalı tatlı tadım menüsü</li>
-                        <li>Şeker dengesi ve dokuda hassasiyet</li>
+                        <li><i class="bi bi-award text-emerald me-2"></i> Şef imzalı tatlı tadım menüsü</li>
+                        <li><i class="bi bi-heart text-emerald me-2"></i> Şeker dengesi ve dokuda hassasiyet</li>
                     </ul>
                     <div class="chef-social">
                         <a href="#" aria-label="Instagram">
-                            <i class="fa-brands fa-instagram"></i>
+                            <i class="bi bi-instagram"></i>
                         </a>
                         <a href="#" aria-label="Pinterest">
-                            <i class="fa-brands fa-pinterest-p"></i>
+                            <i class="bi bi-pinterest"></i>
                         </a>
                     </div>
                 </div>
@@ -616,26 +629,27 @@
             <!-- Chef 3 -->
             <article class="chef-card">
                 <div class="chef-image-wrapper">
-                    <img src="images/chefs/chef-3.jpg" alt="Head Sommelier" class="chef-image" />
-                    <span class="chef-role-badge">Head Sommelier</span>
+                    <img src="images/chefs/chef-3.jpg" alt="Baş Sommelier" class="chef-image" />
+                    <div class="chef-overlay"></div>
+                    <span class="chef-role-badge">Baş Sommelier</span>
                 </div>
                 <div class="chef-content">
                     <h3 class="chef-name">Deniz Yalçın</h3>
-                    <p class="chef-title">Wine Pairing & Beverage Program</p>
+                    <p class="chef-title">Şarap Eşleştirme & İçecek Programı</p>
                     <p class="chef-bio">
                         Her tabağa özel eşleştirme sunan Deniz, şarap ve imza kokteyl
                         eşleşmelerini menü deneyiminin merkezine taşıyor.
                     </p>
                     <ul class="chef-meta">
-                        <li>Geniş kav & özel seçkiler</li>
-                        <li>Pairing odaklı tadım deneyimleri</li>
+                        <li><i class="bi bi-wine text-emerald me-2"></i> Geniş kav & özel seçkiler</li>
+                        <li><i class="bi bi-star text-emerald me-2"></i> Eşleştirme odaklı tadım deneyimleri</li>
                     </ul>
                     <div class="chef-social">
                         <a href="#" aria-label="Instagram">
-                            <i class="fa-brands fa-instagram"></i>
+                            <i class="bi bi-instagram"></i>
                         </a>
                         <a href="#" aria-label="LinkedIn">
-                            <i class="fa-brands fa-linkedin-in"></i>
+                            <i class="bi bi-linkedin"></i>
                         </a>
                     </div>
                 </div>
@@ -673,14 +687,14 @@
             </div>
         </div>
     </section>
-    <section id="stats" class="py-100 bg-gray-50">
+    <section id="stats" class="py-100 stats-section">
     <div class="container">
         <div class="row g-4 align-items-stretch">
             <div class="col-lg-4">
-                <div class="p-5 rounded-5 bg-dark text-white h-100 shadow-lg">
-                    <span class="text-emerald fw-bold text-uppercase">Güven</span>
-                    <h2 class="fw-extrabold mt-2 mb-3">Rakamlarla QR Restaurant</h2>
-                    <p class="text-gray-400 mb-0">
+                <div class="p-5 rounded-5 stats-header h-100">
+                    <span class="text-emerald fw-bold text-uppercase" style="font-family: 'Montserrat', sans-serif; letter-spacing: 0.2em;">Güven</span>
+                    <h2 class="fw-bold mt-2 mb-3 text-white" style="font-family: 'Playfair Display', serif; letter-spacing: 0.02em;">Rakamlarla QR Restaurant</h2>
+                    <p class="text-white opacity-75 mb-0" style="font-family: 'Inter', sans-serif;">
                         Kaliteyi sadece sözle değil, verilerle de gösteriyoruz. Her gün binlerce tarama, yüzlerce sipariş.
                     </p>
                 </div>
@@ -689,41 +703,41 @@
             <div class="col-lg-8">
                 <div class="row g-4">
                     <div class="col-md-4">
-                        <div class="stat-card p-4 rounded-5 bg-white border h-100">
+                        <div class="stat-card p-4 rounded-5 h-100">
                             <div class="stat-icon mb-3"><i class="bi bi-qr-code-scan"></i></div>
                             <div class="stat-number">
                                 <span class="counter" data-target="250">0</span><span class="suffix">K+</span>
                             </div>
-                            <p class="text-muted mb-0">Toplam QR Tarama</p>
+                            <p class="text-white opacity-90 mb-0" style="font-family: 'Inter', sans-serif;">Toplam QR Tarama</p>
                         </div>
                     </div>
 
                     <div class="col-md-4">
-                        <div class="stat-card p-4 rounded-5 bg-white border h-100">
+                        <div class="stat-card p-4 rounded-5 h-100">
                             <div class="stat-icon mb-3"><i class="bi bi-bag-check"></i></div>
                             <div class="stat-number">
                                 <span class="counter" data-target="120">0</span><span class="suffix">K+</span>
                             </div>
-                            <p class="text-muted mb-0">Başarılı Sipariş</p>
+                            <p class="text-white opacity-90 mb-0" style="font-family: 'Inter', sans-serif;">Başarılı Sipariş</p>
                         </div>
                     </div>
 
                     <div class="col-md-4">
-                        <div class="stat-card p-4 rounded-5 bg-white border h-100">
+                        <div class="stat-card p-4 rounded-5 h-100">
                             <div class="stat-icon mb-3"><i class="bi bi-star-fill"></i></div>
                             <div class="stat-number">
                                 <span class="counter-decimal" data-target="4.9">0</span>
                             </div>
-                            <p class="text-muted mb-0">Ortalama Puan</p>
+                            <p class="text-white opacity-90 mb-0" style="font-family: 'Inter', sans-serif;">Ortalama Puan</p>
                         </div>
                     </div>
 
                     <div class="col-md-6">
-                        <div class="stat-wide p-4 rounded-5 bg-white border h-100">
+                        <div class="stat-wide p-4 rounded-5 h-100">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
-                                    <h5 class="fw-bold mb-1">Ortalama Servis Süresi</h5>
-                                    <p class="text-muted mb-0">QR menü ile sipariş sonrası hız.</p>
+                                    <h5 class="fw-bold mb-1 text-white" style="font-family: 'Playfair Display', serif;">Ortalama Servis Süresi</h5>
+                                    <p class="text-white opacity-75 mb-0" style="font-family: 'Inter', sans-serif;">QR menü ile sipariş sonrası hız.</p>
                                 </div>
                                 <div class="stat-pill">
                                     <span class="counter" data-target="12">0</span> dk
@@ -733,11 +747,11 @@
                     </div>
 
                     <div class="col-md-6">
-                        <div class="stat-wide p-4 rounded-5 bg-white border h-100">
+                        <div class="stat-wide p-4 rounded-5 h-100">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
-                                    <h5 class="fw-bold mb-1">Günlük Aktif Masa</h5>
-                                    <p class="text-muted mb-0">Yoğun saatlerde canlı kullanım.</p>
+                                    <h5 class="fw-bold mb-1 text-white" style="font-family: 'Playfair Display', serif;">Günlük Aktif Masa</h5>
+                                    <p class="text-white opacity-75 mb-0" style="font-family: 'Inter', sans-serif;">Yoğun saatlerde canlı kullanım.</p>
                                 </div>
                                 <div class="stat-pill">
                                     <span class="counter" data-target="180">0</span>+
@@ -751,7 +765,7 @@
         </div>
     </div>
 </section>
-<section id="faq" class="py-100 bg-light position-relative overflow-hidden">
+<section id="faq" class="py-100 faq-section position-relative overflow-hidden">
     <div class="container">
         <div class="text-center mb-5">
             <span class="text-emerald fw-bold text-uppercase">SSS</span>
@@ -763,9 +777,9 @@
 
         <div class="row g-4 align-items-start">
             <div class="col-lg-5">
-                <div class="faq-side p-5 rounded-5 bg-dark text-white shadow-lg">
-                    <h3 class="fw-extrabold mb-3">Hızlı & Temassız Deneyim</h3>
-                    <p class="text-gray-400 mb-4">
+                <div class="faq-side p-5 rounded-5 shadow-lg">
+                    <h3 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif; letter-spacing: 0.02em;">Hızlı & Temassız Deneyim</h3>
+                    <p class="opacity-75 mb-4" style="font-family: 'Inter', sans-serif;">
                         Masadaki QR kodu tarat, menüyü gör, siparişini ver. İstersen rezervasyon da yap.
                     </p>
 
@@ -777,8 +791,8 @@
                     </div>
 
                     <div class="mt-4">
-                        <button class="btn btn-emerald rounded-pill px-4 py-3 fw-bold w-100" data-bs-toggle="modal" data-bs-target="#reserveModal">
-                            Hemen Rezervasyon Yap
+                        <button class="btn btn-emerald rounded-pill px-4 py-3 fw-bold w-100 btn-faq-reserve" data-bs-toggle="modal" data-bs-target="#reserveModal">
+                            <i class="bi bi-calendar-check me-2"></i> Hemen Rezervasyon Yap
                         </button>
                     </div>
                 </div>
@@ -989,7 +1003,7 @@
 </section>
 
 
-    <section id="reviews" class="py-100 bg-white position-relative overflow-hidden">
+    <section id="reviews" class="py-100 bg-white position-relative overflow-hidden mb-5">
     <div class="container">
         <div class="d-flex align-items-end justify-content-between flex-wrap gap-3 mb-5">
             <div>
@@ -1012,68 +1026,83 @@
             <div class="swiper-wrapper">
 
                 <div class="swiper-slide">
-                    <div class="testimonial-card p-4 p-lg-5 rounded-5 border h-100">
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <img class="testimonial-avatar"
-                                 src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=160&h=160&fit=crop"
-                                 alt="Müşteri">
-                            <div>
-                                <h6 class="fw-bold mb-0">Elif Y.</h6>
-                                <small class="text-muted">Beşiktaş</small>
+                    <div class="testimonial-card-premium">
+                        <div class="testimonial-quote-icon">
+                            <i class="bi bi-quote"></i>
+                        </div>
+                        <div class="testimonial-content-wrapper">
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar-wrapper">
+                                    <img class="testimonial-avatar-premium"
+                                         src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=160&h=160&fit=crop"
+                                         alt="Müşteri">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h6 class="testimonial-name">Elif Y.</h6>
+                                    <small class="testimonial-location">Beşiktaş</small>
+                                </div>
                             </div>
+                            <div class="testimonial-stars-premium">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            </div>
+                            <p class="testimonial-text">
+                                QR menü inanılmaz hızlı. Menü çok şık, sipariş vermek aşırı kolay. Antrikot efsane!
+                            </p>
                         </div>
-
-                        <div class="testimonial-stars mb-3">
-                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                        </div>
-
-                        <p class="text-muted fs-5 mb-0">
-                            QR menü inanılmaz hızlı. Menü çok şık, sipariş vermek aşırı kolay. Antrikot efsane!
-                        </p>
                     </div>
                 </div>
 
                 <div class="swiper-slide">
-                    <div class="testimonial-card p-4 p-lg-5 rounded-5 border h-100">
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <img class="testimonial-avatar"
-                                 src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=160&h=160&fit=crop"
-                                 alt="Müşteri">
-                            <div>
-                                <h6 class="fw-bold mb-0">Mert K.</h6>
-                                <small class="text-muted">Kadıköy</small>
+                    <div class="testimonial-card-premium">
+                        <div class="testimonial-quote-icon">
+                            <i class="bi bi-quote"></i>
+                        </div>
+                        <div class="testimonial-content-wrapper">
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar-wrapper">
+                                    <img class="testimonial-avatar-premium"
+                                         src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=160&h=160&fit=crop"
+                                         alt="Müşteri">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h6 class="testimonial-name">Mert K.</h6>
+                                    <small class="testimonial-location">Kadıköy</small>
+                                </div>
                             </div>
+                            <div class="testimonial-stars-premium">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+                            </div>
+                            <p class="testimonial-text">
+                                Tasarım premium hissettiriyor. Kampanyalar bölümü ve rezervasyon modalı çok iyi düşünülmüş.
+                            </p>
                         </div>
-
-                        <div class="testimonial-stars mb-3">
-                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
-                        </div>
-
-                        <p class="text-muted fs-5 mb-0">
-                            Tasarım premium hissettiriyor. Kampanyalar bölümü ve rezervasyon modalı çok iyi düşünülmüş.
-                        </p>
                     </div>
                 </div>
 
                 <div class="swiper-slide">
-                    <div class="testimonial-card p-4 p-lg-5 rounded-5 border h-100">
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <img class="testimonial-avatar"
-                                 src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=160&h=160&fit=crop"
-                                 alt="Müşteri">
-                            <div>
-                                <h6 class="fw-bold mb-0">Zeynep A.</h6>
-                                <small class="text-muted">Şişli</small>
+                    <div class="testimonial-card-premium">
+                        <div class="testimonial-quote-icon">
+                            <i class="bi bi-quote"></i>
+                        </div>
+                        <div class="testimonial-content-wrapper">
+                            <div class="testimonial-header">
+                                <div class="testimonial-avatar-wrapper">
+                                    <img class="testimonial-avatar-premium"
+                                         src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=160&h=160&fit=crop"
+                                         alt="Müşteri">
+                                </div>
+                                <div class="testimonial-info">
+                                    <h6 class="testimonial-name">Zeynep A.</h6>
+                                    <small class="testimonial-location">Şişli</small>
+                                </div>
                             </div>
+                            <div class="testimonial-stars-premium">
+                                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                            </div>
+                            <p class="testimonial-text">
+                                Menü kartlarındaki hover ve animasyonlar çok tatlı. Kesinlikle modern restoran hissi var.
+                            </p>
                         </div>
-
-                        <div class="testimonial-stars mb-3">
-                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                        </div>
-
-                        <p class="text-muted fs-5 mb-0">
-                            Menü kartlarındaki hover ve animasyonlar çok tatlı. Kesinlikle modern restoran hissi var.
-                        </p>
                     </div>
                 </div>
 
@@ -1088,23 +1117,31 @@
 </section>
 
 
-    <section id="contact" class="py-100">
+    <section id="contact" class="py-100 mt-5">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-4">
                     <h2 class="fw-bold mb-4">Bize Ulaşın</h2>
                     <div class="mb-4">
-                        <h6 class="fw-bold text-uppercase text-muted">Adres</h6>
-                        <p class="fs-5">Lezzet Sokak No:26, Beşiktaş / İstanbul</p>
+                        <h6 class="fw-bold text-uppercase text-muted d-flex align-items-center gap-2 mb-2">
+                            <i class="bi bi-geo-alt text-emerald fs-5"></i> Adres
+                        </h6>
+                        <p class="fs-5 ms-4">Lezzet Sokak No:26, Beşiktaş / İstanbul</p>
                     </div>
                     <div class="mb-4">
-                        <h6 class="fw-bold text-uppercase text-muted">Telefon</h6>
-                        <a href="tel:+902120000000" class="fs-5 text-dark text-decoration-none fw-bold">+90 (212) 000 00 00</a>
+                        <h6 class="fw-bold text-uppercase text-muted d-flex align-items-center gap-2 mb-2">
+                            <i class="bi bi-telephone text-emerald fs-5"></i> Telefon
+                        </h6>
+                        <a href="tel:+902120000000" class="fs-5 text-dark text-decoration-none fw-bold ms-4">+90 (212) 000 00 00</a>
                     </div>
                     <div class="mb-4">
-                        <h6 class="fw-bold text-uppercase text-muted">Çalışma Saatleri</h6>
-                        <p class="mb-1">Pazartesi - Cumartesi: 09:00 - 23:00</p>
-                        <p>Pazar: 10:00 - 22:00</p>
+                        <h6 class="fw-bold text-uppercase text-muted d-flex align-items-center gap-2 mb-2">
+                            <i class="bi bi-clock text-emerald fs-5"></i> Çalışma Saatleri
+                        </h6>
+                        <div class="ms-4">
+                            <p class="mb-1">Pazartesi - Cumartesi: 09:00 - 23:00</p>
+                            <p>Pazar: 10:00 - 22:00</p>
+                        </div>
                     </div>
                     <div class="d-flex gap-3 mt-4">
                         <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
@@ -1125,22 +1162,87 @@
         </div>
     </section>
 
-    <footer class="bg-dark text-white py-5">
+    <footer class="footer-premium bg-dark text-white py-5">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <h4 class="fw-bold"><span class="text-emerald">QR</span> RESTAURANT</h4>
-                    <p class="text-gray-400 small mt-3">Geleceğin restoran deneyimi burada. <br> Her scan bir hikaye başlatır.</p>
+            <div class="row g-4">
+                <!-- Logo & About -->
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h4 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif; letter-spacing: 0.02em;">
+                        <span class="text-emerald">QR</span> RESTAURANT
+                    </h4>
+                    <p class="text-gray-400 small mb-3" style="font-family: 'Inter', sans-serif; line-height: 1.7;">
+                        2010'dan beri geleneksel lezzetleri modern sunumlarla buluşturuyoruz. QR Menü teknolojisiyle deneyiminizi kusursuzlaştırıyoruz.
+                    </p>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="social-icon-footer"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon-footer"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon-footer"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="social-icon-footer"><i class="bi bi-youtube"></i></a>
+                    </div>
                 </div>
-                <div class="col-md-4 mb-4 mb-md-0 text-center">
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item mx-2"><a href="#" class="text-white text-decoration-none">KVKK</a></li>
-                        <li class="list-inline-item mx-2"><a href="#" class="text-white text-decoration-none">Çerezler</a></li>
-                        <li class="list-inline-item mx-2"><a href="#" class="text-white text-decoration-none">İletişim</a></li>
+
+                <!-- Quick Links -->
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif; letter-spacing: 0.02em;">Hızlı Linkler</h5>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="#home" class="text-gray-400 text-decoration-none">Ana Sayfa</a></li>
+                        <li><a href="#menu" class="text-gray-400 text-decoration-none">Menü</a></li>
+                        <li><a href="#about" class="text-gray-400 text-decoration-none">Hakkımızda</a></li>
+                        <li><a href="#reviews" class="text-gray-400 text-decoration-none">Yorumlar</a></li>
+                        <li><a href="#contact" class="text-gray-400 text-decoration-none">İletişim</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4 text-md-end">
-                    <p class="text-gray-500 small mb-0">&copy; 2026 QR Restaurant. Tüm Hakları Saklıdır.</p>
+
+                <!-- Contact Info -->
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif; letter-spacing: 0.02em;">İletişim</h5>
+                    <ul class="list-unstyled footer-contact">
+                        <li class="mb-2 text-gray-400" style="font-family: 'Inter', sans-serif;">
+                            <i class="bi bi-geo-alt text-emerald me-2"></i>
+                            Lezzet Sokak No:26<br>
+                            <span class="ms-4">Beşiktaş / İstanbul</span>
+                        </li>
+                        <li class="mb-2 text-gray-400" style="font-family: 'Inter', sans-serif;">
+                            <i class="bi bi-telephone text-emerald me-2"></i>
+                            <a href="tel:+902120000000" class="text-gray-400 text-decoration-none">+90 (212) 000 00 00</a>
+                        </li>
+                        <li class="mb-2 text-gray-400" style="font-family: 'Inter', sans-serif;">
+                            <i class="bi bi-envelope text-emerald me-2"></i>
+                            <a href="mailto:info@qrrestaurant.com" class="text-gray-400 text-decoration-none">info@qrrestaurant.com</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif; letter-spacing: 0.02em;">Bülten</h5>
+                    <p class="text-gray-400 small mb-3" style="font-family: 'Inter', sans-serif;">
+                        Kampanyalardan ve özel etkinliklerden haberdar olmak için bültenimize kaydolun.
+                    </p>
+                    <form class="footer-newsletter">
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control bg-dark border-secondary text-white" placeholder="E-posta adresiniz" style="font-family: 'Inter', sans-serif;">
+                            <button class="btn btn-emerald" type="submit">
+                                <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="mt-3 pt-3 border-top border-secondary">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item me-3"><a href="#" class="text-gray-500 text-decoration-none small">KVKK</a></li>
+                            <li class="list-inline-item me-3"><a href="#" class="text-gray-500 text-decoration-none small">Çerezler</a></li>
+                            <li class="list-inline-item"><a href="#" class="text-gray-500 text-decoration-none small">Gizlilik</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="row mt-4 pt-4 border-top border-secondary">
+                <div class="col-12 text-center">
+                    <p class="text-gray-500 small mb-0" style="font-family: 'Inter', sans-serif;">
+                        &copy; 2026 QR Restaurant. Tüm Hakları Saklıdır.
+                    </p>
                 </div>
             </div>
         </div>
@@ -1259,7 +1361,7 @@
 </button>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
