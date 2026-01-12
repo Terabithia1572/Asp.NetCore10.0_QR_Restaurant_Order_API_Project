@@ -50,6 +50,27 @@ body {
     background-color: var(--gray-50);
     line-height: 1.6;
 }
+/* Ultra-premium grain/noise overlay */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  opacity:.065;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+body > * { position: relative; z-index: 1; }
+
+:focus-visible{
+  outline: 2px solid rgba(205,164,94,.55);
+  outline-offset: 4px;
+  border-radius: 14px;
+}
+
 
 /* Typography Hierarchy */
 h1, h2, h3, h4, h5, h6,
