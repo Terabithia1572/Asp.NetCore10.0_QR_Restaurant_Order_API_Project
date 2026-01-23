@@ -71,311 +71,43 @@
     @await Component.InvokeAsync("_UILayoutCTASectionComponentPartial")
 
 
-    <section id="discounts" class="py-100">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card border-0 rounded-5 overflow-hidden shadow-lg h-100 card-discount transition-all">
-                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop" class="card-img-top" alt="Kampanya">
-                        <div class="card-body p-4">
-                            <span class="badge bg-danger mb-2">%20 İNDİRİM</span>
-                            <h4 class="fw-bold">Hafta İçi Öğle Menüsü</h4>
-                            <p class="text-muted">Saat 12:00 - 15:00 arası tüm ana yemeklerde geçerli özel indirim.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border-0 rounded-5 overflow-hidden shadow-lg h-100 card-discount transition-all bg-dark text-white">
-                        <div class="card-body p-5 d-flex flex-column justify-content-center align-items-center text-center">
-                            <div class="display-4 fw-bold text-emerald mb-3">Hediye</div>
-                            <h3>İlk QR Siparişine</h3>
-                            <p class="opacity-75">Tatlı ikramımızdır! Sadece QR Menü üzerinden verilen ilk siparişlerde.</p>
-                            <button class="btn btn-emerald rounded-pill px-4 mt-3">Kodu Al</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card border-0 rounded-5 overflow-hidden shadow-lg h-100 card-discount transition-all">
-                        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&h=400&fit=crop" class="card-img-top" alt="Kampanya">
-                        <div class="card-body p-4">
-                            <span class="badge bg-danger mb-2">1 ALANA 1 BEDAVA</span>
-                            <h4 class="fw-bold">Kahve Saatleri</h4>
-                            <p class="text-muted">Pazartesi ve Salı günleri tüm espresso bazlı içeceklerde geçerlidir.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="gallery" class="py-100 bg-gray-50">
-        <div class="container">
-            <div class="text-center mb-5">
-                <span class="text-emerald fw-bold text-uppercase">Galeri</span>
-                <h2 class="display-5 fw-bold">Atmosferi Keşfet</h2>
-                <p class="text-muted fs-5 mb-0">Mekan, sunum ve lezzetten kareler.</p>
-            </div>
+    @* UI Layout Discounts Component
+   → Kampanya ve indirim kartlarının gösterimi
+   → Görsel + rozet + açıklama + CTA
+   → Landing sayfada dönüşüm amaçlı *@
+    @await Component.InvokeAsync("_UILayoutDiscountsComponentPartial")
 
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <a class="gallery-item glightbox" href="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=1600&h=1100&fit=crop" data-gallery="qr-gallery">
-                        <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=800&h=600&fit=crop" class="img-fluid rounded-5" alt="Gallery">
-                        <span class="gallery-overlay">
-                            <span class="gallery-badge"><i class="bi bi-zoom-in me-1"></i> Gör</span>
-                        </span>
-                    </a>
-                </div>
+    @* UI Layout Gallery Component
+   → Mekan / sunum / atmosfer görselleri
+   → Lightbox ile etkileşimli görüntüleme
+   → Landing sayfada destekleyici görsel içerik *@
+    @await Component.InvokeAsync("_UILayoutGalleryComponentPartial")
 
-                <div class="col-md-4">
-                    <a class="gallery-item glightbox" href="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=1600&h=1100&fit=crop" data-gallery="qr-gallery">
-                        <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=800&h=600&fit=crop" class="img-fluid rounded-5" alt="Gallery">
-                        <span class="gallery-overlay">
-                            <span class="gallery-badge"><i class="bi bi-zoom-in me-1"></i> Gör</span>
-                        </span>
-                    </a>
-                </div>
-
-                <div class="col-md-4">
-                    <a class="gallery-item glightbox" href="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=1600&h=1100&fit=crop" data-gallery="qr-gallery">
-                        <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=800&h=600&fit=crop" class="img-fluid rounded-5" alt="Gallery">
-                        <span class="gallery-overlay">
-                            <span class="gallery-badge"><i class="bi bi-zoom-in me-1"></i> Gör</span>
-                        </span>
-                    </a>
-                </div>
-
-                <div class="col-md-6">
-                    <a class="gallery-item glightbox" href="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1600&h=1100&fit=crop" data-gallery="qr-gallery">
-                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1000&h=650&fit=crop" class="img-fluid rounded-5" alt="Gallery">
-                        <span class="gallery-overlay">
-                            <span class="gallery-badge"><i class="bi bi-zoom-in me-1"></i> Gör</span>
-                        </span>
-                    </a>
-                </div>
-
-                <div class="col-md-6">
-                    <a class="gallery-item glightbox" href="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=1600&h=1100&fit=crop" data-gallery="qr-gallery">
-                        <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=1000&h=650&fit=crop" class="img-fluid rounded-5" alt="Gallery">
-                        <span class="gallery-overlay">
-                            <span class="gallery-badge"><i class="bi bi-zoom-in me-1"></i> Gör</span>
-                        </span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="chefs" class="section-block chefs-section">
-
-        <div class="container">
-            <div class="section-heading text-center">
-                <span class="section-eyebrow">Şeflerimiz</span>
-                <h2 class="section-title">Şef Kadromuz</h2>
-                <p class="section-subtitle">
-                    Menüdeki her tabağın arkasında, teknik ustalık ile hikâye anlatımını birleştiren özel bir ekip var.
-                </p>
-            </div>
-
-            <div class="chef-grid">
-                <!-- Chef 1 -->
-                <article class="chef-card">
-                    <div class="chef-image-wrapper">
-                        <img src="images/chefs/chef-1.jpg" alt="Baş Şef" class="chef-image" />
-                        <div class="chef-overlay"></div>
-                        <span class="chef-role-badge">Baş Şef</span>
-                    </div>
-                    <div class="chef-content">
-                        <h3 class="chef-name">Mert Kaya</h3>
-                        <p class="chef-title">Modern Anadolu & Fine Dining</p>
-                        <p class="chef-bio">
-                            İstanbul ve Londra’daki Michelin yıldızlı mutfaklarda çalışan Mert,
-                            lokal ürünleri modern tekniklerle yeniden yorumluyor.
-                        </p>
-                        <ul class="chef-meta">
-                            <li><i class="bi bi-award text-emerald me-2"></i> 15+ yıllık deneyim</li>
-                            <li><i class="bi bi-star text-emerald me-2"></i> Mevsimsel tadım menülerinin küratörü</li>
-                        </ul>
-                        <div class="chef-social">
-                            <a href="#" aria-label="Instagram">
-                                <i class="bi bi-instagram"></i>
-                            </a>
-                            <a href="#" aria-label="Facebook">
-                                <i class="bi bi-facebook"></i>
-                            </a>
-                            <a href="#" aria-label="YouTube">
-                                <i class="bi bi-youtube"></i>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Chef 2 -->
-                <article class="chef-card">
-                    <div class="chef-image-wrapper">
-                        <img src="images/chefs/chef-2.jpg" alt="Pastacı Şef" class="chef-image" />
-                        <div class="chef-overlay"></div>
-                        <span class="chef-role-badge">Pastacı Şef</span>
-                    </div>
-                    <div class="chef-content">
-                        <h3 class="chef-name">Elif Arslan</h3>
-                        <p class="chef-title">Pastisserie & Tatlı Tadım Menüsü</p>
-                        <p class="chef-bio">
-                            Fransız pastacılık tekniklerini, Anadolu tatlarıyla buluşturan Elif,
-                            her servisi küçük bir seremoniye dönüştürüyor.
-                        </p>
-                        <ul class="chef-meta">
-                            <li><i class="bi bi-award text-emerald me-2"></i> Şef imzalı tatlı tadım menüsü</li>
-                            <li><i class="bi bi-heart text-emerald me-2"></i> Şeker dengesi ve dokuda hassasiyet</li>
-                        </ul>
-                        <div class="chef-social">
-                            <a href="#" aria-label="Instagram">
-                                <i class="bi bi-instagram"></i>
-                            </a>
-                            <a href="#" aria-label="Pinterest">
-                                <i class="bi bi-pinterest"></i>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Chef 3 -->
-                <article class="chef-card">
-                    <div class="chef-image-wrapper">
-                        <img src="images/chefs/chef-3.jpg" alt="Baş Sommelier" class="chef-image" />
-                        <div class="chef-overlay"></div>
-                        <span class="chef-role-badge">Baş Sommelier</span>
-                    </div>
-                    <div class="chef-content">
-                        <h3 class="chef-name">Deniz Yalçın</h3>
-                        <p class="chef-title">Şarap Eşleştirme & İçecek Programı</p>
-                        <p class="chef-bio">
-                            Her tabağa özel eşleştirme sunan Deniz, şarap ve imza kokteyl
-                            eşleşmelerini menü deneyiminin merkezine taşıyor.
-                        </p>
-                        <ul class="chef-meta">
-                            <li><i class="bi bi-wine text-emerald me-2"></i> Geniş kav & özel seçkiler</li>
-                            <li><i class="bi bi-star text-emerald me-2"></i> Eşleştirme odaklı tadım deneyimleri</li>
-                        </ul>
-                        <div class="chef-social">
-                            <a href="#" aria-label="Instagram">
-                                <i class="bi bi-instagram"></i>
-                            </a>
-                            <a href="#" aria-label="LinkedIn">
-                                <i class="bi bi-linkedin"></i>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
+    @* UI Layout Chefs Section Component
+   → Şef kadrosunun listelendiği alan
+   → Görsel, unvan, kısa biyografi ve öne çıkan bilgiler
+   → Sosyal medya bağlantıları
+   → Mekanın güven ve prestijini destekleyen bölüm *@
+    @await Component.InvokeAsync("_UILayoutChefsSectionComponentPartial")
 
 
 
 
-    <section id="about" class="py-100 bg-light">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                    <div class="position-relative">
-                        <img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=800&h=600&fit=crop" class="img-fluid rounded-5 shadow-xl" alt="Mutfak">
-                        <div class="experience-badge bg-emerald text-white p-4 rounded-4 shadow-lg">
-                            <span class="d-block h2 fw-bold mb-0">15+</span>
-                            <small>Yıllık Lezzet</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 ps-lg-5">
-                    <span class="text-emerald fw-bold">Hikayemiz</span>
-                    <h2 class="display-4 fw-bold mb-4">Kalite ve Gelenek <br>Modern Dokunuşla</h2>
-                    <p class="text-muted fs-5 mb-4">2010 yılından beri, geleneksel tarifleri modern sunumlarla birleştiriyoruz. 2026 teknolojisiyle QR Menü sistemine geçerek deneyiminizi kusursuzlaştırıyoruz.</p>
-                    <ul class="list-unstyled mb-5">
-                        <li class="mb-3 d-flex align-items-center"><i class="bi bi-check-circle-fill text-emerald me-3 fs-4"></i> %100 Organik ve Yerel Ürünler</li>
-                        <li class="mb-3 d-flex align-items-center"><i class="bi bi-check-circle-fill text-emerald me-3 fs-4"></i> Ödüllü Şef Kadrosu</li>
-                        <li class="mb-3 d-flex align-items-center"><i class="bi bi-check-circle-fill text-emerald me-3 fs-4"></i> Şık ve Modern Atmosfer</li>
-                    </ul>
-                    <a href="#" class="btn btn-dark btn-lg rounded-pill px-5">Daha Fazlası</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="stats" class="py-100 stats-section">
-        <div class="container">
-            <div class="row g-4 align-items-stretch">
-                <div class="col-lg-4">
-                    <div class="p-5 rounded-5 stats-header h-100">
-                        <span class="text-emerald fw-bold text-uppercase" style="font-family: 'Montserrat', sans-serif; letter-spacing: 0.2em;">Güven</span>
-                        <h2 class="fw-bold mt-2 mb-3 text-white" style="font-family: 'Playfair Display', serif; letter-spacing: 0.02em;">Rakamlarla QR Restaurant</h2>
-                        <p class="text-white opacity-75 mb-0" style="font-family: 'Inter', sans-serif;">
-                            Kaliteyi sadece sözle değil, verilerle de gösteriyoruz. Her gün binlerce tarama, yüzlerce sipariş.
-                        </p>
-                    </div>
-                </div>
+    @* UI Layout About Section Component
+   → Mekanın hikayesi ve marka anlatımı
+   → Görsel + deneyim rozeti + metin + güven unsurları
+   → Organik ürün, ödüllü şef, atmosfer vurgusu
+   → Landing sayfada prestij ve güven katmanı *@
+    @await Component.InvokeAsync("_UILayoutAboutSectionComponentPartial")
 
-                <div class="col-lg-8">
-                    <div class="row g-4">
-                        <div class="col-md-4">
-                            <div class="stat-card p-4 rounded-5 h-100">
-                                <div class="stat-icon mb-3"><i class="bi bi-qr-code-scan"></i></div>
-                                <div class="stat-number">
-                                    <span class="counter" data-target="250">0</span><span class="suffix">K+</span>
-                                </div>
-                                <p class="text-white opacity-90 mb-0" style="font-family: 'Inter', sans-serif;">Toplam QR Tarama</p>
-                            </div>
-                        </div>
+   
+    @* UI Layout Stats Section Component
+   → Kullanıcı güvenini artıran istatistik alanı
+   → QR tarama, sipariş, puan, servis süresi ve aktif masa verileri
+   → Counter animasyonlarıyla destekli metrik gösterimi
+   → Landing sayfada güven & kanıt katmanı *@
+    @await Component.InvokeAsync("_UILayoutStatsSectionComponentPartial")
 
-                        <div class="col-md-4">
-                            <div class="stat-card p-4 rounded-5 h-100">
-                                <div class="stat-icon mb-3"><i class="bi bi-bag-check"></i></div>
-                                <div class="stat-number">
-                                    <span class="counter" data-target="120">0</span><span class="suffix">K+</span>
-                                </div>
-                                <p class="text-white opacity-90 mb-0" style="font-family: 'Inter', sans-serif;">Başarılı Sipariş</p>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="stat-card p-4 rounded-5 h-100">
-                                <div class="stat-icon mb-3"><i class="bi bi-star-fill"></i></div>
-                                <div class="stat-number">
-                                    <span class="counter-decimal" data-target="4.9">0</span>
-                                </div>
-                                <p class="text-white opacity-90 mb-0" style="font-family: 'Inter', sans-serif;">Ortalama Puan</p>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="stat-wide p-4 rounded-5 h-100">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <h5 class="fw-bold mb-1 text-white" style="font-family: 'Playfair Display', serif;">Ortalama Servis Süresi</h5>
-                                        <p class="text-white opacity-75 mb-0" style="font-family: 'Inter', sans-serif;">QR menü ile sipariş sonrası hız.</p>
-                                    </div>
-                                    <div class="stat-pill">
-                                        <span class="counter" data-target="12">0</span> dk
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="stat-wide p-4 rounded-5 h-100">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <h5 class="fw-bold mb-1 text-white" style="font-family: 'Playfair Display', serif;">Günlük Aktif Masa</h5>
-                                        <p class="text-white opacity-75 mb-0" style="font-family: 'Inter', sans-serif;">Yoğun saatlerde canlı kullanım.</p>
-                                    </div>
-                                    <div class="stat-pill">
-                                        <span class="counter" data-target="180">0</span>+
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <section id="faq" class="py-100 faq-section position-relative overflow-hidden">
         <div class="container">
             <div class="text-center mb-5">
