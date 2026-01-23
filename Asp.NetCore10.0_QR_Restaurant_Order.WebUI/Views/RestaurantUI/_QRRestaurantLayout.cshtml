@@ -21,142 +21,29 @@
    → Desktop & mobile için offcanvas destekli *@
     @await Component.InvokeAsync("_UILayoutNavbarComponentPartial")
 
+    @* QR Restaurant Mobile Offcanvas Navigation
+   → Menü, kampanya, hakkımızda, iletişim bölümlerine erişim
+   → Mobil rezervasyon aksiyonu
+   → Responsive & offcanvas UX *@
+    @await Component.InvokeAsync("_UILayoutOffcanvasNavbarComponentPartial")
 
-    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNav">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title fw-bold"><span class="text-emerald">QR</span> MENU</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-        </div>
-        <div class="offcanvas-body">
-            <ul class="navbar-nav gap-3 fs-5">
-                <li class="nav-item"><a class="nav-link" href="#home" data-bs-dismiss="offcanvas">Ana Sayfa</a></li>
-                <li class="nav-item"><a class="nav-link" href="#menu" data-bs-dismiss="offcanvas">Menü</a></li>
-                <li class="nav-item"><a class="nav-link" href="#discounts" data-bs-dismiss="offcanvas">Kampanyalar</a></li>
-                <li class="nav-item"><a class="nav-link" href="#about" data-bs-dismiss="offcanvas">Hakkımızda</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact" data-bs-dismiss="offcanvas">İletişim</a></li>
-            </ul>
-            <div class="mt-5 d-grid gap-2">
-                <button class="btn btn-emerald rounded-pill py-3" data-bs-toggle="modal" data-bs-target="#reserveModal">Rezervasyon Yap</button>
-            </div>
-        </div>
-    </div>
-    <section id="home" class="hero-section d-flex align-items-center">
-        <div class="container mt-5">
-            <div class="row align-items-center">
-                <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-up">
-                    <div class="d-flex gap-2 mb-3">
-                        <span class="badge bg-emerald-soft text-emerald rounded-pill px-3 py-2">#2026Premium</span>
-                    </div>
-                    <h1 class="display-3 fw-extrabold text-white mb-4 hero-title">
-                        <span>QR ile Menü</span>
-                        <span class="text-emerald">Hızlı Sipariş</span>
-                        <span>Keyifli Deneyim</span>
-                    </h1>
-                    <p class="lead text-gray-400 mb-5">
-                        Masadaki kodu taratın, saniyeler içinde zengin mutfağımızı keşfedin ve siparişinizi verin. Beklemek yok, sadece lezzet var.
-                    </p>
-                    <div class="d-flex flex-wrap gap-3">
-                        <a href="#menu" class="btn btn-emerald btn-lg rounded-pill px-5 py-3 fw-bold shadow-emerald">
-                            <i class="bi bi-qr-code-scan me-2"></i> QR Menüye Git
-                        </a>
-                        <button class="btn btn-outline-white btn-lg rounded-pill px-5 py-3 fw-bold" data-bs-toggle="modal" data-bs-target="#reserveModal">
-                            <i class="bi bi-calendar-check me-2"></i> Rezervasyon
-                        </button>
-                    </div>
-                    <div class="mt-5 d-flex gap-4">
-                        <div class="text-center"><i class="bi bi-qr-code-scan d-block fs-2 text-emerald"></i><small class="text-white">Temassız</small></div>
-                        <div class="text-center"><i class="bi bi-lightning-charge d-block fs-2 text-emerald"></i><small class="text-white">Hızlı Servis</small></div>
-                        <div class="text-center"><i class="bi bi-shield-check d-block fs-2 text-emerald"></i><small class="text-white">Güvenli</small></div>
-                    </div>
-                </div>
-                <div class="col-lg-6 text-center position-relative" data-aos="zoom-in">
-                    <div class="phone-mockup mx-auto">
-                        <div class="phone-screen bg-dark">
-                            <div class="qr-scanner-animation"></div>
-                            <i class="bi bi-qr-code text-white" style="font-size: 10rem;"></i>
-                        </div>
-                    </div>
-                    <div class="floating-card-1 bg-white p-3 rounded-4 shadow-lg position-absolute">
-                        <i class="bi bi-heart-fill text-danger"></i> <span class="fw-bold">Popüler: Antrikot</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  @* UI Layout Hero Component
+   → Giriş ve marka sunumu (Hero alanı)
+   → QR Menü + Rezervasyon CTA
+   → Temassız / Hızlı / Güvenli değer önermeleri
+   → Landing sayfada ortak kullanım *@
+    @await Component.InvokeAsync("_UILayoutHeroComponentPartial")
 
-    <!-- HOW IT WORKS -->
-    <section id="howitworks" class="py-100 bg-white position-relative overflow-hidden">
-        <div class="container">
-            <div class="text-center mb-5">
-                <span class="text-emerald fw-bold text-uppercase">Nasıl Çalışır?</span>
-                <h2 class="display-5 fw-bold mb-3">3 Adımda QR Deneyimi</h2>
-                <p class="text-muted fs-5 mb-0">
-                    Masadaki QR kodu okut, menüyü incele, siparişini saniyeler içinde ver.
-                </p>
-            </div>
 
-            <div class="row g-4 align-items-stretch">
-                <!-- Step 1 -->
-                <div class="col-md-4">
-                    <div class="work-card p-4 p-lg-5 rounded-5 border h-100 transition-all">
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="work-icon rounded-4 d-inline-flex align-items-center justify-content-center">
-                                <i class="bi bi-qr-code-scan fs-2"></i>
-                            </div>
-                            <span class="work-step">01</span>
-                        </div>
-                        <h4 class="fw-bold mb-2">QR’ı Tara</h4>
-                        <p class="text-muted mb-0">
-                            Kameranı aç, masandaki QR kodu tarat ve anında menüye ulaş.
-                        </p>
-                    </div>
-                </div>
 
-                <!-- Step 2 -->
-                <div class="col-md-4">
-                    <div class="work-card p-4 p-lg-5 rounded-5 border h-100 transition-all">
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="work-icon rounded-4 d-inline-flex align-items-center justify-content-center">
-                                <i class="bi bi-journal-richtext fs-2"></i>
-                            </div>
-                            <span class="work-step">02</span>
-                        </div>
-                        <h4 class="fw-bold mb-2">Menüyü İncele</h4>
-                        <p class="text-muted mb-0">
-                            Kategoriler arasında gez, öne çıkanları gör, favorilerini seç.
-                        </p>
-                    </div>
-                </div>
+    @* UI Layout How It Works Component
+   → QR sipariş akışının kullanıcıya açıklanması
+   → 3 adım: Tara → İncele → Sipariş Ver
+   → Menüye yönlendiren CTA
+   → Landing sayfada ortak kullanım *@
+    @await Component.InvokeAsync("_UILayoutHowItWorksComponentPartial")
 
-                <!-- Step 3 -->
-                <div class="col-md-4">
-                    <div class="work-card p-4 p-lg-5 rounded-5 border h-100 transition-all">
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="work-icon rounded-4 d-inline-flex align-items-center justify-content-center">
-                                <i class="bi bi-lightning-charge fs-2"></i>
-                            </div>
-                            <span class="work-step">03</span>
-                        </div>
-                        <h4 class="fw-bold mb-2">Sipariş Ver</h4>
-                        <p class="text-muted mb-0">
-                            Ürünleri seç, istersen not ekle, hızlıca siparişini tamamla.
-                        </p>
-                    </div>
-                </div>
-            </div>
 
-            <!-- bottom mini CTA -->
-            <div class="mt-5 text-center">
-                <a href="#menu" class="btn btn-emerald btn-lg rounded-pill px-5 py-3 fw-bold shadow-emerald">
-                    <i class="bi bi-arrow-right-circle me-2"></i> Şimdi Menüye Bak
-                </a>
-            </div>
-        </div>
-
-        <!-- background blobs -->
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-    </section>
 
 
     <section class="py-100 bg-white">
