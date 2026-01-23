@@ -1,0 +1,111 @@
+﻿<section id="faq" class="py-100 faq-section position-relative overflow-hidden">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="text-emerald fw-bold text-uppercase">SSS</span>
+            <h2 class="display-5 fw-bold mb-2">Sık Sorulan Sorular</h2>
+            <p class="text-muted fs-5 mb-0">
+                QR Menü, rezervasyon ve sipariş süreçleri ile ilgili en çok sorulanlar.
+            </p>
+        </div>
+
+        <div class="row g-4 align-items-start">
+            <div class="col-lg-5">
+                <div class="faq-side p-5 rounded-5 shadow-lg">
+                    <h3 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif; letter-spacing: 0.02em;">Hızlı & Temassız Deneyim</h3>
+                    <p class="opacity-75 mb-4" style="font-family: 'Inter', sans-serif;">
+                        Masadaki QR kodu tarat, menüyü gör, siparişini ver. İstersen rezervasyon da yap.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-emerald-soft text-emerald rounded-pill px-3 py-2">QR Menü</span>
+                        <span class="badge bg-emerald-soft text-emerald rounded-pill px-3 py-2">Rezervasyon</span>
+                        <span class="badge bg-emerald-soft text-emerald rounded-pill px-3 py-2">Kampanya</span>
+                        <span class="badge bg-emerald-soft text-emerald rounded-pill px-3 py-2">Hızlı Servis</span>
+                    </div>
+
+                    <div class="mt-4">
+                        <button class="btn btn-emerald rounded-pill px-4 py-3 fw-bold w-100 btn-faq-reserve" data-bs-toggle="modal" data-bs-target="#reserveModal">
+                            <i class="bi bi-calendar-check me-2"></i> Hemen Rezervasyon Yap
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="accordion faq-accordion" id="faqAccordion">
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                QR Menü nasıl çalışır?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Masadaki QR kodu telefon kameranızla okuttuğunuzda menü otomatik açılır.
+                                Ürünleri inceleyip sepete ekleyebilir, siparişi tamamlayabilirsiniz (demo kısmı API ile bağlanacak).
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                Rezervasyon yaptığımda nasıl onay alırım?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Rezervasyon formunu doldurduğunuzda talebiniz alınır. SignalR entegrasyonu sonrası
+                                onay ve bildirimleri canlı göstereceğiz (SMS/mail/ekran bildirimi).
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Kampanyalar otomatik uygulanıyor mu?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Evet, kampanyalar ürün veya sipariş şartlarına göre otomatik uygulanabilir.
+                                Admin panelinden kampanya ekleyip aktif/pasif yönetebilirsiniz.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                Gluten/alerjen bilgisi görebilir miyim?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Ürün detayına alerjen ikonları ve içerik bilgisi ekleyebiliriz.
+                                (Admin paneline “Alerjen Etiketleri” ekleyip ürünle eşleyeceğiz.)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                Online sipariş / paket servis var mı?
+                            </button>
+                        </h2>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Var. Landing’de buton hazır, API tarafında sipariş modülüyle bağladığımızda
+                                direkt online sipariş akışı çalışacak.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
