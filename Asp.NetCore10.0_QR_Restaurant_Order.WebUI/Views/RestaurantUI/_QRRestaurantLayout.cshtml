@@ -44,257 +44,32 @@
     @await Component.InvokeAsync("_UILayoutHowItWorksComponentPartial")
 
 
-
-
-    <section class="py-100 bg-white">
-        <div class="container">
-            <div class="text-center mb-5">
-                <span class="text-emerald fw-bold text-uppercase">Öne Çıkanlar</span>
-                <h2 class="display-5 fw-bold">Şefin İmza Lezzetleri</h2>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-3">
-                    <div class="dish-card text-center p-4 rounded-5 border transition-all">
-                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop" class="img-fluid rounded-circle mb-3 shadow-sm" alt="Salata">
-                        <h5 class="fw-bold">Avokado Bahçesi</h5>
-                        <p class="text-muted small">Taze avokado, kinoa, nar taneleri...</p>
-                        <span class="fs-5 fw-bold text-emerald">240 TL</span>
-                        <div class="mt-2"><span class="badge bg-warning rounded-pill">Popüler</span></div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="dish-card text-center p-4 rounded-5 border transition-all">
-                        <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7bb7445?w=400&h=400&fit=crop" class="img-fluid rounded-circle mb-3 shadow-sm" alt="Pancake">
-                        <h5 class="fw-bold">Altın Pancake</h5>
-                        <p class="text-muted small">Akçaağaç şurubu ve taze meyveler.</p>
-                        <span class="fs-5 fw-bold text-emerald">185 TL</span>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="dish-card text-center p-4 rounded-5 border transition-all">
-                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=400&fit=crop" class="img-fluid rounded-circle mb-3 shadow-sm" alt="Izgara">
-                        <h5 class="fw-bold">Kuzu Pirzola</h5>
-                        <p class="text-muted small">Dağ kekiği ve fırın patates eşliğinde.</p>
-                        <span class="fs-5 fw-bold text-emerald">420 TL</span>
-                        <div class="mt-2"><span class="badge bg-emerald-soft text-emerald rounded-pill">En İyi Seçim</span></div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="dish-card text-center p-4 rounded-5 border transition-all">
-                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=400&h=400&fit=crop" class="img-fluid rounded-circle mb-3 shadow-sm" alt="Pizza">
-                        <h5 class="fw-bold">Trufulu Pizza</h5>
-                        <p class="text-muted small">İtalyan unundan 48 saat mayalanmış.</p>
-                        <span class="fs-5 fw-bold text-emerald">310 TL</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="menu" class="py-100 bg-gray-50">
-        <div class="container">
-            <div id="menuTop"></div>
-            <div class="text-center mb-5">
-                <span class="text-emerald fw-bold">Zengin Seçenekler</span>
-                <h2 class="display-5 fw-bold">Damak Tadınıza Uygun Menü</h2>
-            </div>
-
-            <ul class="nav nav-pills justify-content-center gap-2 mb-5" id="menuTabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link menu-tab-btn active rounded-pill" data-bs-toggle="pill" data-bs-target="#tab-breakfast" type="button">
-                        Kahvaltı
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link menu-tab-btn rounded-pill" data-bs-toggle="pill" data-bs-target="#tab-lunch" type="button">
-                        Öğle Yemeği
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link menu-tab-btn rounded-pill" data-bs-toggle="pill" data-bs-target="#tab-dinner" type="button">
-                        Akşam Yemeği
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link menu-tab-btn rounded-pill" data-bs-toggle="pill" data-bs-target="#tab-dessert" type="button">
-                        Tatlı
-                    </button>
-                </li>
-            </ul>
+    @* UI Layout Chef Specials Component
+   → Şefin imza lezzetlerinin sunumu
+   → Görsel + fiyat + rozet alanları
+   → Öne çıkan ürünler / premium seçkiler
+   → Landing sayfada ortak kullanım *@
+    @await Component.InvokeAsync("_UILayoutChefSpecialsComponentPartial")
 
 
 
-            <div class="tab-content" id="menuContent">
-                <!-- BREAKFAST -->
-                <div class="tab-pane fade show active" id="tab-breakfast" role="tabpanel">
-                    <div id="menu-breakfast"></div>
-                    <div class="row">
-                        <div class="col-lg-6 mb-4">
-                            <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm menu-item-row transition-all">
-                                <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=100&h=100&fit=crop" class="rounded-3 me-3" alt="Serpme">
-                                <div class="flex-grow-1">
-                                    <div class="d-flex justify-content-between align-items-center border-bottom border-dotted pb-1 mb-1">
-                                        <h6 class="fw-bold mb-0">Ege Serpme Kahvaltı</h6>
-                                        <span class="text-emerald fw-bold">295 TL</span>
-                                    </div>
-                                    <p class="text-muted small mb-0">Zeytin çeşitleri, ev yapımı reçeller, organik yumurta...</p>
-                                </div>
-                                <button class="btn btn-sm btn-light rounded-circle ms-3 btn-add-cart" data-name="Ege Serpme Kahvaltı">
-                                    <i class="bi bi-plus-lg"></i>
-                                </button>
-                            </div>
-                        </div>
 
-                        <div class="col-lg-6 mb-4">
-                            <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm menu-item-row transition-all">
-                                <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=100&h=100&fit=crop" class="rounded-3 me-3" alt="Omlet">
-                                <div class="flex-grow-1">
-                                    <div class="d-flex justify-content-between align-items-center border-bottom border-dotted pb-1 mb-1">
-                                        <h6 class="fw-bold mb-0">Mantar & Peynirli Omlet <i class="bi bi-patch-check text-info ms-1"></i></h6>
-                                        <span class="text-emerald fw-bold">145 TL</span>
-                                    </div>
-                                    <p class="text-muted small mb-0">3 organik yumurta, istiridye mantarı, kaşar peyniri.</p>
-                                </div>
-                                <button class="btn btn-sm btn-light rounded-circle ms-3 btn-add-cart" data-name="Mantar & Peynirli Omlet">
-                                    <i class="bi bi-plus-lg"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- LUNCH -->
-                <div class="tab-pane fade" id="tab-lunch" role="tabpanel">
-                    <div id="menu-lunch"></div>
-                    <div class="row">
-                        <div class="col-lg-6 mb-4">
-                            <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm menu-item-row transition-all">
-                                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=100&h=100&fit=crop" class="rounded-3 me-3" alt="Izgara">
-                                <div class="flex-grow-1">
-                                    <div class="d-flex justify-content-between align-items-center border-bottom border-dotted pb-1 mb-1">
-                                        <h6 class="fw-bold mb-0">Izgara Tavuk Bowl</h6>
-                                        <span class="text-emerald fw-bold">265 TL</span>
-                                    </div>
-                                    <p class="text-muted small mb-0">Izgara tavuk, kinoalı salata, özel sos.</p>
-                                </div>
-                                <button class="btn btn-sm btn-light rounded-circle ms-3 btn-add-cart" data-name="Izgara Tavuk Bowl">
-                                    <i class="bi bi-plus-lg"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 mb-4">
-                            <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm menu-item-row transition-all">
-                                <img src="https://images.unsplash.com/photo-1604908176997-125f25cc500f?w=100&h=100&fit=crop" class="rounded-3 me-3" alt="Burger">
-                                <div class="flex-grow-1">
-                                    <div class="d-flex justify-content-between align-items-center border-bottom border-dotted pb-1 mb-1">
-                                        <h6 class="fw-bold mb-0">Signature Burger</h6>
-                                        <span class="text-emerald fw-bold">320 TL</span>
-                                    </div>
-                                    <p class="text-muted small mb-0">180g et, cheddar, karamelize soğan, brioche.</p>
-                                </div>
-                                <button class="btn btn-sm btn-light rounded-circle ms-3 btn-add-cart" data-name="Signature Burger">
-                                    <i class="bi bi-plus-lg"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DINNER -->
-                <div class="tab-pane fade" id="tab-dinner" role="tabpanel">
-                    <div id="menu-dinner"></div>
-                    <div class="row">
-                        <div class="col-lg-6 mb-4">
-                            <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm menu-item-row transition-all">
-                                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=100&h=100&fit=crop" class="rounded-3 me-3" alt="Steak">
-                                <div class="flex-grow-1">
-                                    <div class="d-flex justify-content-between align-items-center border-bottom border-dotted pb-1 mb-1">
-                                        <h6 class="fw-bold mb-0">Antrikot (Şef Önerisi)</h6>
-                                        <span class="text-emerald fw-bold">520 TL</span>
-                                    </div>
-                                    <p class="text-muted small mb-0">Özel baharat, fırın patates, yeşil salata.</p>
-                                </div>
-                                <button class="btn btn-sm btn-light rounded-circle ms-3 btn-add-cart" data-name="Antrikot">
-                                    <i class="bi bi-plus-lg"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 mb-4">
-                            <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm menu-item-row transition-all">
-                                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=100&h=100&fit=crop" class="rounded-3 me-3" alt="Pizza">
-                                <div class="flex-grow-1">
-                                    <div class="d-flex justify-content-between align-items-center border-bottom border-dotted pb-1 mb-1">
-                                        <h6 class="fw-bold mb-0">Trüflü Pizza</h6>
-                                        <span class="text-emerald fw-bold">310 TL</span>
-                                    </div>
-                                    <p class="text-muted small mb-0">48 saat hamur, trüf yağı, mozzarella.</p>
-                                </div>
-                                <button class="btn btn-sm btn-light rounded-circle ms-3 btn-add-cart" data-name="Trüflü Pizza">
-                                    <i class="bi bi-plus-lg"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DESSERT -->
-                <div class="tab-pane fade" id="tab-dessert" role="tabpanel">
-                    <div id="menu-dessert"></div>
-                    <div class="row">
-                        <div class="col-lg-6 mb-4">
-                            <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm menu-item-row transition-all">
-                                <img src="https://images.unsplash.com/photo-1541783245831-57d6fb0926d3?w=100&h=100&fit=crop" class="rounded-3 me-3" alt="Tiramisu">
-                                <div class="flex-grow-1">
-                                    <div class="d-flex justify-content-between align-items-center border-bottom border-dotted pb-1 mb-1">
-                                        <h6 class="fw-bold mb-0">Tiramisu</h6>
-                                        <span class="text-emerald fw-bold">165 TL</span>
-                                    </div>
-                                    <p class="text-muted small mb-0">Kakao, mascarpone, espresso dokunuşu.</p>
-                                </div>
-                                <button class="btn btn-sm btn-light rounded-circle ms-3 btn-add-cart" data-name="Tiramisu">
-                                    <i class="bi bi-plus-lg"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 mb-4">
-                            <div class="d-flex align-items-center bg-white p-3 rounded-4 shadow-sm menu-item-row transition-all">
-                                <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?w=100&h=100&fit=crop" class="rounded-3 me-3" alt="Donut">
-                                <div class="flex-grow-1">
-                                    <div class="d-flex justify-content-between align-items-center border-bottom border-dotted pb-1 mb-1">
-                                        <h6 class="fw-bold mb-0">Çikolata Donut</h6>
-                                        <span class="text-emerald fw-bold">110 TL</span>
-                                    </div>
-                                    <p class="text-muted small mb-0">Çikolata sos, sprinkles, yumuşacık hamur.</p>
-                                </div>
-                                <button class="btn btn-sm btn-light rounded-circle ms-3 btn-add-cart" data-name="Çikolata Donut">
-                                    <i class="bi bi-plus-lg"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center mt-5">
-                <a href="#menu" class="btn btn-dark btn-lg rounded-pill px-5">Tüm Menüyü Görüntüle</a>
-            </div>
-        </div>
-    </section>
+    @* UI Layout Menu Section Component
+   → Kahvaltı / Öğle / Akşam / Tatlı sekmeli menü alanı
+   → Ürün listesi, fiyat ve kısa açıklamalar
+   → Sepete ekle butonları (btn-add-cart)
+   → Landing sayfada ana menü bölümü *@
+    @await Component.InvokeAsync("_UILayoutMenuSectionComponentPartial")
 
 
-    <section class="cta-section py-100 text-white text-center position-relative overflow-hidden">
-        <div class="cta-overlay"></div>
-        <div class="container position-relative z-2">
-            <h2 class="display-3 fw-bold mb-4 cta-title">Acıktın mı?<br>Kapına getirelim!</h2>
-            <p class="mb-5 fs-4 opacity-90 cta-subtitle">Sadece QR değil, eve servis ile de yanınızdayız.</p>
-            <a href="#" class="btn btn-cta btn-lg rounded-pill px-5 py-3 fw-bold">
-                <i class="bi bi-bag-check me-2"></i> Hemen Sipariş Ver
-            </a>
-        </div>
-    </section>
+
+    @* UI Layout CTA Section Component
+   → Kullanıcıyı aksiyona yönlendiren CTA alanı
+   → Eve servis / sipariş yönlendirmesi
+   → Başlık + açıklama + buton yapısı
+   → Landing sayfada dönüşüm amaçlı *@
+    @await Component.InvokeAsync("_UILayoutCTASectionComponentPartial")
+
 
     <section id="discounts" class="py-100">
         <div class="container">
