@@ -32,11 +32,131 @@
     .kitchen-status-badge {
         font-size: 13px;
     }
+
+    /* 🔹 Durum filtre butonları */
+    .kitchen-filter-bar {
+        gap: 0.25rem;
+    }
+
+    .kitchen-filter-btn.active {
+        color: #fff !important;
+    }
+
+    /* 🔹 Süresi uzun sipariş vurgusu */
+    .kitchen-time-high {
+        color: #dc3545;
+        font-weight: 600;
+    }
+
+    tr.kitchen-row-high {
+        box-shadow: inset 3px 0 0 #dc3545;
+    }
+
+    /* 🔹 Detay modalı (temayı bozmadan basit bir overlay) */
+    .kitchen-modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 1040;
+        display: none;
+    }
+
+        .kitchen-modal-backdrop.show {
+            display: block;
+        }
+
+    .kitchen-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1050;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .kitchen-modal.show {
+            display: flex;
+        }
+
+    .kitchen-modal-dialog {
+        background: #ffffff;
+        border-radius: 0.5rem;
+        max-width: 720px;
+        width: 100%;
+        box-shadow: 0 0.75rem 1.5rem rgba(15,23,42,0.25);
+        overflow: hidden;
+    }
+
+    .kitchen-modal-header,
+    .kitchen-modal-footer {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .kitchen-modal-footer {
+        border-top: 1px solid #e5e7eb;
+        border-bottom: none;
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+
+    .kitchen-modal-body {
+        padding: 0.75rem 1rem;
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+
+    .kitchen-modal-title {
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .kitchen-modal-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        font-size: 0.875rem;
+        margin-bottom: 0.75rem;
+    }
+
+        .kitchen-modal-meta .meta-label {
+            color: #6c757d;
+            margin-right: 4px;
+        }
+
+    .kitchen-modal-table th,
+    .kitchen-modal-table td {
+        font-size: 0.875rem;
+        vertical-align: middle;
+    }
+
+    .kitchen-modal-close-btn {
+        border: none;
+        background: transparent;
+        font-size: 1.1rem;
+        line-height: 1;
+        cursor: pointer;
+        color: #6c757d;
+    }
 </style>
 
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h4 class="mb-0">Mutfak Sipariş Ekranı</h4>
     <span class="badge bg-info" id="kitchenConnectionStatus">Bağlanıyor...</span>
+</div>
+
+<!-- 🔹 Durum filtre barı -->
+<div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+    <div class="btn-group btn-group-sm kitchen-filter-bar" role="group" aria-label="Durum Filtreleri">
+        <button type="button" class="btn btn-outline-secondary active kitchen-filter-btn" data-filter="ALL">Hepsi</button>
+        <button type="button" class="btn btn-outline-warning kitchen-filter-btn" data-filter="0">Yeni</button>
+        <button type="button" class="btn btn-outline-info kitchen-filter-btn" data-filter="1">Onaylandı</button>
+        <button type="button" class="btn btn-outline-primary kitchen-filter-btn" data-filter="2">Hazırlanıyor</button>
+        <button type="button" class="btn btn-outline-success kitchen-filter-btn" data-filter="3">Hazır</button>
+        <button type="button" class="btn btn-outline-secondary kitchen-filter-btn" data-filter="4">Servis Edildi</button>
+        <button type="button" class="btn btn-outline-danger kitchen-filter-btn" data-filter="5">İptal</button>
+    </div>
 </div>
 
 <div class="default-table-area mx-minus-1 table-to-do-list">
@@ -71,6 +191,61 @@
     <source src="~/sounds/new-order.mp3" type="audio/mpeg" />
 </audio>
 
+<!-- 🔹 Sipariş Detay Modalı -->
+<div class="kitchen-modal-backdrop" id="kitchenOrderModalBackdrop"></div>
+<div class="kitchen-modal" id="kitchenOrderModal">
+    <div class="kitchen-modal-dialog">
+        <div class="kitchen-modal-header d-flex justify-content-between align-items-center">
+            <h5 class="kitchen-modal-title mb-0">Sipariş Detayı</h5>
+            <button type="button" class="kitchen-modal-close-btn" id="kitchenOrderModalClose">
+                &times;
+            </button>
+        </div>
+        <div class="kitchen-modal-body">
+            <div class="kitchen-modal-meta">
+                <div>
+                    <span class="meta-label">Sipariş:</span>
+                    <span class="meta-value" id="kitchenModalOrderId">-</span>
+                </div>
+                <div>
+                    <span class="meta-label">Masa:</span>
+                    <span class="meta-value" id="kitchenModalTable">-</span>
+                </div>
+                <div>
+                    <span class="meta-label">Durum:</span>
+                    <span class="meta-value" id="kitchenModalStatus">-</span>
+                </div>
+                <div>
+                    <span class="meta-label">Toplam:</span>
+                    <span class="meta-value" id="kitchenModalTotal">-</span>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-sm kitchen-modal-table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Ürün</th>
+                            <th class="text-center">Adet</th>
+                            <th class="text-end">Birim</th>
+                            <th class="text-end">Toplam</th>
+                        </tr>
+                    </thead>
+                    <tbody id="kitchenModalItemsBody">
+                        @* JS ile dolduruluyor *@
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="kitchen-modal-footer">
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="kitchenOrderModalCloseFooter">
+                Kapat
+            </button>
+            @* İstersen buraya "Hazır olarak işaretle" gibi bir buton da bağlayabiliriz *@
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <!-- SignalR client (CDN üzerinden) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
@@ -88,6 +263,15 @@
         const statusBadge = document.getElementById("kitchenConnectionStatus");
         const tbody = document.getElementById("kitchenOrdersBody");
         const newOrderSound = document.getElementById("kitchenNewOrderSound");
+
+        // 🔹 Modal elementleri
+        let kitchenModal = null;
+        let kitchenModalBackdrop = null;
+        let kitchenModalOrderId = null;
+        let kitchenModalTable = null;
+        let kitchenModalStatus = null;
+        let kitchenModalTotal = null;
+        let kitchenModalItemsBody = null;
 
         function setStatus(text, cssClass) {
             if (!statusBadge) return;
@@ -216,6 +400,9 @@
                 row.dataset.createdAt = createdDateObj.toISOString();
             }
 
+            // 🔹 Filtreler için status kodunu data attribute olarak tut
+            row.dataset.statusCode = statusCode;
+
             row.querySelector(".kitchen-order-id").textContent = "#" + id;
             row.querySelector(".kitchen-order-table").textContent = "Masa #" + (tableId ?? "?");
 
@@ -244,16 +431,31 @@
                 const action = getNextStatusAction(statusCode);
                 if (action) {
                     actionsCell.innerHTML = `
-                        <button
-                            type="button"
-                            class="btn ${action.btnClass} kitchen-status-btn"
-                            data-order-id="${id}"
-                            data-next-status="${action.nextStatus}">
-                            ${action.text}
-                        </button>
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button
+                                type="button"
+                                class="btn ${action.btnClass} kitchen-status-btn"
+                                data-order-id="${id}"
+                                data-next-status="${action.nextStatus}">
+                                ${action.text}
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary kitchen-detail-btn"
+                                data-order-id="${id}">
+                                Detay
+                            </button>
+                        </div>
                     `;
                 } else {
-                    actionsCell.innerHTML = `<span class="text-muted fs-13">İşlem yok</span>`;
+                    actionsCell.innerHTML = `
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary btn-sm kitchen-detail-btn"
+                            data-order-id="${id}">
+                            Detay
+                        </button>
+                    `;
                 }
             }
 
@@ -303,6 +505,16 @@
                 <div>${timeText}</div>
                 <div class="kitchen-time-text">${agoText}</div>
             `;
+
+            // 🔹 20 dakikadan uzun siparişleri vurgula
+            timeCell.classList.remove("kitchen-time-high");
+            row.classList.remove("kitchen-row-high");
+
+            const threshold = 20; // dk
+            if (diffMin >= threshold) {
+                timeCell.classList.add("kitchen-time-high");
+                row.classList.add("kitchen-row-high");
+            }
         }
 
         function startTimeUpdater() {
@@ -312,41 +524,52 @@
             }, 30000);
         }
 
+        // 🔹 Satır içi tıklamalar: Durum değiştir + Detay aç
         tbody.addEventListener("click", function (e) {
-            const btn = e.target.closest(".kitchen-status-btn");
-            if (!btn) return;
+            const statusBtn = e.target.closest(".kitchen-status-btn");
+            if (statusBtn) {
+                const orderId = statusBtn.getAttribute("data-order-id");
+                const nextStatus = parseInt(statusBtn.getAttribute("data-next-status"));
 
-            const orderId = btn.getAttribute("data-order-id");
-            const nextStatus = parseInt(btn.getAttribute("data-next-status"));
+                if (!orderId || isNaN(nextStatus)) return;
 
-            if (!orderId || isNaN(nextStatus)) return;
+                if (!confirm("Bu siparişin durumunu '" + getStatusText(nextStatus) + "' olarak güncellemek istiyor musun?")) {
+                    return;
+                }
 
-            if (!confirm("Bu siparişin durumunu '" + getStatusText(nextStatus) + "' olarak güncellemek istiyor musun?")) {
-                return;
+                fetch(apiBaseUrl + "/api/Orders/" + orderId + "/status", {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        orderStatus: nextStatus
+                    })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Status update failed: " + response.status);
+                        }
+                        return response.json().catch(() => ({}));
+                    })
+                    .then(data => {
+                        console.log("Durum güncelleme başarılı:", data);
+                    })
+                    .catch(error => {
+                        console.error("Durum güncelleme hatası:", error);
+                        alert("Durum güncellenirken bir hata oluştu.");
+                    });
+
+                return; // status işlemini yaptıktan sonra çık
             }
 
-            fetch(apiBaseUrl + "/api/Orders/" + orderId + "/status", {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    orderStatus: nextStatus
-                })
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("Status update failed: " + response.status);
-                    }
-                    return response.json().catch(() => ({}));
-                })
-                .then(data => {
-                    console.log("Durum güncelleme başarılı:", data);
-                })
-                .catch(error => {
-                    console.error("Durum güncelleme hatası:", error);
-                    alert("Durum güncellenirken bir hata oluştu.");
-                });
+            const detailBtn = e.target.closest(".kitchen-detail-btn");
+            if (detailBtn) {
+                const orderId = detailBtn.getAttribute("data-order-id");
+                if (!orderId) return;
+
+                openKitchenOrderModal(orderId);
+            }
         });
 
         async function startConnection() {
@@ -397,11 +620,153 @@
                 });
         }
 
+        // 🔹 Durum filtreleri
+        function initKitchenFilters() {
+            const filterButtons = document.querySelectorAll(".kitchen-filter-btn");
+            if (!filterButtons.length) return;
+
+            filterButtons.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const filter = btn.getAttribute("data-filter"); // ALL veya 0-5
+
+                    filterButtons.forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+
+                    const rows = tbody.querySelectorAll("tr[data-order-id]");
+                    rows.forEach(row => {
+                        const rowStatus = row.dataset.statusCode;
+                        if (filter === "ALL" || rowStatus === filter) {
+                            row.classList.remove("d-none");
+                        } else {
+                            row.classList.add("d-none");
+                        }
+                    });
+                });
+            });
+        }
+
+        // 🔹 Detay modal fonksiyonları
+        function showKitchenModal() {
+            if (!kitchenModal || !kitchenModalBackdrop) return;
+
+            kitchenModal.classList.add("show");
+            kitchenModalBackdrop.classList.add("show");
+            document.body.classList.add("overflow-hidden");
+        }
+
+        function hideKitchenModal() {
+            if (!kitchenModal || !kitchenModalBackdrop) return;
+
+            kitchenModal.classList.remove("show");
+            kitchenModalBackdrop.classList.remove("show");
+            document.body.classList.remove("overflow-hidden");
+
+            if (kitchenModalItemsBody) {
+                kitchenModalItemsBody.innerHTML = "";
+            }
+        }
+
+        function openKitchenOrderModal(orderId) {
+            if (!orderId) return;
+
+            // API endpoint: Detay JSON'ı
+            // Örnek: GET /api/Orders/{id}/detail
+            fetch(apiBaseUrl + "/api/Orders/" + orderId + "/detail")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Detay isteği başarısız: " + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Beklenen örnek JSON:
+                    // {
+                    //   orderId: 1,
+                    //   tableNumber: 5,
+                    //   status: 2,
+                    //   statusText: "Hazırlanıyor",
+                    //   total: 350,
+                    //   items: [
+                    //     { productName: "Burger", quantity: 2, unitPrice: 120, lineTotal: 240 },
+                    //     ...
+                    //   ]
+                    // }
+
+                    if (kitchenModalOrderId) {
+                        kitchenModalOrderId.textContent = "#" + (data.orderId ?? data.orderID ?? "");
+                    }
+                    if (kitchenModalTable) {
+                        kitchenModalTable.textContent = "Masa #" + (data.tableNumber ?? data.tableNo ?? "?");
+                    }
+                    if (kitchenModalStatus) {
+                        const stText = data.statusText ?? getStatusText(data.status ?? data.orderStatus ?? 0);
+                        kitchenModalStatus.textContent = stText;
+                    }
+                    if (kitchenModalTotal) {
+                        const total = data.total ?? data.totalPrice ?? 0;
+                        kitchenModalTotal.textContent = Number(total)
+                            .toLocaleString("tr-TR", { style: "currency", currency: "TRY" });
+                    }
+
+                    if (kitchenModalItemsBody) {
+                        kitchenModalItemsBody.innerHTML = "";
+                        const items = data.items ?? [];
+                        items.forEach(item => {
+                            const tr = document.createElement("tr");
+                            const quantity = item.quantity ?? 0;
+                            const unit = item.unitPrice ?? item.price ?? 0;
+                            const line = item.lineTotal ?? item.total ?? (quantity * unit);
+
+                            tr.innerHTML = `
+                                <td>${item.productName ?? "-"}</td>
+                                <td class="text-center">${quantity}</td>
+                                <td class="text-end">
+                                    ${Number(unit).toLocaleString("tr-TR", { style: "currency", currency: "TRY" })}
+                                </td>
+                                <td class="text-end">
+                                    ${Number(line).toLocaleString("tr-TR", { style: "currency", currency: "TRY" })}
+                                </td>
+                            `;
+                            kitchenModalItemsBody.appendChild(tr);
+                        });
+                    }
+
+                    showKitchenModal();
+                })
+                .catch(error => {
+                    console.error("Sipariş detayı alınırken hata:", error);
+                    alert("Sipariş detayı alınırken bir hata oluştu.");
+                });
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
             setStatus("Bağlanıyor...", "bg-info");
             loadInitialOrders();
             startConnection();
             startTimeUpdater();
+            initKitchenFilters();
+
+            // Modal elemanlarını DOM yüklendikten sonra bağla
+            kitchenModal = document.getElementById("kitchenOrderModal");
+            kitchenModalBackdrop = document.getElementById("kitchenOrderModalBackdrop");
+            kitchenModalOrderId = document.getElementById("kitchenModalOrderId");
+            kitchenModalTable = document.getElementById("kitchenModalTable");
+            kitchenModalStatus = document.getElementById("kitchenModalStatus");
+            kitchenModalTotal = document.getElementById("kitchenModalTotal");
+            kitchenModalItemsBody = document.getElementById("kitchenModalItemsBody");
+
+            const modalCloseBtn = document.getElementById("kitchenOrderModalClose");
+            const modalCloseFooterBtn = document.getElementById("kitchenOrderModalCloseFooter");
+
+            if (modalCloseBtn) {
+                modalCloseBtn.addEventListener("click", hideKitchenModal);
+            }
+            if (modalCloseFooterBtn) {
+                modalCloseFooterBtn.addEventListener("click", hideKitchenModal);
+            }
+            if (kitchenModalBackdrop) {
+                kitchenModalBackdrop.addEventListener("click", hideKitchenModal);
+            }
         });
     </script>
 }
