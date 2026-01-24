@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Asp.NetCore10.0_QR_Restaurant_Order.DataAccessLayer\Asp.NetCore10.0_QR_Restaurant_Order.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\Asp.NetCore10.0_QR_Restaurant_Order.DTOLayer\Asp.NetCore10.0_QR_Restaurant_Order.DTOLayer.csproj" />
   </ItemGroup>
 
 </Project>
