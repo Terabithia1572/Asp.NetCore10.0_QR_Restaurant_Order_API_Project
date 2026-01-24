@@ -57,6 +57,7 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Services.Concrete
             {
                 OrderId = order.OrderID,
                 TableId = order.TableID,
+                TotalPrice = order.TotalPrice,          // 🔥 EKLENDİ
                 OrderStatus = order.OrderStatus,
                 PaymentStatus = order.PaymentStatus,
                 StatusDisplayName = statusDisplayName,

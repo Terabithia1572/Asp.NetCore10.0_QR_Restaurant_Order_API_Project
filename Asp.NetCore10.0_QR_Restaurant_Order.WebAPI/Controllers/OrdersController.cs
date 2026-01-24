@@ -115,10 +115,10 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Controllers
         [HttpGet("kitchen-active")]
         public IActionResult GetKitchenActiveOrders()
         {
-            // Tüm siparişleri al
             var orders = _orderService.TGetListAll()
-                .Where(x => x.OrderStatus != 4 && x.OrderStatus != 5) // 4: Servis, 5: İptal (senin mantığına göre uyarlayabilirsin)
-                .OrderByDescending(x => x.CreatedDate)
+                .Where(x => x.OrderStatus != 4 && x.OrderStatus != 5)        // Servis Edildi / İptal hariç
+                .OrderByDescending(x => x.CreatedDate)                       // 🔥 En yeni sipariş en üstte
+                .ThenByDescending(x => x.OrderID)                            // Aynı anda gelenleri ID'ye göre sıralar
                 .ToList();
 
             var result = orders.Select(x =>
@@ -149,6 +149,7 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Controllers
 
             return Ok(result);
         }
+
 
     }
 }

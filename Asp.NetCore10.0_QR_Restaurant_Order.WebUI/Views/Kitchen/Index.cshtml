@@ -1,44 +1,75 @@
-﻿
-@{
-    ViewData["Title"] = "Mutfak Ekranı";
-    // Admin tarafında hangi layout'u kullanıyorsan ona göre değiştir:
-    // Örn: "~/Views/Shared/_AdminLayout.cshtml" veya "~/Views/Shared/_Layout.cshtml"
+﻿@{
+    ViewData["Title"] = "Mutfak Sipariş Listesi";
     Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Breadcrumb"] = new List<(string Text, string Url)>
+    {
+        ("Siparişler", "/Kitchen/Index/"),
+        ("Mutfak Sipariş Listesi", "")
+    };
 }
 
-<div class="container-fluid mt-4">
-    <div class="row">
-        <div class="col-12">
-            <div class="card shadow-sm">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Mutfak Sipariş Ekranı</h5>
-                    <span class="badge bg-success" id="kitchenConnectionStatus">Bağlanıyor...</span>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Sipariş #</th>
-                                    <th>Masa</th>
-                                    <th>Tutar</th>
-                                    <th>Durum</th>
-                                    <th>Oluşturma Zamanı</th>
-                                </tr>
-                            </thead>
-                            <tbody id="kitchenOrdersBody">
-                                <!-- SignalR'dan gelen siparişler buraya eklenecek -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="card-footer text-muted small">
-                    Yeni siparişler ve durum değişiklikleri anlık olarak burada görünecek.
-                </div>
-            </div>
-        </div>
+<style>
+    /* Yeni sipariş highlight efekti - temaya çok bulaşmadan hafif efekt */
+    .kitchen-row-new {
+        animation: kitchenRowHighlight 1.5s ease-out;
+    }
+
+    @@keyframes kitchenRowHighlight {
+        0% {
+            background-color: rgba(255, 214, 102, 0.5);
+        }
+
+        100% {
+            background-color: transparent;
+        }
+    }
+
+    .kitchen-time-text {
+        font-size: 12px;
+        color: #6c757d;
+    }
+
+    .kitchen-status-badge {
+        font-size: 13px;
+    }
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Mutfak Sipariş Ekranı</h4>
+    <span class="badge bg-info" id="kitchenConnectionStatus">Bağlanıyor...</span>
+</div>
+
+<div class="default-table-area mx-minus-1 table-to-do-list">
+    <div class="table-responsive">
+        <table class="table align-middle w-100">
+            <thead>
+                <tr>
+                    <th scope="col" class="fw-medium">Sipariş</th>
+                    <th scope="col" class="fw-medium">Masa</th>
+                    <th scope="col" class="fw-medium">Tutar</th>
+                    <th scope="col" class="fw-medium">Durum</th>
+                    <th scope="col" class="fw-medium">Zaman</th>
+                    <th scope="col" class="fw-medium text-end">İşlemler</th>
+                </tr>
+            </thead>
+
+            <tbody id="kitchenOrdersBody">
+                @* Satırlar JS ile dolduruluyor *@
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center text-center flex-wrap gap-2 showing-wrap pt-15 p-20">
+        <span class="fs-15 text-muted">
+            Yeni siparişler anlık olarak bu listeye düşer. Durumu güncellediğinizde tüm ekranlar otomatik senkron olur.
+        </span>
     </div>
 </div>
+
+<!-- Yeni sipariş sesi (dosyayı wwwroot/sounds/new-order.mp3 olarak sen ekleyeceksin) -->
+<audio id="kitchenNewOrderSound" preload="auto">
+    <source src="~/sounds/new-order.mp3" type="audio/mpeg" />
+</audio>
 
 @section Scripts {
     <!-- SignalR client (CDN üzerinden) -->
@@ -46,7 +77,7 @@
 
     <script>
         // 🔧 BURAYI KENDİ WEBAPI ADRESİNE GÖRE GÜNCELLE:
-        // Örn: https://localhost:7049, http://localhost:5000 vs.
+        // Örn: https://localhost:7074 veya http://localhost:5074
         const apiBaseUrl = "https://localhost:7074"; // WebAPI adresin
 
         const connection = new signalR.HubConnectionBuilder()
@@ -56,6 +87,7 @@
 
         const statusBadge = document.getElementById("kitchenConnectionStatus");
         const tbody = document.getElementById("kitchenOrdersBody");
+        const newOrderSound = document.getElementById("kitchenNewOrderSound");
 
         function setStatus(text, cssClass) {
             if (!statusBadge) return;
@@ -63,22 +95,74 @@
             statusBadge.className = "badge " + cssClass;
         }
 
-        // 🟢 Yeni sipariş event'i (server: "OrderCreated")
+        function getStatusText(status) {
+            switch (status) {
+                case 0: return "Yeni Sipariş";
+                case 1: return "Onaylandı";
+                case 2: return "Hazırlanıyor";
+                case 3: return "Hazır";
+                case 4: return "Servis Edildi";
+                case 5: return "İptal Edildi";
+                default: return "Bilinmeyen";
+            }
+        }
+
+        function getStatusBadgeClass(status) {
+            // Temadaki badge stilini kullanalım
+            switch (status) {
+                case 0: return "text-warning bg-warning bg-opacity-10 fs-15 fw-normal d-inline-block default-badge";
+                case 1: return "text-info bg-info bg-opacity-10 fs-15 fw-normal d-inline-block default-badge";
+                case 2: return "text-primary bg-primary bg-opacity-10 fs-15 fw-normal d-inline-block default-badge";
+                case 3: return "text-success bg-success bg-opacity-10 fs-15 fw-normal d-inline-block default-badge";
+                case 4: return "text-secondary bg-secondary bg-opacity-10 fs-15 fw-normal d-inline-block default-badge";
+                case 5: return "text-danger bg-danger bg-opacity-10 fs-15 fw-normal d-inline-block default-badge";
+                default: return "text-body bg-light bg-opacity-10 fs-15 fw-normal d-inline-block default-badge";
+            }
+        }
+
+        function getNextStatusAction(status) {
+            switch (status) {
+                case 0:
+                    return { nextStatus: 1, text: "Onayla", btnClass: "btn-outline-info btn-sm" };
+                case 1:
+                    return { nextStatus: 2, text: "Hazırlanıyor", btnClass: "btn-outline-primary btn-sm" };
+                case 2:
+                    return { nextStatus: 3, text: "Hazır", btnClass: "btn-outline-success btn-sm" };
+                case 3:
+                    return { nextStatus: 4, text: "Servis Edildi", btnClass: "btn-outline-secondary btn-sm" };
+                default:
+                    return null;
+            }
+        }
+
+        function playNewOrderSound() {
+            try {
+                if (newOrderSound) {
+                    newOrderSound.currentTime = 0;
+                    newOrderSound.play().catch(() => { });
+                }
+            } catch (e) {
+                console.warn("Ses çalınamadı:", e);
+            }
+        }
+
+        // 🔵 Yeni sipariş olayı
         connection.on("OrderCreated", function (order) {
             console.log("SignalR - Yeni sipariş:", order);
-            addOrUpdateOrderRow(order);
+            addOrUpdateOrderRow(order, { placeOnTop: true, highlight: true }); // en üste + highlight
+            playNewOrderSound();
         });
 
-        // 🟡 Sipariş durumu değişti event'i (server: "OrderStatusChanged")
+        // 🟡 Durum değişti olayı
         connection.on("OrderStatusChanged", function (order) {
             console.log("SignalR - Sipariş durumu güncellendi:", order);
-            addOrUpdateOrderRow(order);
+            addOrUpdateOrderRow(order, { placeOnTop: false, highlight: false }); // satır yerinde kalsın
         });
 
-        function addOrUpdateOrderRow(order) {
-            // Backend'den gelen property isimleri:
-            // OrderNotificationService: { OrderId, TableId, TotalPrice, OrderStatus, StatusDisplayName, ChangedAt }
-            // KitchenActive: { orderID, tableID, totalPrice, orderStatus, createdDate, statusText }
+        // 🔧 Satır ekleme/güncelleme
+        function addOrUpdateOrderRow(order, options) {
+            const placeOnTop = options?.placeOnTop ?? false;
+            const highlight = options?.highlight ?? false;
 
             const id =
                 order.orderId ?? order.OrderId ?? order.orderID ?? order.OrderID;
@@ -89,11 +173,14 @@
             const total =
                 order.totalPrice ?? order.TotalPrice ?? 0;
 
+            const statusCode =
+                order.orderStatus ?? order.OrderStatus ?? 0;
+
             const statusText =
-                order.statusText ?? order.StatusText ?? order.statusDisplayName ?? order.StatusDisplayName ?? "-";
+                order.statusText ?? order.StatusText ?? order.statusDisplayName ?? order.StatusDisplayName ?? getStatusText(statusCode);
 
             const created =
-                order.createdDate ?? order.CreatedDate ?? order.changedAt ?? order.ChangedAt;
+                order.createdDate ?? order.CreatedDate ?? order.changedAt ?? order.ChangedAt ?? new Date();
 
             if (!id) {
                 console.warn("Order ID bulunamadı, satır eklenmedi.", order);
@@ -101,6 +188,8 @@
             }
 
             let row = tbody.querySelector(`tr[data-order-id="${id}"]`);
+            const isRowNew = !row;
+
             if (!row) {
                 row = document.createElement("tr");
                 row.setAttribute("data-order-id", id);
@@ -110,12 +199,21 @@
                     <td class="kitchen-order-total"></td>
                     <td class="kitchen-order-status"></td>
                     <td class="kitchen-order-time"></td>
+                    <td class="kitchen-order-actions text-end"></td>
                 `;
-                if (tbody.firstChild) {
+
+                if (placeOnTop && tbody.firstChild) {
+                    // Yeni sipariş → en üste
                     tbody.insertBefore(row, tbody.firstChild);
                 } else {
+                    // Initial load veya status değişikliği (yeni satır) → alta ekle
                     tbody.appendChild(row);
                 }
+            }
+
+            const createdDateObj = new Date(created);
+            if (!isNaN(createdDateObj.getTime())) {
+                row.dataset.createdAt = createdDateObj.toISOString();
             }
 
             row.querySelector(".kitchen-order-id").textContent = "#" + id;
@@ -131,22 +229,125 @@
                 }
             }
 
-            row.querySelector(".kitchen-order-status").textContent = statusText ?? "-";
+            const statusCell = row.querySelector(".kitchen-order-status");
+            if (statusCell) {
+                const badgeClass = getStatusBadgeClass(statusCode);
+                statusCell.innerHTML = `
+                    <span class="kitchen-status-badge ${badgeClass}">${statusText}</span>
+                `;
+            }
 
-            const timeCell = row.querySelector(".kitchen-order-time");
-            if (timeCell) {
-                if (created) {
-                    const date = new Date(created);
-                    if (!isNaN(date.getTime())) {
-                        timeCell.textContent = date.toLocaleTimeString("tr-TR");
-                    } else {
-                        timeCell.textContent = "";
-                    }
+            updateRowTime(row);
+
+            const actionsCell = row.querySelector(".kitchen-order-actions");
+            if (actionsCell) {
+                const action = getNextStatusAction(statusCode);
+                if (action) {
+                    actionsCell.innerHTML = `
+                        <button
+                            type="button"
+                            class="btn ${action.btnClass} kitchen-status-btn"
+                            data-order-id="${id}"
+                            data-next-status="${action.nextStatus}">
+                            ${action.text}
+                        </button>
+                    `;
                 } else {
-                    timeCell.textContent = "";
+                    actionsCell.innerHTML = `<span class="text-muted fs-13">İşlem yok</span>`;
                 }
             }
+
+            if (highlight && isRowNew) {
+                row.classList.add("kitchen-row-new");
+                setTimeout(() => {
+                    row.classList.remove("kitchen-row-new");
+                }, 1500);
+            }
         }
+
+        function updateRowTime(row) {
+            const timeCell = row.querySelector(".kitchen-order-time");
+            if (!timeCell) return;
+
+            const createdIso = row.dataset.createdAt;
+            if (!createdIso) {
+                timeCell.textContent = "";
+                return;
+            }
+
+            const createdDate = new Date(createdIso);
+            if (isNaN(createdDate.getTime())) {
+                timeCell.textContent = "";
+                return;
+            }
+
+            const now = new Date();
+            const diffMs = now - createdDate;
+            const diffMin = Math.floor(diffMs / 60000);
+
+            const timeText = createdDate.toLocaleTimeString("tr-TR", {
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+
+            let agoText = "";
+            if (diffMin <= 0) {
+                agoText = "şimdi";
+            } else if (diffMin === 1) {
+                agoText = "1 dk önce";
+            } else {
+                agoText = diffMin + " dk önce";
+            }
+
+            timeCell.innerHTML = `
+                <div>${timeText}</div>
+                <div class="kitchen-time-text">${agoText}</div>
+            `;
+        }
+
+        function startTimeUpdater() {
+            setInterval(() => {
+                const rows = tbody.querySelectorAll("tr[data-order-id]");
+                rows.forEach(row => updateRowTime(row));
+            }, 30000);
+        }
+
+        tbody.addEventListener("click", function (e) {
+            const btn = e.target.closest(".kitchen-status-btn");
+            if (!btn) return;
+
+            const orderId = btn.getAttribute("data-order-id");
+            const nextStatus = parseInt(btn.getAttribute("data-next-status"));
+
+            if (!orderId || isNaN(nextStatus)) return;
+
+            if (!confirm("Bu siparişin durumunu '" + getStatusText(nextStatus) + "' olarak güncellemek istiyor musun?")) {
+                return;
+            }
+
+            fetch(apiBaseUrl + "/api/Orders/" + orderId + "/status", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    orderStatus: nextStatus
+                })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Status update failed: " + response.status);
+                    }
+                    return response.json().catch(() => ({}));
+                })
+                .then(data => {
+                    console.log("Durum güncelleme başarılı:", data);
+                })
+                .catch(error => {
+                    console.error("Durum güncelleme hatası:", error);
+                    alert("Durum güncellenirken bir hata oluştu.");
+                });
+        });
 
         async function startConnection() {
             try {
@@ -175,7 +376,6 @@
             setStatus("Bağlı değil", "bg-secondary");
         });
 
-        // 🔵 Initial load: DB'deki aktif siparişleri çek
         function loadInitialOrders() {
             fetch(apiBaseUrl + "/api/Orders/kitchen-active")
                 .then(response => {
@@ -187,7 +387,9 @@
                 .then(data => {
                     console.log("Initial kitchen orders:", data);
                     if (Array.isArray(data)) {
-                        data.forEach(addOrUpdateOrderRow);
+                        data.forEach(order =>
+                            addOrUpdateOrderRow(order, { placeOnTop: false, highlight: false })
+                        );
                     }
                 })
                 .catch(error => {
@@ -195,12 +397,11 @@
                 });
         }
 
-        // Sayfa yüklenince: önce DB'den aktif siparişleri çek, sonra SignalR'a bağlan
         document.addEventListener("DOMContentLoaded", function () {
             setStatus("Bağlanıyor...", "bg-info");
             loadInitialOrders();
             startConnection();
+            startTimeUpdater();
         });
     </script>
 }
-
