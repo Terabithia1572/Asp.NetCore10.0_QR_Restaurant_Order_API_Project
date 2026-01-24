@@ -1,0 +1,41 @@
+﻿<div class="modal fade" id="reserveModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content border-0 rounded-5 overflow-hidden">
+            <div class="row g-0">
+                <div class="col-md-5 d-none d-md-block bg-cover" style="background-image: url('https://images.unsplash.com/photo-1550966841-396ad88675c7?w=500');"></div>
+                <div class="col-md-7 p-5">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="fw-bold mb-0">Rezervasyon</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form id="reservationForm">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">Ad Soyad</label>
+                            <input type="text" class="form-control rounded-pill px-3" placeholder="Yunus..." required>
+                        </div>
+                        <div class="row g-3 mb-3">
+                            <div class="col-6">
+                                <label class="form-label small fw-bold">Telefon</label>
+                                <input type="tel" class="form-control rounded-pill px-3" placeholder="05XX..." required>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label small fw-bold">Kişi Sayısı</label>
+                                <select class="form-select rounded-pill px-3">
+                                    <option>1 Kişi</option>
+                                    <option selected>2 Kişi</option>
+                                    <option>4 Kişi</option>
+                                    <option>6+ Kişi</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold">Tarih</label>
+                            <input type="date" class="form-control rounded-pill px-3" required>
+                        </div>
+                        <button type="submit" class="btn btn-emerald w-100 rounded-pill py-3 fw-bold">Masayı Ayır</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

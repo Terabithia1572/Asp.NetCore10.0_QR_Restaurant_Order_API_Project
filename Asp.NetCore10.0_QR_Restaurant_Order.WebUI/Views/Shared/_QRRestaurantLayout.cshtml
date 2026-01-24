@@ -1,0 +1,190 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+    @* UI Layout Head Component
+   → Global meta, fonts & stylesheet loader
+   → Tipografi (Inter / Montserrat / Playfair)
+   → Bootstrap + Icons + Swiper + GLightbox
+   → Custom theme CSS (style.css)
+   → Tüm UI sayfalarında ortak *@
+@await Component.InvokeAsync("_UILayoutHeaderComponentPartial")
+<body data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="100">
+
+    @* QR Restaurant UI Navbar Component
+   → Menü, kampanya, blog, yorum ve iletişim bölümlerine yönlendirme
+   → Rezervasyon + QR Menü aksiyon butonları
+   → Masa kullanıcı akışında ana yönlendirme elemanı
+   → Desktop & mobile için offcanvas destekli *@
+    @await Component.InvokeAsync("_UILayoutNavbarComponentPartial")
+
+    @* QR Restaurant Mobile Offcanvas Navigation
+   → Menü, kampanya, hakkımızda, iletişim bölümlerine erişim
+   → Mobil rezervasyon aksiyonu
+   → Responsive & offcanvas UX *@
+    @await Component.InvokeAsync("_UILayoutOffcanvasNavbarComponentPartial")
+    @RenderBody()
+
+    @* UI Layout Hero Component
+   → Giriş ve marka sunumu (Hero alanı)
+   → QR Menü + Rezervasyon CTA
+   → Temassız / Hızlı / Güvenli değer önermeleri
+   → Landing sayfada ortak kullanım *@
+    @await Component.InvokeAsync("_UILayoutHeroComponentPartial")
+
+
+
+    @* UI Layout How It Works Component
+   → QR sipariş akışının kullanıcıya açıklanması
+   → 3 adım: Tara → İncele → Sipariş Ver
+   → Menüye yönlendiren CTA
+   → Landing sayfada ortak kullanım *@
+    @await Component.InvokeAsync("_UILayoutHowItWorksComponentPartial")
+
+
+    @* UI Layout Chef Specials Component
+   → Şefin imza lezzetlerinin sunumu
+   → Görsel + fiyat + rozet alanları
+   → Öne çıkan ürünler / premium seçkiler
+   → Landing sayfada ortak kullanım *@
+    @await Component.InvokeAsync("_UILayoutChefSpecialsComponentPartial")
+
+
+
+
+    @* UI Layout Menu Section Component
+   → Kahvaltı / Öğle / Akşam / Tatlı sekmeli menü alanı
+   → Ürün listesi, fiyat ve kısa açıklamalar
+   → Sepete ekle butonları (btn-add-cart)
+   → Landing sayfada ana menü bölümü *@
+    @await Component.InvokeAsync("_UILayoutMenuSectionComponentPartial")
+
+
+
+    @* UI Layout CTA Section Component
+   → Kullanıcıyı aksiyona yönlendiren CTA alanı
+   → Eve servis / sipariş yönlendirmesi
+   → Başlık + açıklama + buton yapısı
+   → Landing sayfada dönüşüm amaçlı *@
+    @await Component.InvokeAsync("_UILayoutCTASectionComponentPartial")
+
+
+    @* UI Layout Discounts Component
+   → Kampanya ve indirim kartlarının gösterimi
+   → Görsel + rozet + açıklama + CTA
+   → Landing sayfada dönüşüm amaçlı *@
+    @await Component.InvokeAsync("_UILayoutDiscountsComponentPartial")
+
+    @* UI Layout Gallery Component
+   → Mekan / sunum / atmosfer görselleri
+   → Lightbox ile etkileşimli görüntüleme
+   → Landing sayfada destekleyici görsel içerik *@
+    @await Component.InvokeAsync("_UILayoutGalleryComponentPartial")
+
+    @* UI Layout Chefs Section Component
+   → Şef kadrosunun listelendiği alan
+   → Görsel, unvan, kısa biyografi ve öne çıkan bilgiler
+   → Sosyal medya bağlantıları
+   → Mekanın güven ve prestijini destekleyen bölüm *@
+    @await Component.InvokeAsync("_UILayoutChefsSectionComponentPartial")
+
+
+
+
+    @* UI Layout About Section Component
+   → Mekanın hikayesi ve marka anlatımı
+   → Görsel + deneyim rozeti + metin + güven unsurları
+   → Organik ürün, ödüllü şef, atmosfer vurgusu
+   → Landing sayfada prestij ve güven katmanı *@
+    @await Component.InvokeAsync("_UILayoutAboutSectionComponentPartial")
+
+
+    @* UI Layout Stats Section Component
+   → Kullanıcı güvenini artıran istatistik alanı
+   → QR tarama, sipariş, puan, servis süresi ve aktif masa verileri
+   → Counter animasyonlarıyla destekli metrik gösterimi
+   → Landing sayfada güven & kanıt katmanı *@
+    @await Component.InvokeAsync("_UILayoutStatsSectionComponentPartial")
+
+    @* UI Layout FAQ Component
+   → Sık Sorulan Sorular (Accordion)
+   → QR Menü + Rezervasyon + Kampanyalar için yönlendirici içerik
+   → Landing sayfası standart bölümü *@
+    @await Component.InvokeAsync("_UILayoutFAQComponentPartial")
+
+
+
+    @* UI Layout Blog Section Component
+   → Duyuru / yeni menü / kampanya ve şef ipuçları yazılarının listelendiği alan
+   → Blog kartları: görsel, rozet, tarih, okuma süresi ve kısa özet
+   → "Tüm Yazılar" butonu ile blog sayfasına yönlendirme *@
+    @await Component.InvokeAsync("_UILayoutBlogSectionComponentPartial")
+
+
+    @* UI Layout Reviews Component
+   → Misafir yorumları / rating slider
+   → Swiper ile kaydırmalı kart yapısı
+   → Yıldız puanlama + lokasyon + avatar
+   → Landing deneyimini güçlendirir *@
+    @await Component.InvokeAsync("_UILayoutReviewsComponentPartial")
+
+
+
+    @* UI Layout Contact Section Component
+   → Adres, telefon, çalışma saatleri ve sosyal medya
+   → Harita alanı (interaktif map entegrasyonu için placeholder)
+   → Landing UI standardı *@
+    @await Component.InvokeAsync("_UILayoutContactMapComponentPartial")
+
+
+    @* UI Layout Footer Component
+   → Logo + kısa hakkında metni
+   → Hızlı linkler (navigasyon)
+   → İletişim bilgileri + sosyal medya linkleri
+   → Bülten (newsletter) aboneliği
+   → Yasal linkler + telif hakkı *@
+    @await Component.InvokeAsync("_UILayoutFooterComponentPartial")
+
+
+
+    <!-- Floating Cart Button -->
+    <button class="cart-fab" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas">
+        <i class="bi bi-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+    </button>
+
+    <!-- Cart Offcanvas -->
+    @* UI Layout Cart Offcanvas Component
+   → Sağdan açılan sipariş sepeti (offcanvas)
+   → Sepet öğeleri listesi (cartItems)
+   → Ara toplam / servis / genel toplam hesap alanı
+   → Siparişi Tamamla & Sepeti Temizle butonları
+   → Şu an demo, ileride API ile gerçek sipariş akışına bağlanacak *@
+    @await Component.InvokeAsync("_UILayoutCartOffcanvasComponentPartial")
+
+    @* UI Layout Reservation Modal Component
+   → Masaya rezervasyon formu
+   → Ad soyad, telefon, kişi sayısı ve tarih alanları
+   → “Masayı Ayır” CTA
+   → Şu an demo, ileride API + SignalR ile canlı rezervasyon akışı *@
+    @await Component.InvokeAsync("_UILayoutReservationModalComponentPartial")
+
+    @* UI Layout Utilities Component
+   → Sepete ekleme toast bildirimi
+   → Scroll-to-top butonu
+   → UX geri bildirim ve yardımcı UI elemanları *@
+    @await Component.InvokeAsync("_UILayoutUtilitiesComponentPartial")
+
+    @* UI Layout Scripts Component
+   → Bootstrap bundle
+   → Swiper slider
+   → GLightbox gallery
+   → Custom app.js (cart + modal + utilities + interactions)
+   → Landing davranış katmanı *@
+    @await Component.InvokeAsync("_UILayoutScriptsComponentPartial")
+
+
+</body>
+</html>
