@@ -21,6 +21,10 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.DataAccessLayer.Concrete
         public DbSet<Footer> Footers { get; set; } // Footer tablosu
         public DbSet<Product> Products { get; set; } // Ürünler tablosu
         public DbSet<Testimonial> Testimonials { get; set; } // Referanslar tablosu
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Table> Tables { get; set; }
+
 
     }
 }
