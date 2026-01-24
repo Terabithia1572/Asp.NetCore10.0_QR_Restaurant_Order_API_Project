@@ -6,22 +6,17 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.DTOs.DashboardDTOs
 {
     public class ResultDashboardSummaryDTO
     {
-        // Bugüne ait toplam sipariş sayısı
-        public int TodayTotalOrderCount { get; set; }
+        // Kartlar
+        public decimal TodayRevenue { get; set; }        // Bugünkü Ciro
+        public int TodayOrderCount { get; set; }         // Bugünkü Sipariş Sayısı
+        public decimal MonthlyRevenue { get; set; }      // Bu Ayki Ciro
+        public int MonthlyOrderCount { get; set; }       // Bu Ayki Sipariş Sayısı
+        public int TotalOrderCount { get; set; }         // Toplam Sipariş
+        public int TotalGuestCount { get; set; }         // Toplam Misafir
+        public int ActiveTableCount { get; set; }        // Aktif Masa Sayısı
 
-        // Bugüne ait toplam ciro (₺)
-        public decimal TodayTotalRevenue { get; set; }
-
-        // Şu anda aktif olan (açık) masa sayısı
-        public int ActiveTableCount { get; set; }
-
-        // Ortalama servis süresi (dakika)
-        public int AverageServiceTimeMinute { get; set; }
-
-        // Bugün yapılan toplam QR tarama sayısı
-        public int TodayQrScanCount { get; set; }
-
-        // Bugün restorana ilk defa gelen yeni müşteri sayısı
-        public int TodayNewCustomerCount { get; set; }
+        // Listeler
+        public List<ResultTopProductDTO> TopProducts { get; set; } = new();
+        public List<ResultRecentOrderDTO> RecentOrders { get; set; } = new();
     }
 }

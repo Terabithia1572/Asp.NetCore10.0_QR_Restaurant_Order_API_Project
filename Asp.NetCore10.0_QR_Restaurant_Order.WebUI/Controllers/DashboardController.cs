@@ -26,7 +26,7 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.Controllers
         // İleride Dashboard verilerini API'den çekeceğimiz base adres
         // Örn: https://localhost:7074/api/Dashboard/Summary
         // Şimdilik sadece örnek olarak burada dursun, endpoint hazır olunca aktif edeceğiz.
-        private const string DashboardSummaryApiUrl = "https://localhost:7074/api/Dashboard/Summary";
+       
 
         // Constructor üzerinden IHttpClientFactory bağımlılığını enjekte ediyoruz
         public DashboardController(IHttpClientFactory httpClientFactory)
@@ -56,15 +56,24 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.Controllers
             // ============================
             // A) GEÇİCİ (MOCK) VERİ OLUŞTURMA
             // ============================
-            var summaryModel = new ResultDashboardSummaryDTO
+            var client = _httpClientFactory.CreateClient();
+
+            // API base adresin neyse onu yaz
+            client.BaseAddress = new Uri("https://localhost:7074/");
+
+            var response = await client.GetAsync("api/Dashboards/summary");
+
+            if (!response.IsSuccessStatusCode)
             {
-                TodayTotalOrderCount = 128,   // Örnek: bugün alınan toplam sipariş
-                TodayTotalRevenue = 24580, // Örnek: bugünkü ciro (₺)
-                ActiveTableCount = 24,    // Örnek: şu an aktif (açık) masa
-                AverageServiceTimeMinute = 14,    // Örnek: ortalama servis süresi (dk)
-                TodayQrScanCount = 870,   // Örnek: bugün QR ile menü tarama sayısı
-                TodayNewCustomerCount = 12     // Örnek: bugün ilk kez gelen müşteri
-            };
+                // Hata durumunda boş model gönderelim, sayfa yine açılır
+                return View(new ResultDashboardSummaryDTO());
+            }
+
+            var jsonData = await response.Content.ReadAsStringAsync();
+            var model = JsonConvert.DeserializeObject<ResultDashboardSummaryDTO>(jsonData);
+
+            return View(model);
+        }
 
             // ============================
             // B) İLERİDE API'DEN VERİ ÇEKME (ŞABLON)
@@ -85,7 +94,7 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.Controllers
             */
 
             // View tarafına strongly-typed model ile dönüyoruz
-            return View(summaryModel);
+            
         }
     }
-}
+
