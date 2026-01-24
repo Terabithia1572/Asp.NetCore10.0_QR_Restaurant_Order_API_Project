@@ -4,6 +4,9 @@ using Asp.NetCore10._0_QR_Restaurant_Order.DataAccessLayer.Abstract;
 using Asp.NetCore10._0_QR_Restaurant_Order.DataAccessLayer.Concrete;
 using Asp.NetCore10._0_QR_Restaurant_Order.DataAccessLayer.EntityFramework;
 using Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Hubs;
+using Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Services.Abstract;
+using Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Services.Concrete;
+using QRRestaurantOrder.API.Hubs;
 using System.Reflection;
 
 
@@ -48,6 +51,7 @@ builder.Services.AddScoped<IOrderService, OrderManager>(); // IOrderService için
 builder.Services.AddScoped<IOrderDAL, EfOrderDAL>(); // IOrderDAL için EfOrderDAL'ý ekler
 builder.Services.AddScoped<IOrderDetailService, OrderDetailManager>(); // IOrderDetailService için OrderDetailManager'ý ekler
 builder.Services.AddScoped<IOrderDetailDAL, EfOrderDetailDAL>(); // IOrderDetailDAL için EfOrderDetailDAL'ý ekler
+builder.Services.AddScoped<IOrderNotificationService, OrderNotificationService>();
 
 
 
@@ -80,6 +84,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapHub<SignalRHub>("/SignalRHub");
+app.MapHub<OrderHub>("/orderHub");
+
 
 app.Run();
 //localhost:44328/swagger/index.html

@@ -1,0 +1,206 @@
+﻿
+@{
+    ViewData["Title"] = "Mutfak Ekranı";
+    // Admin tarafında hangi layout'u kullanıyorsan ona göre değiştir:
+    // Örn: "~/Views/Shared/_AdminLayout.cshtml" veya "~/Views/Shared/_Layout.cshtml"
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Mutfak Sipariş Ekranı</h5>
+                    <span class="badge bg-success" id="kitchenConnectionStatus">Bağlanıyor...</span>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Sipariş #</th>
+                                    <th>Masa</th>
+                                    <th>Tutar</th>
+                                    <th>Durum</th>
+                                    <th>Oluşturma Zamanı</th>
+                                </tr>
+                            </thead>
+                            <tbody id="kitchenOrdersBody">
+                                <!-- SignalR'dan gelen siparişler buraya eklenecek -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer text-muted small">
+                    Yeni siparişler ve durum değişiklikleri anlık olarak burada görünecek.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- SignalR client (CDN üzerinden) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+
+    <script>
+        // 🔧 BURAYI KENDİ WEBAPI ADRESİNE GÖRE GÜNCELLE:
+        // Örn: https://localhost:7049, http://localhost:5000 vs.
+        const apiBaseUrl = "https://localhost:7074"; // WebAPI adresin
+
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl(apiBaseUrl + "/signalrhub")
+            .withAutomaticReconnect()
+            .build();
+
+        const statusBadge = document.getElementById("kitchenConnectionStatus");
+        const tbody = document.getElementById("kitchenOrdersBody");
+
+        function setStatus(text, cssClass) {
+            if (!statusBadge) return;
+            statusBadge.textContent = text;
+            statusBadge.className = "badge " + cssClass;
+        }
+
+        // 🟢 Yeni sipariş event'i (server: "OrderCreated")
+        connection.on("OrderCreated", function (order) {
+            console.log("SignalR - Yeni sipariş:", order);
+            addOrUpdateOrderRow(order);
+        });
+
+        // 🟡 Sipariş durumu değişti event'i (server: "OrderStatusChanged")
+        connection.on("OrderStatusChanged", function (order) {
+            console.log("SignalR - Sipariş durumu güncellendi:", order);
+            addOrUpdateOrderRow(order);
+        });
+
+        function addOrUpdateOrderRow(order) {
+            // Backend'den gelen property isimleri:
+            // OrderNotificationService: { OrderId, TableId, TotalPrice, OrderStatus, StatusDisplayName, ChangedAt }
+            // KitchenActive: { orderID, tableID, totalPrice, orderStatus, createdDate, statusText }
+
+            const id =
+                order.orderId ?? order.OrderId ?? order.orderID ?? order.OrderID;
+
+            const tableId =
+                order.tableId ?? order.TableId ?? order.tableID ?? order.TableID;
+
+            const total =
+                order.totalPrice ?? order.TotalPrice ?? 0;
+
+            const statusText =
+                order.statusText ?? order.StatusText ?? order.statusDisplayName ?? order.StatusDisplayName ?? "-";
+
+            const created =
+                order.createdDate ?? order.CreatedDate ?? order.changedAt ?? order.ChangedAt;
+
+            if (!id) {
+                console.warn("Order ID bulunamadı, satır eklenmedi.", order);
+                return;
+            }
+
+            let row = tbody.querySelector(`tr[data-order-id="${id}"]`);
+            if (!row) {
+                row = document.createElement("tr");
+                row.setAttribute("data-order-id", id);
+                row.innerHTML = `
+                    <td class="kitchen-order-id"></td>
+                    <td class="kitchen-order-table"></td>
+                    <td class="kitchen-order-total"></td>
+                    <td class="kitchen-order-status"></td>
+                    <td class="kitchen-order-time"></td>
+                `;
+                if (tbody.firstChild) {
+                    tbody.insertBefore(row, tbody.firstChild);
+                } else {
+                    tbody.appendChild(row);
+                }
+            }
+
+            row.querySelector(".kitchen-order-id").textContent = "#" + id;
+            row.querySelector(".kitchen-order-table").textContent = "Masa #" + (tableId ?? "?");
+
+            const totalCell = row.querySelector(".kitchen-order-total");
+            if (totalCell) {
+                if (total !== null && total !== undefined && !isNaN(total)) {
+                    totalCell.textContent = Number(total)
+                        .toLocaleString("tr-TR", { style: "currency", currency: "TRY" });
+                } else {
+                    totalCell.textContent = "-";
+                }
+            }
+
+            row.querySelector(".kitchen-order-status").textContent = statusText ?? "-";
+
+            const timeCell = row.querySelector(".kitchen-order-time");
+            if (timeCell) {
+                if (created) {
+                    const date = new Date(created);
+                    if (!isNaN(date.getTime())) {
+                        timeCell.textContent = date.toLocaleTimeString("tr-TR");
+                    } else {
+                        timeCell.textContent = "";
+                    }
+                } else {
+                    timeCell.textContent = "";
+                }
+            }
+        }
+
+        async function startConnection() {
+            try {
+                await connection.start();
+                console.log("SignalR bağlantısı başarıyla kuruldu (Kitchen).");
+                setStatus("Bağlı", "bg-success");
+            } catch (err) {
+                console.error("SignalR bağlantı hatası:", err);
+                setStatus("Bağlantı hatası - tekrar denenecek", "bg-danger");
+                setTimeout(startConnection, 5000);
+            }
+        }
+
+        connection.onreconnecting(error => {
+            console.warn("SignalR yeniden bağlanıyor...", error);
+            setStatus("Yeniden bağlanıyor...", "bg-warning text-dark");
+        });
+
+        connection.onreconnected(connectionId => {
+            console.log("SignalR yeniden bağlandı. ConnectionId:", connectionId);
+            setStatus("Bağlı", "bg-success");
+        });
+
+        connection.onclose(error => {
+            console.warn("SignalR bağlantısı kapandı.", error);
+            setStatus("Bağlı değil", "bg-secondary");
+        });
+
+        // 🔵 Initial load: DB'deki aktif siparişleri çek
+        function loadInitialOrders() {
+            fetch(apiBaseUrl + "/api/Orders/kitchen-active")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Kitchen-active isteği başarısız: " + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Initial kitchen orders:", data);
+                    if (Array.isArray(data)) {
+                        data.forEach(addOrUpdateOrderRow);
+                    }
+                })
+                .catch(error => {
+                    console.error("Initial kitchen orders yüklenirken hata:", error);
+                });
+        }
+
+        // Sayfa yüklenince: önce DB'den aktif siparişleri çek, sonra SignalR'a bağlan
+        document.addEventListener("DOMContentLoaded", function () {
+            setStatus("Bağlanıyor...", "bg-info");
+            loadInitialOrders();
+            startConnection();
+        });
+    </script>
+}
+
