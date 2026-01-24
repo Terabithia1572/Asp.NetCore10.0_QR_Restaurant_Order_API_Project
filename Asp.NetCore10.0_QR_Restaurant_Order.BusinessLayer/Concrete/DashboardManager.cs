@@ -22,23 +22,47 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.BusinessLayer.Concrete
             var today = DateTime.Today;
             var monthStart = new DateTime(today.Year, today.Month, 1);
 
-            var todayOrders = _context.Orders.Where(o => o.CreatedDate >= today);
-            var monthOrders = _context.Orders.Where(o => o.CreatedDate >= monthStart);
+            // Bugünün siparişleri (sadece bugün)
+            var todayOrdersQuery = _context.Orders
+                .Where(o => o.CreatedDate >= today);
+
+            // Bu ayın siparişleri (ayın başından bugüne kadar)
+            var monthOrdersQuery = _context.Orders
+                .Where(o => o.CreatedDate >= monthStart);
 
             var dto = new ResultDashboardSummaryDTO
             {
-                TodayRevenue = await todayOrders.SumAsync(o => (decimal?)o.TotalPrice) ?? 0,
-                TodayOrderCount = await todayOrders.CountAsync(),
-                MonthlyRevenue = await monthOrders.SumAsync(o => (decimal?)o.TotalPrice) ?? 0,
-                MonthlyOrderCount = await monthOrders.CountAsync(),
+                // Bugünkü ciro
+                TodayRevenue = await todayOrdersQuery.SumAsync(o => (decimal?)o.TotalPrice) ?? 0,
+
+                // Bugünkü sipariş sayısı
+                TodayOrderCount = await todayOrdersQuery.CountAsync(),
+
+                // Bu ayın toplam cirosu
+                MonthlyRevenue = await monthOrdersQuery.SumAsync(o => (decimal?)o.TotalPrice) ?? 0,
+
+                // Bu ayın sipariş sayısı
+                MonthlyOrderCount = await monthOrdersQuery.CountAsync(),
+
+                // Sistem boyunca toplam sipariş sayısı
                 TotalOrderCount = await _context.Orders.CountAsync(),
+
+                // Tüm siparişlerdeki toplam misafir sayısı
                 TotalGuestCount = await _context.Orders.SumAsync(o => (int?)o.GuestCount) ?? 0,
+
+                // Şu anda aktif olan masa sayısı
                 ActiveTableCount = await _context.Tables.CountAsync(t => t.Status == true)
             };
 
+            // En çok satan ürünler
             dto.TopProducts = await _context.OrderDetails
                 .Include(od => od.Product)
-                .GroupBy(od => new { od.ProductID, od.Product.ProductName, od.Product.ProductImageURL })
+                .GroupBy(od => new
+                {
+                    od.ProductID,
+                    od.Product.ProductName,
+                    od.Product.ProductImageURL
+                })
                 .Select(g => new ResultTopProductDTO
                 {
                     ProductName = g.Key.ProductName,
@@ -50,6 +74,7 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.BusinessLayer.Concrete
                 .Take(6)
                 .ToListAsync();
 
+            // Son siparişler (dashboard altındaki tablo)
             dto.RecentOrders = await _context.Orders
                 .Include(o => o.Table)
                 .OrderByDescending(o => o.CreatedDate)
@@ -61,7 +86,7 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.BusinessLayer.Concrete
                     CustomerName = o.CustomerName,
                     CreatedDate = o.CreatedDate,
                     TotalPrice = o.TotalPrice,
-                    Profit = 0,
+                    Profit = 0, // maliyet eklediğimizde hesaplanabilir
                     StatusText = o.OrderStatus.ToString()
                 })
                 .ToListAsync();

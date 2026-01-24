@@ -1,7 +1,8 @@
 ﻿"use strict";
 
+// 🔹 API projesinin adresine göre URL (Swagger hangi portta ise onu yaz)
 const connection = new signalR.HubConnectionBuilder()
-    .withUrl("/dashboardHub")
+    .withUrl("https://localhost:7074/SignalRHub") // <--- Burası KRİTİK
     .withAutomaticReconnect()
     .build();
 
@@ -16,8 +17,17 @@ connection.on("ReceiveDashboardSummary", function (summary) {
     document.getElementById("monthlyOrderCount").innerText = summary.monthlyOrderCount;
     document.getElementById("totalGuestCount").innerText = summary.totalGuestCount;
     document.getElementById("activeTableCount").innerText = summary.activeTableCount;
-
-    // İstersen burada ApexCharts / grafikleri de update edersin
 });
 
-connection.start().catch(err => console.error(err.toString()));
+// Biraz daha sağlam start fonksiyonu
+async function startConnection() {
+    try {
+        await connection.start();
+        console.log("✅ SignalR connected.");
+    } catch (err) {
+        console.error("❌ SignalR connection error:", err);
+        setTimeout(startConnection, 5000);
+    }
+}
+
+startConnection();

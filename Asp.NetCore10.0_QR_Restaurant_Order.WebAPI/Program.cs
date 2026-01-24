@@ -43,7 +43,11 @@ builder.Services.AddScoped<IProductService, ProductManager>(); // IProductServic
 builder.Services.AddScoped<IProductDAL, EfProductDAL>(); // IProductDAL için EfProductDAL'ý ekler
 builder.Services.AddScoped<ITestimonialService, TestimonialManager>(); // ITestimonialService için TestimonialManager'ý ekler
 builder.Services.AddScoped<ITestimonialDAL, EfTestimonialDAL>(); // ITestimonialDAL için EfTestimonialDAL'ý ekler
-builder.Services.AddScoped<IDashboardService, DashboardManager>();
+builder.Services.AddScoped<IDashboardService, DashboardManager>(); // IDashboardService için DashboardManager'ý ekler
+builder.Services.AddScoped<IOrderService, OrderManager>(); // IOrderService için OrderManager'ý ekler
+builder.Services.AddScoped<IOrderDAL, EfOrderDAL>(); // IOrderDAL için EfOrderDAL'ý ekler
+builder.Services.AddScoped<IOrderDetailService, OrderDetailManager>(); // IOrderDetailService için OrderDetailManager'ý ekler
+builder.Services.AddScoped<IOrderDetailDAL, EfOrderDetailDAL>(); // IOrderDetailDAL için EfOrderDetailDAL'ý ekler
 
 
 
@@ -75,7 +79,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapHub<SignalRHub>("/dashboardHub");
+app.MapHub<SignalRHub>("/SignalRHub");
 
 app.Run();
 //localhost:44328/swagger/index.html

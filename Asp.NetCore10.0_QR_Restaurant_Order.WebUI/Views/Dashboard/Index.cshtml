@@ -741,3 +741,193 @@
         </div>
     </div>
 </div>
+@section Scripts {
+    <!-- SignalR JS (CDN üzerinden) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"
+            crossorigin="anonymous"></script>
+
+    <script>
+        // WebAPI adresin: https://localhost:7074
+        // Hub endpoint: /signalRHub (Program.cs'te MapHub ile verdik)
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("https://localhost:7074/signalRHub")
+            .withAutomaticReconnect()
+            .build();
+
+        // Yardımcı: TRY format
+        function formatCurrency(value) {
+            return new Intl.NumberFormat("tr-TR", {
+                style: "currency",
+                currency: "TRY",
+                maximumFractionDigits: 0
+            }).format(value ?? 0);
+        }
+
+        // Yardımcı: element text güncelle
+        function setText(id, text) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = text;
+        }
+
+        // Backend'den dashboard özeti geldiğinde tetiklenecek kısım
+        connection.on("ReceiveDashboardSummary", function (data) {
+            console.log("Dashboard summary (SignalR):", data);
+
+            // 🟢 Kartlardaki sayıları güncelle
+            setText("totalOrderCount", data.totalOrderCount);
+            setText("totalGuestCount", data.totalGuestCount);
+            setText("todayRevenue", formatCurrency(data.todayRevenue));
+            setText("totalOrderCountOverview", data.totalOrderCount);
+            setText("monthlyOrderCount", data.monthlyOrderCount);
+            setText("todayOrderCount", data.todayOrderCount);
+
+            // 🟠 En çok satılan ürünler tablosu
+            const tbodyTop = document.querySelector(".table-top-selling-products tbody");
+            if (tbodyTop && Array.isArray(data.topProducts)) {
+                if (data.topProducts.length === 0) {
+                    tbodyTop.innerHTML = `
+                        <tr>
+                            <td colspan="3" class="text-center text-muted">
+                                Henüz istatistik oluşturacak kadar satış verisi bulunmuyor.
+                            </td>
+                        </tr>`;
+                } else {
+                    const rows = data.topProducts.map((p, idx) => `
+                        <tr>
+                            <td class="text-body fw-medium">
+                                ${(idx + 1).toString().padStart(2, "0")}.
+                            </td>
+                            <td class="ps-0">
+                                <div class="d-flex align-items-center text-decoration-none">
+                                    <div class="flex-shrink-0">
+                                        <img src="${p.imageUrl}"
+                                             class="rounded-circle"
+                                             style="width: 50px; height: 50px;"
+                                             alt="${p.productName}" />
+                                    </div>
+                                    <div class="flex-grow-1 ms-12">
+                                        <h3 class="fw-normal hover-text">${p.productName}</h3>
+                                        <span class="fs-14 text-body fw-normal">
+                                            ${p.totalQuantity} adet satıldı
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-body">
+                                Toplam Tutar:
+                                ${formatCurrency(p.totalAmount)}
+                            </td>
+                        </tr>
+                    `).join("");
+
+                    tbodyTop.innerHTML = rows;
+                }
+            }
+
+            // 🔵 Son siparişler tablosu
+            const tbodyRecent = document.querySelector(".table-recent-orders tbody");
+            if (tbodyRecent && Array.isArray(data.recentOrders)) {
+                if (data.recentOrders.length === 0) {
+                    tbodyRecent.innerHTML = `
+                        <tr>
+                            <td colspan="7" class="text-center text-muted">
+                                Son sipariş kaydı bulunamadı.
+                            </td>
+                        </tr>`;
+                } else {
+                    const rows = data.recentOrders.map(order => {
+                        const created = new Date(order.createdDate);
+                        const dateStr = created.toLocaleString("tr-TR", {
+                            year: "numeric",
+                            month: "short",
+                            day: "2-digit",
+                            hour: "2-digit",
+                            minute: "2-digit"
+                        });
+
+                        let badgeText;
+                        let badgeClass;
+
+                        switch (order.statusText) {
+                            case "1":
+                                badgeText = "Hazırlanıyor";
+                                badgeClass = "text-warning bg-warning bg-opacity-10";
+                                break;
+                            case "2":
+                                badgeText = "Tamamlandı";
+                                badgeClass = "text-success bg-success bg-opacity-10";
+                                break;
+                            default:
+                                badgeText = "Bekliyor";
+                                badgeClass = "text-primary bg-primary bg-opacity-10";
+                                break;
+                        }
+
+                        return `
+                            <tr>
+                                <td class="text-body">#${order.orderID}</td>
+                                <td>
+                                    <div class="d-flex align-items-center text-decoration-none">
+                                        <div class="flex-grow-1 ms-12">
+                                            <h3 class="fw-medium hover-text mb-0 fs-16">
+                                                ${order.customerName ?? ""}
+                                            </h3>
+                                            <span class="fs-14 text-body">
+                                                ${order.tableName ?? ""}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-body">
+                                    ${dateStr}
+                                </td>
+                                <td class="text-body">
+                                    ${formatCurrency(order.totalPrice)}
+                                </td>
+                                <td class="text-body">
+                                    ${formatCurrency(order.profit)}
+                                </td>
+                                <td>
+                                    <span class="${badgeClass} fs-15 fw-normal d-inline-block default-badge">
+                                        ${badgeText}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-end" style="gap: 12px;">
+                                        <button class="bg-transparent p-0 border-0"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-placement="top"
+                                                data-bs-title="Detay">
+                                            <i class="material-symbols-outlined fs-16 fw-normal text-primary">visibility</i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>`;
+                    }).join("");
+
+                    tbodyRecent.innerHTML = rows;
+                }
+            }
+        });
+
+        // Bağlantıyı başlat
+        async function startConnection() {
+            try {
+                await connection.start();
+                console.log("Dashboard SignalR connected");
+
+                // İstersen ekstra tetikleme:
+                // await connection.invoke("SendDashboardSummary");
+            } catch (err) {
+                console.error("SignalR connection error:", err);
+                setTimeout(startConnection, 5000);
+            }
+        }
+
+        connection.onclose(startConnection);
+
+        document.addEventListener("DOMContentLoaded", function () {
+            startConnection();
+        });
+    </script>
+}
