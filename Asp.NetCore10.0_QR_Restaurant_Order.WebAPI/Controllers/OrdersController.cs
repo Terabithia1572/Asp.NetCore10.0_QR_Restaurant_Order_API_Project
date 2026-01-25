@@ -1,8 +1,11 @@
 ﻿using Asp.NetCore10._0_QR_Restaurant_Order.BusinessLayer.Abstract;
+using Asp.NetCore10._0_QR_Restaurant_Order.DTOLayer.DTOs.KitchenOrderDetailDTO;
 using Asp.NetCore10._0_QR_Restaurant_Order.DTOLayer.DTOs.OrderDTO;
 using Asp.NetCore10._0_QR_Restaurant_Order.EntityLayer.Entites;
+using Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Helpers;
 using Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Hubs;
 using Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Services.Abstract;
+using Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Services.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System;
@@ -19,21 +22,23 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Controllers
         private readonly IDashboardService _dashboardService;
         private readonly IHubContext<SignalRHub> _hubContext;
         private readonly IOrderNotificationService _orderNotificationService;
+        private readonly IOrderKitchenDetailService _orderKitchenDetailService;
 
         public OrdersController(
             IOrderService orderService,
             IOrderDetailService orderDetailService,
             IDashboardService dashboardService,
             IHubContext<SignalRHub> hubContext,
-            IOrderNotificationService orderNotificationService)
+            IOrderNotificationService orderNotificationService,
+            IOrderKitchenDetailService orderKitchenDetailService)
         {
             _orderService = orderService;
             _orderDetailService = orderDetailService;
             _dashboardService = dashboardService;
             _hubContext = hubContext;
             _orderNotificationService = orderNotificationService;
+            _orderKitchenDetailService = orderKitchenDetailService;
         }
-
         // POST: /api/Orders
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDTO dto)
@@ -149,6 +154,34 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Controllers
 
             return Ok(result);
         }
+        [HttpGet("{id}/detail")]
+        public async Task<IActionResult> GetOrderDetail(int id)
+        {
+            var order = await _orderKitchenDetailService.GetOrderWithDetailsAsync(id);
+
+            if (order == null)
+                return NotFound();
+
+            var dto = new KitchenOrderDetailDTO
+            {
+                OrderID = order.OrderID,
+                TableNumber = order.TableID, // property adın farklıysa düzelt
+                Status = order.OrderStatus,
+                StatusText = OrderStatusExtensions.ToDisplay(order.OrderStatus),
+                Total = order.OrderDetails.Sum(x => x.UnitPrice * x.Quantity),
+                Items = order.OrderDetails.Select(x => new KitchenOrderDetailItemDto
+                {
+                    ProductName = x.Product.ProductName,
+                    Quantity = x.Quantity,
+                    UnitPrice = x.UnitPrice,
+                    LineTotal = x.UnitPrice * x.Quantity
+                }).ToList()
+            };
+
+            return Ok(dto);
+        }
+
+
 
 
     }

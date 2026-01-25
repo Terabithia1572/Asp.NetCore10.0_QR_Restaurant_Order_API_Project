@@ -52,6 +52,8 @@ builder.Services.AddScoped<IOrderDAL, EfOrderDAL>(); // IOrderDAL için EfOrderDA
 builder.Services.AddScoped<IOrderDetailService, OrderDetailManager>(); // IOrderDetailService için OrderDetailManager'ý ekler
 builder.Services.AddScoped<IOrderDetailDAL, EfOrderDetailDAL>(); // IOrderDetailDAL için EfOrderDetailDAL'ý ekler
 builder.Services.AddScoped<IOrderNotificationService, OrderNotificationService>();
+builder.Services.AddScoped<IOrderKitchenDetailService, OrderKitchenDetailService>();
+
 
 
 
