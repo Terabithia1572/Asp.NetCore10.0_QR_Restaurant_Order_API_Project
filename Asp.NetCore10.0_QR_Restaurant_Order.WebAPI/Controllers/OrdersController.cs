@@ -181,6 +181,45 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebAPI.Controllers
             return Ok(dto);
         }
 
+        // GET: /api/Orders/status/{status}
+        // Belirli bir duruma göre sipariş listesi (Admin Siparişler menüsü için)
+        [HttpGet("status/{status}")]
+        public IActionResult GetOrdersByStatus(int status)
+        {
+            var orders = _orderService.TGetListAll()
+                .Where(x => x.OrderStatus == status)
+                .OrderByDescending(x => x.CreatedDate)
+                .ThenByDescending(x => x.OrderID)
+                .ToList();
+
+            var result = orders.Select(x =>
+            {
+                string statusText = x.OrderStatus switch
+                {
+                    0 => "Sipariş Oluşturuldu",
+                    1 => "Sipariş Onaylandı",
+                    2 => "Sipariş Hazırlanıyor",
+                    3 => "Sipariş Hazır",
+                    4 => "Sipariş Servis Edildi",
+                    5 => "Sipariş İptal Edildi",
+                    _ => "Bilinmeyen Durum"
+                };
+
+                return new KitchenOrderResultDTO
+                {
+                    OrderID = x.OrderID,
+                    TableID = x.TableID,
+                    CustomerName = x.CustomerName,
+                    TotalPrice = x.TotalPrice,
+                    GuestCount = x.GuestCount,
+                    OrderStatus = x.OrderStatus,
+                    CreatedDate = x.CreatedDate,
+                    StatusText = statusText
+                };
+            }).ToList();
+
+            return Ok(result);
+        }
 
 
 

@@ -1,0 +1,49 @@
+﻿@model KitchenOrderDetailDTO
+
+@{
+    ViewData["Title"] = "Sipariş Detayı";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<h4 class="mb-3">Sipariş Detayı #@Model.OrderID</h4>
+
+<div class="card mb-3">
+    <div class="card-body d-flex justify-content-between">
+        <div>
+            <div><strong>Masa:</strong> @Model.TableNumber</div>
+            <div><strong>Durum:</strong> @Model.StatusText (@Model.Status)</div>
+        </div>
+        <div>
+            <div><strong>Toplam:</strong> @Model.Total.ToString("C2", new System.Globalization.CultureInfo("tr-TR"))</div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        Ürünler
+    </div>
+    <div class="card-body p-0">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Ürün</th>
+                    <th class="text-center">Adet</th>
+                    <th class="text-end">Birim Fiyat</th>
+                    <th class="text-end">Tutar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td class="text-center">@item.Quantity</td>
+                        <td class="text-end">@item.UnitPrice.ToString("C2", new System.Globalization.CultureInfo("tr-TR"))</td>
+                        <td class="text-end">@item.LineTotal.ToString("C2", new System.Globalization.CultureInfo("tr-TR"))</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+﻿@model List<ExtraItemViewModel>
+
+@{
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Title"] = "Ekstra / Opsiyonlar";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Ekstra / Opsiyonlar</h4>
+
+    <div>
+        <button type="button" class="btn btn-sm btn-primary" disabled>
+            Yeni Ekstra Ekle (yakında)
+        </button>
+    </div>
+</div>
+
+<div class="default-table-area mx-minus-1 table-to-do-list">
+    <div class="table-responsive">
+        <table class="table align-middle w-100">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Ad</th>
+                    <th>Kategori</th>
+                    <th>Fiyat</th>
+                    <th>Durum</th>
+                    <th class="text-end">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td class="fw-semibold">@item.Name</td>
+                            <td>@item.Category</td>
+                            <td>
+                                @item.Price.ToString("C2", new System.Globalization.CultureInfo("tr-TR"))
+                            </td>
+                            <td>
+                                @if (item.IsActive)
+                                {
+                                    <span class="badge bg-success-subtle text-success">Aktif</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary-subtle text-secondary">Pasif</span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <button type="button" class="btn btn-sm btn-outline-secondary" disabled>
+                                    Düzenle (yakında)
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-danger ms-1" disabled>
+                                    Sil (yakında)
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">
+                            Henüz ekstra / opsiyon tanımlanmamış.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

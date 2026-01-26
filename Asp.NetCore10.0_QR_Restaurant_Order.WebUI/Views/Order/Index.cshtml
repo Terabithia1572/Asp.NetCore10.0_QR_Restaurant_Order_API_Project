@@ -1,0 +1,51 @@
+﻿@model List<KitchenOrderResultDTO>
+
+@{
+    ViewData["Title"] = "Siparişler";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Sipariş Listesi</h4>
+</div>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<div class="default-table-area mx-minus-1 table-to-do-list">
+    <div class="table-responsive">
+        <table class="table align-middle w-100">
+            <thead>
+                <tr>
+                    <th>Sipariş</th>
+                    <th>Masa</th>
+                    <th>Müşteri</th>
+                    <th>Tutar</th>
+                    <th>Durum</th>
+                    <th>Zaman</th>
+                    <th class="text-end">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var x in Model)
+                {
+                    <tr>
+                        <td>#@x.OrderID</td>
+                        <td>Masa #@x.TableID</td>
+                        <td>@x.CustomerName</td>
+                        <td>@x.TotalPrice.ToString("C2", new System.Globalization.CultureInfo("tr-TR"))</td>
+                        <td>@x.StatusText</td>
+                        <td>@x.CreatedDate.ToString("HH:mm")</td>
+                        <td class="text-end">
+                            <a asp-action="Detail" asp-route-id="@x.OrderID" class="btn btn-sm btn-outline-primary">
+                                Detay
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

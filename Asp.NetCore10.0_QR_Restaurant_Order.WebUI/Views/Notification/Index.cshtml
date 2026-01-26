@@ -1,0 +1,115 @@
+﻿@model List<NotificationViewModel>
+
+@{
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Title"] = "Bildirimler";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Bildirimler</h4>
+
+    <div class="d-flex gap-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary" disabled>
+            Tümünü okundu işaretle (yakında)
+        </button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" disabled>
+            Filtreler (yakında)
+        </button>
+    </div>
+</div>
+
+<div class="default-table-area mx-minus-1 table-to-do-list">
+    <div class="table-responsive">
+        <table class="table align-middle w-100">
+            <thead>
+                <tr>
+                    <th>Tür</th>
+                    <th>Başlık</th>
+                    <th>Mesaj</th>
+                    <th>Tarih</th>
+                    <th>Durum</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var n in Model)
+                    {
+                        var rowClass = n.IsRead ? "" : "table-warning-subtle";
+
+                        <tr class="@rowClass">
+                            <td>
+                                @{
+                                    string badgeClass;
+                                    string iconClass;
+                                    string text;
+
+                                    switch (n.Type)
+                                    {
+                                        case Asp.NetCore10._0_QR_Restaurant_Order.UI.Controllers.NotificationType.Order:
+                                            badgeClass = "bg-primary-subtle text-primary";
+                                            iconClass = "ri-shopping-bag-3-line";
+                                            text = "Sipariş";
+                                            break;
+                                        case Asp.NetCore10._0_QR_Restaurant_Order.UI.Controllers.NotificationType.Warning:
+                                            badgeClass = "bg-warning-subtle text-warning";
+                                            iconClass = "ri-alert-line";
+                                            text = "Uyarı";
+                                            break;
+                                        case Asp.NetCore10._0_QR_Restaurant_Order.UI.Controllers.NotificationType.Stock:
+                                            badgeClass = "bg-danger-subtle text-danger";
+                                            iconClass = "ri-archive-line";
+                                            text = "Stok";
+                                            break;
+                                        case Asp.NetCore10._0_QR_Restaurant_Order.UI.Controllers.NotificationType.System:
+                                            badgeClass = "bg-secondary-subtle text-secondary";
+                                            iconClass = "ri-settings-3-line";
+                                            text = "Sistem";
+                                            break;
+                                        default:
+                                            badgeClass = "bg-info-subtle text-info";
+                                            iconClass = "ri-information-line";
+                                            text = "Bilgi";
+                                            break;
+                                    }
+                                }
+                                <span class="badge d-inline-flex align-items-center gap-1 @badgeClass">
+                                    <i class="@iconClass"></i>
+                                    @text
+                                </span>
+                            </td>
+                            <td class="fw-semibold">@n.Title</td>
+                            <td>@n.Message</td>
+                            <td>
+                                @n.CreatedAt.ToString("dd.MM.yyyy HH:mm")
+                                <div class="text-muted small">
+                                    @((DateTime.Now - n.CreatedAt).TotalMinutes < 60
+                                                                ? $"{(int)(DateTime.Now - n.CreatedAt).TotalMinutes} dk önce"
+                                                                : n.CreatedAt.ToString("HH:mm"))
+                                </div>
+                            </td>
+                            <td>
+                                @if (n.IsRead)
+                                {
+                                    <span class="badge bg-light text-muted">Okundu</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success-subtle text-success">Yeni</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">
+                            Henüz hiç bildiriminiz yok.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

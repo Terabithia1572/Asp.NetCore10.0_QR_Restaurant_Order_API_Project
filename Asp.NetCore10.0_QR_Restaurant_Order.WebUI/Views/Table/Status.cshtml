@@ -1,0 +1,43 @@
+﻿@model List<TableStatusViewModel>
+
+@{
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Title"] = "Masa Durumu";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Masa Durumu</h4>
+</div>
+
+<div class="row">
+    @foreach (var table in Model)
+    {
+        var statusClass = table.Status switch
+        {
+                    "Boş" => "bg-success-subtle border-success text-success",
+                    "Dolu" => "bg-danger-subtle border-danger text-danger",
+                    "Hesap İstendi" => "bg-warning-subtle border-warning text-warning",
+                    "Rezerve" => "bg-info-subtle border-info text-info",
+            _ => "bg-light border-secondary text-secondary"
+        };
+
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-3">
+            <div class="card border @statusClass">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0">@table.Name</h5>
+                        <span class="badge rounded-pill bg-light text-dark">
+                            @table.Capacity kişi
+                        </span>
+                    </div>
+                    <div class="fw-semibold mb-1">
+                        Durum: @table.Status
+                    </div>
+                    <small class="text-muted">
+                        (Bu ekran şimdilik örnek verilerle çalışıyor, ileride API/DB'ye bağlanacak.)
+                    </small>
+                </div>
+            </div>
+        </div>
+    }
+</div>
