@@ -1,0 +1,66 @@
+﻿@model List<CouponViewModel>
+
+@{
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Title"] = "Kuponlar & İndirimler";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Kuponlar & İndirimler</h4>
+    <button class="btn btn-sm btn-primary" disabled>
+        Yeni Kupon Oluştur (yakında)
+    </button>
+</div>
+
+<div class="default-table-area mx-minus-1">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Kod</th>
+                    <th>İndirim</th>
+                    <th>Tip</th>
+                    <th>Kullanım</th>
+                    <th>Durum</th>
+                    <th class="text-end">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model)
+                {
+                    <tr>
+                        <td>@c.Id</td>
+                        <td class="fw-semibold">@c.Code</td>
+                        <td>
+                            @if (c.Type == "%")
+                            {
+                                @($"{c.Discount}%")
+                            }
+                            else
+                            {
+                                @($"{c.Discount} ₺")
+                            }
+                        </td>
+                        <td>@c.Type</td>
+                        <td>@c.Used / @c.UsageLimit</td>
+                        <td>
+                            @if (c.Status)
+                            {
+                                <span class="badge bg-success-subtle text-success">Aktif</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary-subtle text-secondary">Pasif</span>
+                            }
+                        </td>
+                        <td class="text-end">
+                            <button class="btn btn-sm btn-outline-secondary" disabled>Düzenle</button>
+                            <button class="btn btn-sm btn-outline-danger ms-1" disabled>Sil</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

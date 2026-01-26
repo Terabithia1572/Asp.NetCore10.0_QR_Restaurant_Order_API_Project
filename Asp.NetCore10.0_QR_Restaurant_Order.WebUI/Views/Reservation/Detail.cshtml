@@ -1,0 +1,131 @@
+﻿@model ReservationViewModel
+
+@using Asp.NetCore10._0_QR_Restaurant_Order.UI.Controllers
+
+@{
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+    ViewData["Title"] = "Rezervasyon Detayı";
+
+    var statusText = ReservationExtensions.ToStatusText(Model.Status);
+    var sourceText = ReservationExtensions.ToSourceText(Model.Source);
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Rezervasyon Detayı</h4>
+    <a asp-controller="Reservation" asp-action="Index" class="btn btn-sm btn-outline-secondary">
+        ← Listeye Dön
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-xl-5 col-lg-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="fw-semibold mb-1">@Model.CustomerName</h5>
+
+                <div class="mb-2">
+                    <span class="text-muted small">Telefon</span>
+                    <div>@Model.Phone</div>
+                </div>
+
+                <div class="mb-2">
+                    <span class="text-muted small">E-posta</span>
+                    <div>@Model.Email</div>
+                </div>
+
+                <div class="mb-2">
+                    <span class="text-muted small">Tarih & Saat</span>
+                    <div>@Model.ReservationDate.ToString("dd.MM.yyyy HH:mm")</div>
+                </div>
+
+                <div class="mb-2">
+                    <span class="text-muted small">Misafir Sayısı</span>
+                    <div>@Model.GuestCount kişi</div>
+                </div>
+
+                <div class="mb-2">
+                    <span class="text-muted small">Masa</span>
+                    <div>
+                        @if (Model.TableId.HasValue)
+                        {
+                            <span class="badge bg-light text-dark">Masa @Model.TableId</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-light text-muted">Atanmamış</span>
+                        }
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <span class="text-muted small">Durum</span>
+                    <div>
+                        <span class="badge bg-info-subtle text-info">@statusText</span>
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <span class="text-muted small">Kaynak</span>
+                    <div>
+                        <span class="badge bg-secondary-subtle text-secondary">@sourceText</span>
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <span class="text-muted small">VIP</span>
+                    <div>
+                        @if (Model.IsVip)
+                        {
+                            <span class="badge bg-warning-subtle text-warning">VIP Müşteri</span>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Standart</span>
+                        }
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <span class="text-muted small d-block mb-1">Notlar</span>
+                    <p class="mb-0">
+                        @(!string.IsNullOrWhiteSpace(Model.Notes)
+                                                ? Model.Notes
+                                                : "Bu rezervasyon için not girilmemiş.")
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-7 col-lg-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="fw-semibold mb-3">Aksiyonlar (Yakında)</h6>
+                <p class="text-muted mb-3">
+                    Bu alanda ileride rezervasyon durumu değiştirilebilir
+                    (Beklemede → Onaylandı → Masada → Tamamlandı / No-Show / İptal),
+                    müşteriye SMS / e-posta bildirimi gönderilebilir
+                    ve masa ataması yapılabilir.
+                </p>
+
+                <div class="d-flex flex-wrap gap-2">
+                    <button class="btn btn-sm btn-outline-success" disabled>
+                        Onayla
+                    </button>
+                    <button class="btn btn-sm btn-outline-primary" disabled>
+                        Masada
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary" disabled>
+                        Tamamlandı
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" disabled>
+                        İptal Et
+                    </button>
+                    <button class="btn btn-sm btn-outline-warning" disabled>
+                        No-Show İşaretle
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
