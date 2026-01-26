@@ -1,0 +1,204 @@
+﻿@model ReportsViewModel
+
+@{
+    Layout = "~/Views/AdminLayout/Index.cshtml"; // kendi layout yoluna göre ayarla
+    ViewData["Title"] = "Raporlar";
+}
+
+<div class="page-header mb-4">
+    <h1 class="h4 mb-1 fw-semibold">Raporlar & Analitik</h1>
+    <div class="text-muted small">Gelir, yoğunluk ve sipariş analizleri</div>
+</div>
+
+<!-- KPI SUMMARY -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-xl-3">
+        <div class="card premium-card h-100 shadow-sm">
+            <div class="card-body">
+                <div class="small text-muted">Toplam Ciro</div>
+                <h3 class="fw-semibold mb-0">@Model.RevenueSummary.TotalRevenue.ToString("C0")</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6 col-xl-3">
+        <div class="card premium-card h-100 shadow-sm">
+            <div class="card-body">
+                <div class="small text-muted">Bugünkü Ciro</div>
+                <h3 class="fw-semibold mb-0">@Model.RevenueSummary.TodayRevenue.ToString("C0")</h3>
+                <div class="text-muted small">@Model.RevenueSummary.TodayOrders sipariş</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6 col-xl-3">
+        <div class="card premium-card h-100 shadow-sm">
+            <div class="card-body">
+                <div class="small text-muted">Aylık Ciro</div>
+                <h3 class="fw-semibold mb-0">@Model.RevenueSummary.ThisMonthRevenue.ToString("C0")</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6 col-xl-3">
+        <div class="card premium-card h-100 shadow-sm">
+            <div class="card-body">
+                <div class="small text-muted">Ortalama Fiş</div>
+                <h3 class="fw-semibold mb-0">@Model.RevenueSummary.AverageTicketAmount.ToString("C0")</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <!-- REVENUE CHART -->
+    <div class="col-12 col-xl-7">
+        <div class="card premium-card h-100 shadow-sm">
+            <div class="card-header border-0">
+                <h6 class="mb-0 fw-semibold">Son 30 Gün Ciro</h6>
+                <small class="text-muted">Günlük bazlı ciro dağılımı</small>
+            </div>
+            <div class="card-body">
+                <canvas id="revenueChart" height="150"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOP PRODUCTS -->
+    <div class="col-12 col-xl-5">
+        <div class="card premium-card h-100 shadow-sm">
+            <div class="card-header border-0">
+                <h6 class="mb-0 fw-semibold">En Çok Satan Ürünler</h6>
+                <small class="text-muted">İlk 10 ürün</small>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-sm mb-0 align-middle">
+                    <thead class="small text-muted">
+                        <tr>
+                            <th>Ürün</th>
+                            <th class="text-end">Adet</th>
+                            <th class="text-end">Ciro</th>
+                            <th class="text-end">% Pay</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.TopProducts.Any())
+                        {
+                            foreach (var p in Model.TopProducts)
+                            {
+                                <tr>
+                                    <td>@p.ProductName</td>
+                                    <td class="text-end">@p.TotalQuantity</td>
+                                    <td class="text-end">@p.TotalRevenue.ToString("C0")</td>
+                                    <td class="text-end">@p.PercentageOfTotalRevenue.ToString("F1")%</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" class="py-3 text-center text-muted small">
+                                    Ürün bazlı rapor yapısı henüz aktif değil.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PEAK HOURS -->
+<div class="row g-3 mt-1">
+    <div class="col-12">
+        <div class="card premium-card shadow-sm">
+            <div class="card-header border-0">
+                <h6 class="mb-0 fw-semibold">Yoğun Saatler</h6>
+                <small class="text-muted">Saat bazlı sipariş yoğunluğu</small>
+            </div>
+            <div class="card-body">
+                <canvas id="peakHoursChart" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const revenueLabels = [
+            @string.Join(",", Model.RevenueLast30Days.Select(x => $"'{x.Date:dd.MM}'"))
+        ];
+
+        const revenueData = [
+            @string.Join(",", Model.RevenueLast30Days.Select(x => x.Total.ToString(System.Globalization.CultureInfo.InvariantCulture)))
+        ];
+
+        const peakHourLabels = [
+            @string.Join(",", Model.PeakHours.Select(x => $"'{x.Hour}:00'"))
+        ];
+
+        const peakHourData = [
+            @string.Join(",", Model.PeakHours.Select(x => x.OrderCount))
+        ];
+
+        new Chart(document.getElementById('revenueChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: revenueLabels,
+                datasets: [{
+                    label: 'Ciro',
+                    data: revenueData,
+                    borderWidth: 2,
+                    tension: .35,
+                    fill: true
+                }]
+            },
+            options: {
+                plugins: { legend: { display: false } },
+                scales: { x: { grid: { display: false } } }
+            }
+        });
+
+        new Chart(document.getElementById('peakHoursChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: peakHourLabels,
+                datasets: [{
+                    label: 'Sipariş',
+                    data: peakHourData,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                plugins: { legend: { display: false } },
+                scales: { x: { grid: { display: false } }, y: { beginAtZero: true } }
+            }
+        });
+    </script>
+
+    <style>
+        /* ULTRA PREMIUM DARK + GOLD */
+        .premium-card {
+            border-radius: 16px;
+            background: linear-gradient(135deg, #1d1b19 0%, #2a2622 40%, #181512 100%);
+            color: #f7f4ec;
+            border: none;
+        }
+
+            .premium-card .text-muted {
+                color: #d2c9b9 !important;
+            }
+
+        .table tbody tr:hover {
+            background: rgba(205, 164, 94, .12);
+        }
+
+        .table thead th {
+            color: #e0d7c8 !important;
+            border-bottom-color: rgba(255,255,255,.08);
+        }
+    </style>
+}
