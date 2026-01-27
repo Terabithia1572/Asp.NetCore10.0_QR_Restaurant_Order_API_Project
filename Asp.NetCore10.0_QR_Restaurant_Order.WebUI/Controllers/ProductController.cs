@@ -142,11 +142,25 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.Controllers
         // CREATE PRODUCT (POST)
         // =====================================================
         // Formdan gelen ürünü API’ye göndererek kaydeder
+        // =====================================================
+        // CREATE PRODUCT (POST)
+        // =====================================================
+        // Formdan gelen ürünü API’ye göndererek kaydeder
+        // =====================================================
+        // CREATE PRODUCT (POST)
+        // =====================================================
+        // Formdan gelen ürünü API’ye göndererek kaydeder
         [HttpPost]
         public async Task<IActionResult> CreateProduct(CreateProductDTO createProductDTO)
         {
             // Dropdown tekrar dolu gelsin diye kategori listesini yüklüyoruz
             await LoadCategoryList();
+
+            // 🔹 KATEGORİ KONTROLÜ: Seçilmemişse ModelState'e hata ekle
+            if (createProductDTO.CategoryID <= 0)
+            {
+                ModelState.AddModelError(nameof(createProductDTO.CategoryID), "Lütfen bir kategori seçiniz.");
+            }
 
             // Basit doğrulama: (istersen bunu kaldırabilirsin)
             // ModelState başarısızsa formu geri döndürür
@@ -202,17 +216,40 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.Controllers
                 // İstersen görsel zorunlu olsun diye burayı açabilirsin:
                 // ModelState.AddModelError("", "Ürün görseli seçmelisin.");
                 // return View(createProductDTO);
+
+                // 🔹 GÖRSEL ZORUNLU OLMASIN, DEFAULT GÖRSEL KULLANALIM:
+                if (string.IsNullOrEmpty(createProductDTO.ProductImageURL))
+                {
+                    // wwwroot/productImages/default-product.png dosyasını sen koyacaksın
+                    createProductDTO.ProductImageURL = "/productImages/default-product.png";
+                }
             }
+
+            // ==========================================================
+            // ÖNEMLİ NOKTA:
+            // API tarafına JSON gönderirken ProductImageFile'ın kendisini
+            // göndermek istemiyoruz. Sadece string olan ProductImageURL
+            // API'ye gitmeli. Bu yüzden ProductImageFile'ı null çekiyoruz.
+            // (Ek olarak, DTO'da [JsonIgnore] kullanmak da iyi fikir.)
+            // ==========================================================
+            createProductDTO.ProductImageFile = null;
 
             // HttpClient oluşturuyoruz
             var client = _httpClientFactory.CreateClient();
 
-            // API'ye giden DTO içinde ProductImageURL artık /productImages/... olacak
+            // API'ye giden DTO içinde artık sadece temel alanlar + ProductImageURL var
             var jsonData = JsonConvert.SerializeObject(createProductDTO);
+
+            // Debug amaçlı: giden JSON'u görmek için (Output penceresinde görürsün)
+            System.Diagnostics.Debug.WriteLine("CreateProduct JSON => " + jsonData);
+
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
             // POST: /api/Products
             var responseMessage = await client.PostAsync(ApiBaseUrl, content);
+
+            // Debug amaçlı: HTTP status kodunu yazdıralım
+            System.Diagnostics.Debug.WriteLine("CreateProduct Response Status => " + responseMessage.StatusCode);
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -220,8 +257,11 @@ namespace Asp.NetCore10._0_QR_Restaurant_Order.WebUI.Controllers
             }
 
             // Başarısızsa formu tekrar gösteriyoruz
+            ModelState.AddModelError("", "Ürün kaydedilirken bir hata oluştu. Lütfen tekrar deneyin.");
             return View(createProductDTO);
         }
+
+
 
 
 
